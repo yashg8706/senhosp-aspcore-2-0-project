@@ -14,6 +14,7 @@ using SensenHosp.Models;
 using SensenHosp.Models.ManageViewModels;
 using SensenHosp.Services;
 
+
 namespace SensenHosp.Controllers
 {
     [Authorize]
@@ -25,6 +26,8 @@ namespace SensenHosp.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private readonly UrlEncoder _urlEncoder;
+        //we need this controller to access the dbcontext somehow
+        //private readonly DbContext
 
         private const string AuthenticatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
         private const string RecoveryCodesKey = nameof(RecoveryCodesKey);
@@ -54,6 +57,8 @@ namespace SensenHosp.Controllers
             {
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
+            //grab info from user.cs
+            //var user_extra_data = db.Users.find(user.UserID);
 
             var model = new IndexViewModel
             {
@@ -62,6 +67,8 @@ namespace SensenHosp.Controllers
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
                 StatusMessage = StatusMessage
+                //put info into here
+                
             };
 
             return View(model);
