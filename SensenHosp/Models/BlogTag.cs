@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,7 +16,8 @@ namespace SensenHosp.Models
         [StringLength(50)]
         [Display(Name = "Tag")]
         public string Name { get; set; }
-
         
+        public virtual ICollection<BlogPostTag> BlogPostsTags { get; set; }
+
     }
 }

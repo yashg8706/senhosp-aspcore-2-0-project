@@ -11,9 +11,10 @@ using System;
 namespace SensenHosp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190324001116_BlogCategories")]
+    partial class BlogCategories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -208,6 +209,8 @@ namespace SensenHosp.Data.Migrations
 
                     b.Property<int>("BlogCategoryID");
 
+                    b.Property<int>("BlogTagID");
+
                     b.Property<string>("Body")
                         .HasMaxLength(2147483647);
 
@@ -222,29 +225,9 @@ namespace SensenHosp.Data.Migrations
 
                     b.HasIndex("BlogCategoryID");
 
-                    b.ToTable("BlogPosts");
-                });
-
-            modelBuilder.Entity("SensenHosp.Models.BlogPostTag", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("BlogPostID");
-
-                    b.Property<int?>("BlogTagID");
-
-                    b.Property<int>("PostId");
-
-                    b.Property<int>("TagId");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("BlogPostID");
-
                     b.HasIndex("BlogTagID");
 
-                    b.ToTable("BlogPostTag");
+                    b.ToTable("BlogPosts");
                 });
 
             modelBuilder.Entity("SensenHosp.Models.BlogTag", b =>
@@ -365,17 +348,11 @@ namespace SensenHosp.Data.Migrations
                         .WithMany("BlogPosts")
                         .HasForeignKey("BlogCategoryID")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SensenHosp.Models.BlogPostTag", b =>
-                {
-                    b.HasOne("SensenHosp.Models.BlogPost", "BlogPost")
-                        .WithMany("BlogPagesTags")
-                        .HasForeignKey("BlogPostID");
 
                     b.HasOne("SensenHosp.Models.BlogTag", "BlogTag")
-                        .WithMany("BlogPostsTags")
-                        .HasForeignKey("BlogTagID");
+                        .WithMany("BlogPosts")
+                        .HasForeignKey("BlogTagID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

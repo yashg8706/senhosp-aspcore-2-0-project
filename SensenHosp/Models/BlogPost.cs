@@ -28,12 +28,12 @@ namespace SensenHosp.Models
         public string Body { get; set; }
 
         [ForeignKey("BlogCategoryID")]
+        [Display(Name = "")]
         public int BlogCategoryID { get; set; }
-        public virtual BlogCategory BlogCategory { get; set; }
-
-        [ForeignKey("BlogTagID")]
-        public int BlogTagID { get; set; }
-        public virtual BlogTag BlogTag { get; set; }
+        public BlogCategory BlogCategory { get; set; }
+        
+        [InverseProperty("BlogPost")]
+        public virtual List<BlogPostTag> BlogPostsTags { get; set; }
 
         public BlogPost()
         {
