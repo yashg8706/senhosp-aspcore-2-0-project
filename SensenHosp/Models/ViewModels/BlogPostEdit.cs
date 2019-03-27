@@ -10,11 +10,11 @@ namespace SensenHosp.Models.ViewModels
     {
     }
 
-    public virtual BlogPost BlogPost { get; set; }
+    //public virtual BlogPost BlogPost { get; set; }
 
-    public IEnumerable<BlogPostTag> BlogPostTags { get; set; }
+    //public IEnumerable<BlogPostTag> BlogPostTags { get; set; }
 
-    public IEnumerable<BlogTag> BlogTags { get; set; }
+    //public IEnumerable<BlogTag> BlogTags { get; set; }
 
-    public IEnumerable<BlogCategory> BlogCategories { get; set; }
+    //public IEnumerable<BlogCategory> BlogCategories { get; set; }
 }
