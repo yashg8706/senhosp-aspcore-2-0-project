@@ -11,9 +11,10 @@ using System;
 namespace SensenHosp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190327165938_blogposttags")]
+    partial class blogposttags
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -227,21 +228,24 @@ namespace SensenHosp.Data.Migrations
 
             modelBuilder.Entity("SensenHosp.Models.BlogPostTag", b =>
                 {
-                    b.Property<int>("PostId");
-
-                    b.Property<int>("TagId");
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int?>("BlogPostID");
 
                     b.Property<int?>("BlogTagID");
 
-                    b.HasKey("PostId", "TagId");
+                    b.Property<int>("PostId");
+
+                    b.Property<int>("TagId");
+
+                    b.HasKey("ID");
 
                     b.HasIndex("BlogPostID");
 
                     b.HasIndex("BlogTagID");
 
-                    b.ToTable("BlogPostsTags");
+                    b.ToTable("BlogPostTag");
                 });
 
             modelBuilder.Entity("SensenHosp.Models.BlogTag", b =>
