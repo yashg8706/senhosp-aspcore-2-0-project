@@ -28,6 +28,7 @@ namespace SensenHosp.Data
         public DbSet<BlogCategory> BlogCategories { get; set; }
         public DbSet<BlogPost> BlogPosts { get; set; }
         public DbSet<BlogTag> BlogTags { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
 
         // End of code addition
     }
