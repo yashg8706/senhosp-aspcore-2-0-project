@@ -18,4 +18,9 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Uploads\Media\Misc\" />
+    <Folder Include="wwwroot\Uploads\Media\Albums\" />
+  </ItemGroup>
+
 </Project>

@@ -28,11 +28,16 @@ namespace SensenHosp.Data
 
 
         // Start of code addition
+        //Blog feature
         public DbSet<BlogCategory> BlogCategories { get; set; }
         public DbSet<BlogPost> BlogPosts { get; set; }
         public DbSet<BlogPostTag> BlogPostsTags { get; set; }
         public DbSet<BlogTag> BlogTags { get; set; }
 
+        // Media feature
+        public DbSet<Album> Albums { get; set; }
+        public DbSet<Media> Media { get; set; }
+        
         // End of code addition
     }
 }

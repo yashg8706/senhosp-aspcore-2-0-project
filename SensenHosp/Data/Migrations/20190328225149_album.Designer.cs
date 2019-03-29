@@ -11,9 +11,10 @@ using System;
 namespace SensenHosp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190328225149_album")]
+    partial class album
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -275,26 +276,6 @@ namespace SensenHosp.Data.Migrations
                     b.ToTable("BlogTags");
                 });
 
-            modelBuilder.Entity("SensenHosp.Models.Media", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("AlbumID");
-
-                    b.Property<string>("Extension");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("AlbumID");
-
-                    b.ToTable("Media");
-                });
-
             modelBuilder.Entity("SensenHosp.Models.User", b =>
                 {
                     b.Property<int>("UserID")
@@ -410,13 +391,6 @@ namespace SensenHosp.Data.Migrations
                     b.HasOne("SensenHosp.Models.BlogTag", "BlogTag")
                         .WithMany("BlogPostsTags")
                         .HasForeignKey("BlogTagID");
-                });
-
-            modelBuilder.Entity("SensenHosp.Models.Media", b =>
-                {
-                    b.HasOne("SensenHosp.Models.Album", "Album")
-                        .WithMany("Media")
-                        .HasForeignKey("AlbumID");
                 });
 #pragma warning restore 612, 618
         }

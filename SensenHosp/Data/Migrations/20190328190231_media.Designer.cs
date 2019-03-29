@@ -11,9 +11,10 @@ using System;
 namespace SensenHosp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190328190231_media")]
+    partial class media
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -280,17 +281,21 @@ namespace SensenHosp.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("AlbumID");
+                    b.Property<int?>("AlbumId");
 
-                    b.Property<string>("Extension");
+                    b.Property<string>("Extenstion")
+                        .IsRequired()
+                        .HasMaxLength(10);
+
+                    b.Property<bool>("IsVideo");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50);
+                        .HasMaxLength(100);
 
                     b.HasKey("ID");
 
-                    b.HasIndex("AlbumID");
+                    b.HasIndex("AlbumId");
 
                     b.ToTable("Media");
                 });
@@ -416,7 +421,7 @@ namespace SensenHosp.Data.Migrations
                 {
                     b.HasOne("SensenHosp.Models.Album", "Album")
                         .WithMany("Media")
-                        .HasForeignKey("AlbumID");
+                        .HasForeignKey("AlbumId");
                 });
 #pragma warning restore 612, 618
         }
