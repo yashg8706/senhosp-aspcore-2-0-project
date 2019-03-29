@@ -35,6 +35,7 @@ namespace SensenHosp.Data
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<SensenHosp.Models.Contact> Contact { get; set; }
         public DbSet<SensenHosp.Models.FreqAskQuestion> FreqAskQuestion { get; set; }
+        public DbSet<SensenHosp.Models.AlertPosts> AlertPosts { get; set; }
 
         // End of code addition
     }
