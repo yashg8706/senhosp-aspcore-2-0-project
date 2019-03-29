@@ -11,9 +11,10 @@ using System;
 namespace SensenHosp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190329020220_extension")]
+    partial class extension
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,30 +129,11 @@ namespace SensenHosp.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("SensenHosp.Models.AlertPosts", b =>
+            modelBuilder.Entity("SensenHosp.Models.Album", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
-                    b.Property<string>("AlertStatus")
-                        .HasMaxLength(255);
 
-                    b.Property<string>("AlertTitle")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<DateTime>("DateEffectivity");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(2147483647);
-
-                    b.HasKey("ID");
-
-                    b.ToTable("AlertPosts");
-                    
-            modelBuilder.Entity("SensenHosp.Models.Album", b =>
-            {
                     b.Property<string>("Description")
                         .HasMaxLength(1000);
 
@@ -217,51 +199,6 @@ namespace SensenHosp.Data.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("SensenHosp.Models.Appointment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime?>("AppointmentDate");
-
-                    b.Property<string>("AppointmentTime")
-                        .HasMaxLength(20);
-
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500);
-
-                    b.Property<string>("DoctorName")
-                        .IsRequired()
-                        .HasMaxLength(100);
-
-                    b.Property<string>("EmailId")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<int>("IsConfirmed");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<string>("MiddleName")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("MobileNo")
-                        .IsRequired()
-                        .HasMaxLength(20);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Appointments");
                 });
 
             modelBuilder.Entity("SensenHosp.Models.BlogCategory", b =>
@@ -339,60 +276,11 @@ namespace SensenHosp.Data.Migrations
                     b.ToTable("BlogTags");
                 });
 
-            modelBuilder.Entity("SensenHosp.Models.Contact", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-                    b.Property<DateTime>("DateSent");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<string>("Subject")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<string>("email")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<string>("message")
-                        .HasMaxLength(2147483647);
-
-                    b.Property<bool>("message_status");
-
-                    b.Property<string>("phone")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Contact");
-                });
-
-            modelBuilder.Entity("SensenHosp.Models.FreqAskQuestion", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Answer")
-                        .HasMaxLength(2147483647);
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<DateTime>("DateModified");
-
-                    b.Property<string>("Question")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.HasKey("ID");
-
-                    b.ToTable("FreqAskQuestion");
-
             modelBuilder.Entity("SensenHosp.Models.Media", b =>
-            {
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
                     b.Property<int?>("AlbumID");
 
                     b.Property<string>("Extension");

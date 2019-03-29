@@ -28,6 +28,7 @@ namespace SensenHosp.Data
 
 
         // Start of code addition
+        //Blog feature
         public DbSet<BlogCategory> BlogCategories { get; set; }
         public DbSet<BlogPost> BlogPosts { get; set; }
         public DbSet<BlogPostTag> BlogPostsTags { get; set; }
@@ -37,6 +38,10 @@ namespace SensenHosp.Data
         public DbSet<SensenHosp.Models.FreqAskQuestion> FreqAskQuestion { get; set; }
         public DbSet<SensenHosp.Models.AlertPosts> AlertPosts { get; set; }
 
+        // Media feature
+        public DbSet<Album> Albums { get; set; }
+        public DbSet<Media> Media { get; set; }
+        
         // End of code addition
     }
 }
