@@ -11,9 +11,10 @@ using System;
 namespace SensenHosp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190329020220_extension")]
+    partial class extension
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -198,51 +199,6 @@ namespace SensenHosp.Data.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("SensenHosp.Models.Appointment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime?>("AppointmentDate");
-
-                    b.Property<string>("AppointmentTime")
-                        .HasMaxLength(20);
-
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500);
-
-                    b.Property<string>("DoctorName")
-                        .IsRequired()
-                        .HasMaxLength(100);
-
-                    b.Property<string>("EmailId")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<int>("IsConfirmed");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<string>("MiddleName")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("MobileNo")
-                        .IsRequired()
-                        .HasMaxLength(20);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Appointments");
                 });
 
             modelBuilder.Entity("SensenHosp.Models.BlogCategory", b =>

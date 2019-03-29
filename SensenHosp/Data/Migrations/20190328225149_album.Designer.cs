@@ -11,9 +11,10 @@ using System;
 namespace SensenHosp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190328225149_album")]
+    partial class album
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -200,51 +201,6 @@ namespace SensenHosp.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("SensenHosp.Models.Appointment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime?>("AppointmentDate");
-
-                    b.Property<string>("AppointmentTime")
-                        .HasMaxLength(20);
-
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500);
-
-                    b.Property<string>("DoctorName")
-                        .IsRequired()
-                        .HasMaxLength(100);
-
-                    b.Property<string>("EmailId")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<int>("IsConfirmed");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<string>("MiddleName")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("MobileNo")
-                        .IsRequired()
-                        .HasMaxLength(20);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Appointments");
-                });
-
             modelBuilder.Entity("SensenHosp.Models.BlogCategory", b =>
                 {
                     b.Property<int>("ID")
@@ -318,26 +274,6 @@ namespace SensenHosp.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("BlogTags");
-                });
-
-            modelBuilder.Entity("SensenHosp.Models.Media", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("AlbumID");
-
-                    b.Property<string>("Extension");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("AlbumID");
-
-                    b.ToTable("Media");
                 });
 
             modelBuilder.Entity("SensenHosp.Models.User", b =>
@@ -455,13 +391,6 @@ namespace SensenHosp.Data.Migrations
                     b.HasOne("SensenHosp.Models.BlogTag", "BlogTag")
                         .WithMany("BlogPostsTags")
                         .HasForeignKey("BlogTagID");
-                });
-
-            modelBuilder.Entity("SensenHosp.Models.Media", b =>
-                {
-                    b.HasOne("SensenHosp.Models.Album", "Album")
-                        .WithMany("Media")
-                        .HasForeignKey("AlbumID");
                 });
 #pragma warning restore 612, 618
         }
