@@ -11,9 +11,10 @@ using System;
 namespace SensenHosp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190329014232_[FreqAskQuestions.cs]")]
+    partial class FreqAskQuestionscs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,42 +127,6 @@ namespace SensenHosp.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("SensenHosp.Models.AlertPosts", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-                    b.Property<string>("AlertStatus")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("AlertTitle")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<DateTime>("DateEffectivity");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(2147483647);
-
-                    b.HasKey("ID");
-
-                    b.ToTable("AlertPosts");
-                    
-            modelBuilder.Entity("SensenHosp.Models.Album", b =>
-            {
-                    b.Property<string>("Description")
-                        .HasMaxLength(1000);
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Albums");
                 });
 
             modelBuilder.Entity("SensenHosp.Models.ApplicationUser", b =>
@@ -343,6 +308,7 @@ namespace SensenHosp.Data.Migrations
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
+
                     b.Property<DateTime>("DateSent");
 
                     b.Property<string>("FullName")
@@ -390,22 +356,6 @@ namespace SensenHosp.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("FreqAskQuestion");
-
-            modelBuilder.Entity("SensenHosp.Models.Media", b =>
-            {
-                    b.Property<int?>("AlbumID");
-
-                    b.Property<string>("Extension");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("AlbumID");
-
-                    b.ToTable("Media");
                 });
 
             modelBuilder.Entity("SensenHosp.Models.User", b =>
@@ -523,13 +473,6 @@ namespace SensenHosp.Data.Migrations
                     b.HasOne("SensenHosp.Models.BlogTag", "BlogTag")
                         .WithMany("BlogPostsTags")
                         .HasForeignKey("BlogTagID");
-                });
-
-            modelBuilder.Entity("SensenHosp.Models.Media", b =>
-                {
-                    b.HasOne("SensenHosp.Models.Album", "Album")
-                        .WithMany("Media")
-                        .HasForeignKey("AlbumID");
                 });
 #pragma warning restore 612, 618
         }
