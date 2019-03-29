@@ -11,9 +11,10 @@ using System;
 namespace SensenHosp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190328191401_[appointments]")]
+    partial class appointments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,23 +127,6 @@ namespace SensenHosp.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("SensenHosp.Models.Album", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(1000);
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Albums");
                 });
 
             modelBuilder.Entity("SensenHosp.Models.ApplicationUser", b =>
@@ -289,21 +273,24 @@ namespace SensenHosp.Data.Migrations
 
             modelBuilder.Entity("SensenHosp.Models.BlogPostTag", b =>
                 {
-                    b.Property<int>("PostId");
-
-                    b.Property<int>("TagId");
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int?>("BlogPostID");
 
                     b.Property<int?>("BlogTagID");
 
-                    b.HasKey("PostId", "TagId");
+                    b.Property<int>("PostId");
+
+                    b.Property<int>("TagId");
+
+                    b.HasKey("ID");
 
                     b.HasIndex("BlogPostID");
 
                     b.HasIndex("BlogTagID");
 
-                    b.ToTable("BlogPostsTags");
+                    b.ToTable("BlogPostTag");
                 });
 
             modelBuilder.Entity("SensenHosp.Models.BlogTag", b =>
@@ -318,26 +305,6 @@ namespace SensenHosp.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("BlogTags");
-                });
-
-            modelBuilder.Entity("SensenHosp.Models.Media", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int?>("AlbumID");
-
-                    b.Property<string>("Extension");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("AlbumID");
-
-                    b.ToTable("Media");
                 });
 
             modelBuilder.Entity("SensenHosp.Models.User", b =>
@@ -455,13 +422,6 @@ namespace SensenHosp.Data.Migrations
                     b.HasOne("SensenHosp.Models.BlogTag", "BlogTag")
                         .WithMany("BlogPostsTags")
                         .HasForeignKey("BlogTagID");
-                });
-
-            modelBuilder.Entity("SensenHosp.Models.Media", b =>
-                {
-                    b.HasOne("SensenHosp.Models.Album", "Album")
-                        .WithMany("Media")
-                        .HasForeignKey("AlbumID");
                 });
 #pragma warning restore 612, 618
         }
