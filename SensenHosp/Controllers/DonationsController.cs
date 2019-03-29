@@ -156,7 +156,7 @@ namespace SensenHosp.Controllers
 
 
         // Paypal donation functionality
-        var environment = new SandboxEnvironment("ATq1d8iLQVAx570MKudaGL3m1tDO9idY_-lC-beNPKzDOTNIDq5waciioAKgkXTqm9WgWJi3zh7z81Tz", "EBxbuVZof9Ty-vc7vCqurjgsrnv8wDWDg2GQYWQyWWxrH5SIEqj42Oz4ukoD6OZLoUNM6Th76e83J9ad");
-        var client = new PayPalHttpClient(environment);
+        //var environment = new SandboxEnvironment("ATq1d8iLQVAx570MKudaGL3m1tDO9idY_-lC-beNPKzDOTNIDq5waciioAKgkXTqm9WgWJi3zh7z81Tz", "EBxbuVZof9Ty-vc7vCqurjgsrnv8wDWDg2GQYWQyWWxrH5SIEqj42Oz4ukoD6OZLoUNM6Th76e83J9ad");
+        //var client = new PayPalHttpClient(environment);
     }
 }

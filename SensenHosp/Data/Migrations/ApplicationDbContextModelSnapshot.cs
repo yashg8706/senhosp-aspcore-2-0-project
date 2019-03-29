@@ -149,389 +149,391 @@ namespace SensenHosp.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("AlertPosts");
-                    
-            modelBuilder.Entity("SensenHosp.Models.Album", b =>
-            {
-                    b.Property<string>("Description")
-                        .HasMaxLength(1000);
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    modelBuilder.Entity("SensenHosp.Models.Album", a =>
+                    {
+                        a.Property<string>("Description")
+                    .HasMaxLength(1000);
 
-                    b.HasKey("ID");
+                        a.Property<string>("Title")
+                    .IsRequired()
+                    .HasMaxLength(50);
 
-                    b.ToTable("Albums");
-                });
+                        a.HasKey("ID");
 
-            modelBuilder.Entity("SensenHosp.Models.ApplicationUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        a.ToTable("Albums");
+                    });
 
-                    b.Property<int>("AccessFailedCount");
+                    modelBuilder.Entity("SensenHosp.Models.ApplicationUser", u =>
+                        {
+                            u.Property<string>("Id")
+                                .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
+                            u.Property<int>("AccessFailedCount");
 
-                    b.Property<string>("Email")
-                        .HasMaxLength(256);
+                            u.Property<string>("ConcurrencyStamp")
+                                .IsConcurrencyToken();
 
-                    b.Property<bool>("EmailConfirmed");
+                            u.Property<string>("Email")
+                                .HasMaxLength(256);
 
-                    b.Property<bool>("LockoutEnabled");
+                            u.Property<bool>("EmailConfirmed");
 
-                    b.Property<DateTimeOffset?>("LockoutEnd");
+                            u.Property<bool>("LockoutEnabled");
 
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256);
+                            u.Property<DateTimeOffset?>("LockoutEnd");
 
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256);
+                            u.Property<string>("NormalizedEmail")
+                                .HasMaxLength(256);
 
-                    b.Property<string>("PasswordHash");
+                            u.Property<string>("NormalizedUserName")
+                                .HasMaxLength(256);
 
-                    b.Property<string>("PhoneNumber");
+                            u.Property<string>("PasswordHash");
 
-                    b.Property<bool>("PhoneNumberConfirmed");
+                            u.Property<string>("PhoneNumber");
 
-                    b.Property<string>("SecurityStamp");
+                            u.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<bool>("TwoFactorEnabled");
+                            u.Property<string>("SecurityStamp");
 
-                    b.Property<int?>("UserID");
+                            u.Property<bool>("TwoFactorEnabled");
 
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256);
+                            u.Property<int?>("UserID");
 
-                    b.HasKey("Id");
+                            u.Property<string>("UserName")
+                                .HasMaxLength(256);
 
-                    b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
+                            u.HasKey("Id");
 
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+                            u.HasIndex("NormalizedEmail")
+                                .HasName("EmailIndex");
 
-                    b.HasIndex("UserID");
+                            u.HasIndex("NormalizedUserName")
+                                .IsUnique()
+                                .HasName("UserNameIndex")
+                                .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers");
-                });
+                            u.HasIndex("UserID");
 
-            modelBuilder.Entity("SensenHosp.Models.Appointment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                            u.ToTable("AspNetUsers");
+                        });
 
-                    b.Property<DateTime?>("AppointmentDate");
+                    modelBuilder.Entity("SensenHosp.Models.Appointment", c =>
+                        {
+                            c.Property<int>("Id")
+                                .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AppointmentTime")
-                        .HasMaxLength(20);
+                            c.Property<DateTime?>("AppointmentDate");
 
-                    b.Property<DateTime>("CreatedOn");
+                            c.Property<string>("AppointmentTime")
+                                .HasMaxLength(20);
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500);
+                            c.Property<DateTime>("CreatedOn");
 
-                    b.Property<string>("DoctorName")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                            c.Property<string>("Description")
+                                .IsRequired()
+                                .HasMaxLength(500);
 
-                    b.Property<string>("EmailId")
-                        .HasMaxLength(255);
+                            c.Property<string>("DoctorName")
+                                .IsRequired()
+                                .HasMaxLength(100);
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                            c.Property<string>("EmailId")
+                                .HasMaxLength(255);
 
-                    b.Property<int>("IsConfirmed");
+                            c.Property<string>("FirstName")
+                                .IsRequired()
+                                .HasMaxLength(255);
 
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                            c.Property<int>("IsConfirmed");
 
-                    b.Property<string>("MiddleName")
-                        .HasMaxLength(255);
+                            c.Property<string>("LastName")
+                                .IsRequired()
+                                .HasMaxLength(255);
 
-                    b.Property<string>("MobileNo")
-                        .IsRequired()
-                        .HasMaxLength(20);
+                            c.Property<string>("MiddleName")
+                                .HasMaxLength(255);
 
-                    b.HasKey("Id");
+                            c.Property<string>("MobileNo")
+                                .IsRequired()
+                                .HasMaxLength(20);
 
-                    b.ToTable("Appointments");
-                });
+                            c.HasKey("Id");
 
-            modelBuilder.Entity("SensenHosp.Models.BlogCategory", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
+                            c.ToTable("Appointments");
+                        });
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500);
+                    modelBuilder.Entity("SensenHosp.Models.BlogCategory", c =>
+                        {
+                            c.Property<int>("ID")
+                                .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                            c.Property<string>("Description")
+                                .IsRequired()
+                                .HasMaxLength(500);
 
-                    b.HasKey("ID");
+                            c.Property<string>("Name")
+                                .IsRequired()
+                                .HasMaxLength(50);
 
-                    b.ToTable("BlogCategories");
-                });
+                            c.HasKey("ID");
 
-            modelBuilder.Entity("SensenHosp.Models.BlogPost", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
+                            c.ToTable("BlogCategories");
+                        });
 
-                    b.Property<int>("BlogCategoryID");
+                    modelBuilder.Entity("SensenHosp.Models.BlogPost", p =>
+                        {
+                            p.Property<int>("ID")
+                                .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Body")
-                        .HasMaxLength(2147483647);
+                            p.Property<int>("BlogCategoryID");
 
-                    b.Property<DateTime?>("DatePublished")
-                        .IsRequired();
+                            p.Property<string>("Body")
+                                .HasMaxLength(2147483647);
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                            p.Property<DateTime?>("DatePublished")
+                                .IsRequired();
 
-                    b.HasKey("ID");
+                            p.Property<string>("Title")
+                                .IsRequired()
+                                .HasMaxLength(255);
 
-                    b.HasIndex("BlogCategoryID");
+                            p.HasKey("ID");
 
-                    b.ToTable("BlogPosts");
-                });
+                            p.HasIndex("BlogCategoryID");
 
-            modelBuilder.Entity("SensenHosp.Models.BlogPostTag", b =>
-                {
-                    b.Property<int>("PostId");
+                            p.ToTable("BlogPosts");
+                        });
 
-                    b.Property<int>("TagId");
+                    modelBuilder.Entity("SensenHosp.Models.BlogPostTag", t =>
+                        {
+                            t.Property<int>("PostId");
 
-                    b.Property<int?>("BlogPostID");
+                            t.Property<int>("TagId");
 
-                    b.Property<int?>("BlogTagID");
+                            t.Property<int?>("BlogPostID");
 
-                    b.HasKey("PostId", "TagId");
+                            t.Property<int?>("BlogTagID");
 
-                    b.HasIndex("BlogPostID");
+                            t.HasKey("PostId", "TagId");
 
-                    b.HasIndex("BlogTagID");
+                            t.HasIndex("BlogPostID");
 
-                    b.ToTable("BlogPostsTags");
-                });
+                            t.HasIndex("BlogTagID");
 
-            modelBuilder.Entity("SensenHosp.Models.BlogTag", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
+                            t.ToTable("BlogPostsTags");
+                        });
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    modelBuilder.Entity("SensenHosp.Models.BlogTag", t =>
+                        {
+                            t.Property<int>("ID")
+                                .ValueGeneratedOnAdd();
 
-                    b.HasKey("ID");
+                            t.Property<string>("Name")
+                                .IsRequired()
+                                .HasMaxLength(50);
 
-                    b.ToTable("BlogTags");
-                });
+                            t.HasKey("ID");
 
-            modelBuilder.Entity("SensenHosp.Models.Contact", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-                    b.Property<DateTime>("DateSent");
+                            t.ToTable("BlogTags");
+                        });
 
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                    modelBuilder.Entity("SensenHosp.Models.Contact", c =>
+                        {
+                            c.Property<int>("ID")
+                                .ValueGeneratedOnAdd();
+                            c.Property<DateTime>("DateSent");
 
-                    b.Property<string>("Subject")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                            c.Property<string>("FullName")
+                                .IsRequired()
+                                .HasMaxLength(255);
 
-                    b.Property<string>("email")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                            c.Property<string>("Subject")
+                                .IsRequired()
+                                .HasMaxLength(255);
 
-                    b.Property<string>("message")
-                        .HasMaxLength(2147483647);
+                            c.Property<string>("email")
+                                .IsRequired()
+                                .HasMaxLength(255);
 
-                    b.Property<bool>("message_status");
+                            c.Property<string>("message")
+                                .HasMaxLength(2147483647);
 
-                    b.Property<string>("phone")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                            c.Property<bool>("message_status");
 
-                    b.HasKey("ID");
+                            c.Property<string>("phone")
+                                .IsRequired()
+                                .HasMaxLength(255);
 
-                    b.ToTable("Contact");
-                });
+                            c.HasKey("ID");
 
-            modelBuilder.Entity("SensenHosp.Models.FreqAskQuestion", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
+                            c.ToTable("Contact");
+                        });
 
-                    b.Property<string>("Answer")
-                        .HasMaxLength(2147483647);
+                    modelBuilder.Entity("SensenHosp.Models.FreqAskQuestion", f =>
+                        {
+                            f.Property<int>("ID")
+                                .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("DateCreated");
+                            f.Property<string>("Answer")
+                                .HasMaxLength(2147483647);
 
-                    b.Property<DateTime>("DateModified");
+                            f.Property<DateTime>("DateCreated");
 
-                    b.Property<string>("Question")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                            f.Property<DateTime>("DateModified");
 
-                    b.HasKey("ID");
+                            f.Property<string>("Question")
+                                .IsRequired()
+                                .HasMaxLength(255);
 
-                    b.ToTable("FreqAskQuestion");
+                            f.HasKey("ID");
 
-            modelBuilder.Entity("SensenHosp.Models.Media", b =>
-            {
-                    b.Property<int?>("AlbumID");
+                            f.ToTable("FreqAskQuestion");
 
-                    b.Property<string>("Extension");
+                            modelBuilder.Entity("SensenHosp.Models.Media", m =>
+                    {
+                        m.Property<int?>("AlbumID");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                        m.Property<string>("Extension");
 
-                    b.HasKey("ID");
+                        m.Property<string>("Name")
+                    .IsRequired()
+                    .HasMaxLength(50);
 
-                    b.HasIndex("AlbumID");
+                        m.HasKey("ID");
 
-                    b.ToTable("Media");
-                });
+                        m.HasIndex("AlbumID");
 
-            modelBuilder.Entity("SensenHosp.Models.User", b =>
-                {
-                    b.Property<int>("UserID")
-                        .ValueGeneratedOnAdd();
+                        m.ToTable("Media");
+                    });
 
-                    b.Property<string>("UserCity")
-                        .HasMaxLength(255);
+                            modelBuilder.Entity("SensenHosp.Models.User", u =>
+                        {
+                            u.Property<int>("UserID")
+                                .ValueGeneratedOnAdd();
 
-                    b.Property<string>("UserCountry")
-                        .HasMaxLength(255);
+                            u.Property<string>("UserCity")
+                                .HasMaxLength(255);
 
-                    b.Property<string>("UserCreatedOn")
-                        .IsRequired();
+                            u.Property<string>("UserCountry")
+                                .HasMaxLength(255);
 
-                    b.Property<string>("UserDOB");
+                            u.Property<string>("UserCreatedOn")
+                                .IsRequired();
 
-                    b.Property<string>("UserEmail")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                            u.Property<string>("UserDOB");
 
-                    b.Property<string>("UserFName")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                            u.Property<string>("UserEmail")
+                                .IsRequired()
+                                .HasMaxLength(255);
 
-                    b.Property<string>("UserLName")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                            u.Property<string>("UserFName")
+                                .IsRequired()
+                                .HasMaxLength(255);
 
-                    b.Property<string>("UserMName")
-                        .HasMaxLength(255);
+                            u.Property<string>("UserLName")
+                                .IsRequired()
+                                .HasMaxLength(255);
 
-                    b.Property<string>("UserPhone")
-                        .IsRequired()
-                        .HasMaxLength(20);
+                            u.Property<string>("UserMName")
+                                .HasMaxLength(255);
 
-                    b.Property<string>("UserPostal")
-                        .HasMaxLength(255);
+                            u.Property<string>("UserPhone")
+                                .IsRequired()
+                                .HasMaxLength(20);
 
-                    b.Property<string>("UserStreetAdd")
-                        .HasMaxLength(255);
+                            u.Property<string>("UserPostal")
+                                .HasMaxLength(255);
 
-                    b.HasKey("UserID");
+                            u.Property<string>("UserStreetAdd")
+                                .HasMaxLength(255);
 
-                    b.ToTable("User");
-                });
+                            u.HasKey("UserID");
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
+                            u.ToTable("User");
+                        });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.HasOne("SensenHosp.Models.ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
+                            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", i =>
+                        {
+                            i.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                                .WithMany()
+                                .HasForeignKey("RoleId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.HasOne("SensenHosp.Models.ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
+                            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", i =>
+                        {
+                            i.HasOne("SensenHosp.Models.ApplicationUser")
+                                .WithMany()
+                                .HasForeignKey("UserId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", l =>
+                        {
+                            l.HasOne("SensenHosp.Models.ApplicationUser")
+                                .WithMany()
+                                .HasForeignKey("UserId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
 
-                    b.HasOne("SensenHosp.Models.ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
+                            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", r =>
+                        {
+                            r.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                                .WithMany()
+                                .HasForeignKey("RoleId")
+                                .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.HasOne("SensenHosp.Models.ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
+                            r.HasOne("SensenHosp.Models.ApplicationUser")
+                                .WithMany()
+                                .HasForeignKey("UserId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
 
-            modelBuilder.Entity("SensenHosp.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("SensenHosp.Models.User", "user")
-                        .WithMany()
-                        .HasForeignKey("UserID");
-                });
+                            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", t =>
+                        {
+                            t.HasOne("SensenHosp.Models.ApplicationUser")
+                                .WithMany()
+                                .HasForeignKey("UserId")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
 
-            modelBuilder.Entity("SensenHosp.Models.BlogPost", b =>
-                {
-                    b.HasOne("SensenHosp.Models.BlogCategory", "BlogCategory")
-                        .WithMany("BlogPosts")
-                        .HasForeignKey("BlogCategoryID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
+                            modelBuilder.Entity("SensenHosp.Models.ApplicationUser", a =>
+                        {
+                            a.HasOne("SensenHosp.Models.User", "user")
+                                .WithMany()
+                                .HasForeignKey("UserID");
+                        });
 
-            modelBuilder.Entity("SensenHosp.Models.BlogPostTag", b =>
-                {
-                    b.HasOne("SensenHosp.Models.BlogPost", "BlogPost")
-                        .WithMany("BlogPostsTags")
-                        .HasForeignKey("BlogPostID");
+                            modelBuilder.Entity("SensenHosp.Models.BlogPost", p =>
+                        {
+                            p.HasOne("SensenHosp.Models.BlogCategory", "BlogCategory")
+                                .WithMany("BlogPosts")
+                                .HasForeignKey("BlogCategoryID")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
 
-                    b.HasOne("SensenHosp.Models.BlogTag", "BlogTag")
-                        .WithMany("BlogPostsTags")
-                        .HasForeignKey("BlogTagID");
-                });
+                            modelBuilder.Entity("SensenHosp.Models.BlogPostTag", t =>
+                        {
+                            t.HasOne("SensenHosp.Models.BlogPost", "BlogPost")
+                                .WithMany("BlogPostsTags")
+                                .HasForeignKey("BlogPostID");
 
-            modelBuilder.Entity("SensenHosp.Models.Media", b =>
-                {
-                    b.HasOne("SensenHosp.Models.Album", "Album")
-                        .WithMany("Media")
-                        .HasForeignKey("AlbumID");
-                });
+                            t.HasOne("SensenHosp.Models.BlogTag", "BlogTag")
+                                .WithMany("BlogPostsTags")
+                                .HasForeignKey("BlogTagID");
+                        });
+
+                            modelBuilder.Entity("SensenHosp.Models.Media", m =>
+                        {
+                            m.HasOne("SensenHosp.Models.Album", "Album")
+                                .WithMany("Media")
+                                .HasForeignKey("AlbumID");
+                        });
 #pragma warning restore 612, 618
+                        });
+                });
         }
     }
 }
