@@ -39,6 +39,8 @@ namespace SensenHosp.Data
         public DbSet<Album> Albums { get; set; }
         public DbSet<Media> Media { get; set; }
         
+        // Donation feature
+        public DbSet<Donation> Donations { get; set; }
         // End of code addition
     }
 }
