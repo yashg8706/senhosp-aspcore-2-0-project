@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using SensenHosp.Data;
 using SensenHosp.Models;
 using SensenHosp.Services;
+using PayPal.Core;
+using PayPal.v1.Payments;
 
 namespace SensenHosp
 {
