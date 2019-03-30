@@ -15,18 +15,18 @@
                 <th>
                     @Html.DisplayNameFor(model => model.AlertTitle)
                 </th>
-                <th>
+                @*<th>
                     @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.AlertStatus)
-                </th>
+                </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.DateCreated)
                 </th>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.AlertStatus)
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.DateEffectivity)
-                </th>
+                </th>*@
             <th></th>
         </tr>
     </thead>
@@ -36,21 +36,21 @@
             <td>
                 @Html.DisplayFor(modelItem => item.AlertTitle)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AlertStatus)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.DateCreated)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.DateEffectivity)
-            </td>
+            </td>*@
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">View Full Details</a> |
+                <a asp-action="Edit" asp-route-id="@item.ID">Update</a> |
                 <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
             </td>
         </tr>

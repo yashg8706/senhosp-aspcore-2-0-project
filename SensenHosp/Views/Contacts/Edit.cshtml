@@ -10,9 +10,20 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
+        <div>
+            <a asp-action="Index">Back to List</a> |
+            <a asp-action="Delete" >Delete</a>
+        </div>
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="message_status" /> Mark as Read and Received
+                    </label>
+                </div>
+            </div>
             <div class="form-group">
                 <label asp-for="FullName" class="control-label"></label>
                 <input asp-for="FullName" class="form-control" />
@@ -43,13 +54,7 @@
                 <input asp-for="DateSent" class="form-control" />
                 <span asp-validation-for="DateSent" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="message_status" /> @Html.DisplayNameFor(model => model.message_status)
-                    </label>
-                </div>
-            </div>
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
@@ -57,9 +62,9 @@
     </div>
 </div>
 
-<div>
+@*<div>
     <a asp-action="Index">Back to List</a>
-</div>
+</div>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -34,9 +34,15 @@ namespace SensenHosp.Data
         public DbSet<BlogPostTag> BlogPostsTags { get; set; }
         public DbSet<BlogTag> BlogTags { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
-        public DbSet<SensenHosp.Models.Contact> Contact { get; set; }
-        public DbSet<SensenHosp.Models.FreqAskQuestion> FreqAskQuestion { get; set; }
-        public DbSet<SensenHosp.Models.AlertPosts> AlertPosts { get; set; }
+
+        //Contact Us Feature
+        public DbSet<Contact> Contact { get; set; }
+
+        //Frequesntly Asked Questions Feature
+        public DbSet<FreqAskQuestion> FreqAskQuestion { get; set; }
+
+        //AlertPosts Feature
+        public DbSet<AlertPosts> AlertPosts { get; set; }
 
         // Media feature
         public DbSet<Album> Albums { get; set; }
