@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SensenHosp.Data;
 using SensenHosp.Models;
-using PayPal.Core;
-using PayPal.v1.Payments;
+using PayPalCheckoutSdk.Core;
+using PayPalCheckoutSdk.Orders;
+using BraintreeHttp;
 
 namespace SensenHosp.Controllers
 {
@@ -19,6 +20,8 @@ namespace SensenHosp.Controllers
         public DonationsController(ApplicationDbContext context)
         {
             _context = context;
+            CreateOrder(true).Wait();
+            GetOrder("7BY92840W79868215", true).Wait();
         }
 
         // GET: Donations
@@ -156,7 +159,78 @@ namespace SensenHosp.Controllers
 
 
         // Paypal donation functionality
-        //var environment = new SandboxEnvironment("ATq1d8iLQVAx570MKudaGL3m1tDO9idY_-lC-beNPKzDOTNIDq5waciioAKgkXTqm9WgWJi3zh7z81Tz", "EBxbuVZof9Ty-vc7vCqurjgsrnv8wDWDg2GQYWQyWWxrH5SIEqj42Oz4ukoD6OZLoUNM6Th76e83J9ad");
-        //var client = new PayPalHttpClient(environment);
+        // POST: Donations/CreateOrder
+        [HttpPost, ActionName("CreateOrder")]
+        [Route("Donations/CreateOrder")]
+        public async static Task<HttpResponse> CreateOrder(bool debug = false)
+        {
+            var request = new OrdersCreateRequest();
+            request.Prefer("return=representation");
+            request.RequestBody(BuildRequestBody());
+
+            var response = await PayPalClient.client().Execute(request);
+            
+            if (debug)
+            {
+                var result = response.Result<Order>();
+                Console.WriteLine("Status: {0}", result.Status);
+            }
+
+            return response;
+        }
+
+        private static OrderRequest BuildRequestBody()
+        {
+            OrderRequest orderRequest = new OrderRequest()
+            {
+                Intent = "AUTHORIZE",
+
+                ApplicationContext = new ApplicationContext
+                {
+                    BrandName = "SENSENHUMBER HOSPITAL",
+                    LandingPage = "LOGIN",
+                    UserAction = "CONTINUE",
+                    ShippingPreference = "NO_SHIPPING"
+                },
+
+                PurchaseUnits = new List<PurchaseUnitRequest>
+                {
+                    new PurchaseUnitRequest
+                    {
+                        ReferenceId = "HospDonat",
+                        Description = "Donation",
+                        Amount = new AmountWithBreakdown
+                        {
+                            CurrencyCode = "CAD",
+                            Value = "100"
+                        }
+                    }
+                }
+            };
+            return orderRequest;
+        }
+
+        [HttpPost]
+        public async static Task<HttpResponse> GetOrder(string orderId, bool debug = false)
+        {
+            OrdersGetRequest request = new OrdersGetRequest(orderId);
+            //3. Call PayPal to get the transaction
+            var response = await PayPalClient.client().Execute(request);
+            //4. Save the transaction in your database. Implement logic to save transaction to your database for future reference.
+            var result = response.Result<Order>();
+            Console.WriteLine("Retrieved Order Status");
+            Console.WriteLine("Status: {0}", result.Status);
+            Console.WriteLine("Order Id: {0}", result.Id);
+            Console.WriteLine("Intent: {0}", result.Intent);
+            Console.WriteLine("Links:");
+            foreach (LinkDescription link in result.Links)
+            {
+                Console.WriteLine("\t{0}: {1}\tCall Type: {2}", link.Rel, link.Href, link.Method);
+            }
+            AmountWithBreakdown amount = result.PurchaseUnits[0].Amount;
+            Console.WriteLine("Total Amount: {0} {1}", amount.CurrencyCode, amount.Value);
+
+            return response;
+        } 
     }
 }
