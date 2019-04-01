@@ -42,3 +42,13 @@
 .form-control.search-box {
     height: calc(1.5em + .4rem + 2px);
 }
+
+.btn-light.search-icon {
+    color: #808080;
+}
+
+.btn-light.search-icon:hover {
+    color: #121212;
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+}
