@@ -33,3 +33,12 @@
         display: none;
     }
 }
+
+#nav_width_wrapper {
+    width: 100%;
+    padding: 0 20px;
+}
+
+.form-control.search-box {
+    height: calc(1.5em + .4rem + 2px);
+}
