@@ -21,15 +21,35 @@ namespace SensenHosp.Data
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
+
+            builder.Entity<BlogPostTag>()
+            .HasKey(b => new { b.PostId, b.TagId });
         }
 
 
         // Start of code addition
+        //Blog feature
         public DbSet<BlogCategory> BlogCategories { get; set; }
         public DbSet<BlogPost> BlogPosts { get; set; }
+        public DbSet<BlogPostTag> BlogPostsTags { get; set; }
         public DbSet<BlogTag> BlogTags { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
 
+        //Contact Us Feature
+        public DbSet<Contact> Contact { get; set; }
+
+        //Frequesntly Asked Questions Feature
+        public DbSet<FreqAskQuestion> FreqAskQuestion { get; set; }
+
+        //AlertPosts Feature
+        public DbSet<AlertPosts> AlertPosts { get; set; }
+
+        // Media feature
+        public DbSet<Album> Albums { get; set; }
+        public DbSet<Media> Media { get; set; }
+        
+        // Donation feature
+        public DbSet<Donation> Donations { get; set; }
         // End of code addition
     }
 }
