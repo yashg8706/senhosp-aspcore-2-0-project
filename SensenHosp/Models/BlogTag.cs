@@ -17,7 +17,7 @@ namespace SensenHosp.Models
         [Display(Name = "Tag")]
         public string Name { get; set; }
         
-        public virtual ICollection<BlogPostTag> BlogPostsTags { get; set; }
+        public List<BlogPostTag> BlogPostsTags { get; set; }
 
     }
 }

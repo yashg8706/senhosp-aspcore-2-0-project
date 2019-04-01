@@ -1,0 +1,63 @@
+﻿@model SensenHosp.Models.Contact
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Contact</h4>
+    <hr />
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+    <dl class="dl-horizontal">
+        <dt>
+            Mark as Read
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.message_status)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateSent)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateSent)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.phone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.phone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Subject)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Subject)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.message)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.message)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ID">Update</a>
+</div>

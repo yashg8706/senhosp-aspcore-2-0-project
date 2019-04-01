@@ -18,8 +18,8 @@ namespace SensenHosp.Models
         public string Title { get; set; }
 
         [Required]
-        /* [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]*/
         [DataType(DataType.Date, ErrorMessage = "Please enter a valid date in the format dd/mm/yyyy")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [Display(Name = "Date Published")]
         public DateTime? DatePublished { get; set; }
 
@@ -27,13 +27,13 @@ namespace SensenHosp.Models
         [Display(Name = "Body")]
         public string Body { get; set; }
 
-        [ForeignKey("BlogCategoryID")]
-        [Display(Name = "")]
+        /*[ForeignKey("BlogCategoryID")]
+        [Display(Name = "")]*/
         public int BlogCategoryID { get; set; }
         public BlogCategory BlogCategory { get; set; }
         
-        [InverseProperty("BlogPost")]
-        public virtual List<BlogPostTag> BlogPostsTags { get; set; }
+        /*[InverseProperty("BlogPost")]*/
+        public List<BlogPostTag> BlogPostsTags { get; set; }
 
         public BlogPost()
         {

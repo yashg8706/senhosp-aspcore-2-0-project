@@ -12,17 +12,17 @@
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Title)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DatePublished)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Body)
-                </th>
             <th>
-                @Html.DisplayNameFor(model => model.BlogCategory)
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DatePublished)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Body)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.BlogCategory.Name)
             </th>
             <th></th>
         </tr>
@@ -36,11 +36,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DatePublished)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.Body)
-            </td>
+            </td>*@
             <td>
-                @Html.DisplayFor(modelItem => item.BlogCategory.Description)
+                @Html.DisplayFor(modelItem => item.BlogCategory.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
