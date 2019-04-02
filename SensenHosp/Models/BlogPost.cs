@@ -31,9 +31,9 @@ namespace SensenHosp.Models
         [Display(Name = "")]*/
         public int BlogCategoryID { get; set; }
         public BlogCategory BlogCategory { get; set; }
-        
-        /*[InverseProperty("BlogPost")]*/
-        public List<BlogPostTag> BlogPostsTags { get; set; }
+
+        /*[InverseProperty("BlogPost")]
+        public List<BlogPostTag> BlogPostsTags { get; set; }*/
 
         public BlogPost()
         {

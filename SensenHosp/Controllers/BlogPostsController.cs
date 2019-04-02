@@ -49,7 +49,6 @@ namespace SensenHosp.Controllers
         public IActionResult Create()
         {
             ViewData["BlogCategoryID"] = new SelectList(_context.BlogCategories, "ID", "Name");
-            ViewData["BlogTagID"] = new SelectList(_context.BlogTags, "ID", "Name");
             return View();
         }
 
@@ -67,7 +66,6 @@ namespace SensenHosp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["BlogCategoryID"] = new SelectList(_context.BlogCategories, "ID", "Name", blogPost.BlogCategoryID);
-            ViewData["BlogTagID"] = new SelectList(_context.BlogTags, "ID", "Name", blogPost.BlogPostsTags);
             return View(blogPost);
         }
 
