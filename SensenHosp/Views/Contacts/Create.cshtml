@@ -34,21 +34,21 @@
             </div>
             <div class="form-group">
                 <label asp-for="message" class="control-label"></label>
-                <input asp-for="message" class="form-control" />
+                <textarea asp-for="message" rows="5" cols="45"></textarea>
                 <span asp-validation-for="message" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="DateSent" class="control-label"></label>
-                <input asp-for="DateSent" class="form-control" />
-                <span asp-validation-for="DateSent" class="text-danger"></span>
-            </div>
             @*<div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="message_status" /> @Html.DisplayNameFor(model => model.message_status)
-                    </label>
-                </div>
-            </div>*@
+                    <label asp-for="DateSent" class="control-label"></label>
+                    <input asp-for="DateSent" class="form-control" />
+                    <span asp-validation-for="DateSent" class="text-danger"></span>
+                </div>*@
+            @*<div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="message_status" /> @Html.DisplayNameFor(model => model.message_status)
+                        </label>
+                    </div>
+                </div>*@
             <div class="form-group">
                 <input type="submit" value="Submit" class="btn btn-default" />
             </div>
