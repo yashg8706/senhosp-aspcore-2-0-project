@@ -23,6 +23,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\Uploads\Media\Misc\" />
     <Folder Include="wwwroot\Uploads\Media\Albums\" />
+    <Folder Include="wwwroot\Uploads\Resume\" />
   </ItemGroup>
 
 </Project>
