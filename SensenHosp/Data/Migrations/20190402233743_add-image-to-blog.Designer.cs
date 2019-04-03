@@ -11,9 +11,10 @@ using System;
 namespace SensenHosp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190402233743_add-image-to-blog")]
+    partial class addimagetoblog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -302,7 +303,7 @@ namespace SensenHosp.Data.Migrations
 
                     b.Property<int>("HasImg");
 
-                    b.Property<string>("ImgName");
+                    b.Property<string>("ImgExtention");
 
                     b.Property<string>("Title")
                         .IsRequired()

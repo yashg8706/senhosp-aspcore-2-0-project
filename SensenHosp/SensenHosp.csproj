@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\Uploads\Blog\FeatureImages\" />
     <Folder Include="wwwroot\Uploads\Media\Misc\" />
     <Folder Include="wwwroot\Uploads\Media\Albums\" />
   </ItemGroup>
