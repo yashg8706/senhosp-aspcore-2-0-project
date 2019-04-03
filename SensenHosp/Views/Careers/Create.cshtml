@@ -21,22 +21,36 @@
             </div>
             <div class="form-group">
                 <label asp-for="department" class="control-label"></label>
-                <input asp-for="department" class="form-control" />
+                <select asp-for="department" class="form-control">
+                    <option value="Drug Procurement and Distribution"> Drug Procurement and Distribution</option>
+                    <option value="Emergency Psych Unit">Emergency Psych Unit</option>
+                    <option value="Surgical Bariatric Clinic">Surgical Bariatric Clinic</option>
+                </select>
                 <span asp-validation-for="department" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="type" class="control-label"></label>
-                <input asp-for="type" class="form-control" />
+                <select asp-for="type" class="form-control">
+                    <option value="Part Time">Full Time</option>
+                    <option value="Temporary Part Time">Temporary Full Time</option>
+                    <option value="Temporary Full Time">Temporary Part Time</option>
+                    <option value="Full Time">Part Time</option>
+                </select>
+                <!--<input asp-for="type" class="form-control" />-->
                 <span asp-validation-for="type" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="category" class="control-label"></label>
-                <input asp-for="category" class="form-control" />
+                <select asp-for="category" class="form-control">
+                    <option value="Volunteer"> Volunteer</option>
+                    <option value="Employment">Employment</option>
+                </select>
+                <!--<input asp-for="category" class="form-control" />-->
                 <span asp-validation-for="category" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="deadline" class="control-label"></label>
-                <input asp-for="deadline" class="form-control" />
+                <input type="date" asp-for="deadline" class="form-control" id="datetimepicker" data-date-format="yyyy-mm-dd">
                 <span asp-validation-for="deadline" class="text-danger"></span>
             </div>
             <div class="form-group">
