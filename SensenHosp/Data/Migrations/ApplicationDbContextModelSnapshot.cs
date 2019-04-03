@@ -128,10 +128,28 @@ namespace SensenHosp.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("SensenHosp.Models.Album", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000);
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Albums");
+                });
+
             modelBuilder.Entity("SensenHosp.Models.AlertPosts", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
+
                     b.Property<string>("AlertStatus")
                         .HasMaxLength(255);
 
@@ -149,391 +167,397 @@ namespace SensenHosp.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("AlertPosts");
-
-                    modelBuilder.Entity("SensenHosp.Models.Album", a =>
-                    {
-                        a.Property<string>("Description")
-                    .HasMaxLength(1000);
-
-                        a.Property<string>("Title")
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                        a.HasKey("ID");
-
-                        a.ToTable("Albums");
-                    });
-
-                    modelBuilder.Entity("SensenHosp.Models.ApplicationUser", u =>
-                        {
-                            u.Property<string>("Id")
-                                .ValueGeneratedOnAdd();
-
-                            u.Property<int>("AccessFailedCount");
-
-                            u.Property<string>("ConcurrencyStamp")
-                                .IsConcurrencyToken();
-
-                            u.Property<string>("Email")
-                                .HasMaxLength(256);
-
-                            u.Property<bool>("EmailConfirmed");
-
-                            u.Property<bool>("LockoutEnabled");
-
-                            u.Property<DateTimeOffset?>("LockoutEnd");
-
-                            u.Property<string>("NormalizedEmail")
-                                .HasMaxLength(256);
-
-                            u.Property<string>("NormalizedUserName")
-                                .HasMaxLength(256);
-
-                            u.Property<string>("PasswordHash");
-
-                            u.Property<string>("PhoneNumber");
-
-                            u.Property<bool>("PhoneNumberConfirmed");
-
-                            u.Property<string>("SecurityStamp");
-
-                            u.Property<bool>("TwoFactorEnabled");
-
-                            u.Property<int?>("UserID");
-
-                            u.Property<string>("UserName")
-                                .HasMaxLength(256);
-
-                            u.HasKey("Id");
-
-                            u.HasIndex("NormalizedEmail")
-                                .HasName("EmailIndex");
-
-                            u.HasIndex("NormalizedUserName")
-                                .IsUnique()
-                                .HasName("UserNameIndex")
-                                .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                            u.HasIndex("UserID");
-
-                            u.ToTable("AspNetUsers");
-                        });
-
-                    modelBuilder.Entity("SensenHosp.Models.Appointment", c =>
-                        {
-                            c.Property<int>("Id")
-                                .ValueGeneratedOnAdd();
-
-                            c.Property<DateTime?>("AppointmentDate");
-
-                            c.Property<string>("AppointmentTime")
-                                .HasMaxLength(20);
-
-                            c.Property<DateTime>("CreatedOn");
-
-                            c.Property<string>("Description")
-                                .IsRequired()
-                                .HasMaxLength(500);
-
-                            c.Property<string>("DoctorName")
-                                .IsRequired()
-                                .HasMaxLength(100);
-
-                            c.Property<string>("EmailId")
-                                .HasMaxLength(255);
-
-                            c.Property<string>("FirstName")
-                                .IsRequired()
-                                .HasMaxLength(255);
-
-                            c.Property<int>("IsConfirmed");
-
-                            c.Property<string>("LastName")
-                                .IsRequired()
-                                .HasMaxLength(255);
-
-                            c.Property<string>("MiddleName")
-                                .HasMaxLength(255);
-
-                            c.Property<string>("MobileNo")
-                                .IsRequired()
-                                .HasMaxLength(20);
-
-                            c.HasKey("Id");
-
-                            c.ToTable("Appointments");
-                        });
-
-                    modelBuilder.Entity("SensenHosp.Models.BlogCategory", c =>
-                        {
-                            c.Property<int>("ID")
-                                .ValueGeneratedOnAdd();
-
-                            c.Property<string>("Description")
-                                .IsRequired()
-                                .HasMaxLength(500);
-
-                            c.Property<string>("Name")
-                                .IsRequired()
-                                .HasMaxLength(50);
-
-                            c.HasKey("ID");
-
-                            c.ToTable("BlogCategories");
-                        });
-
-                    modelBuilder.Entity("SensenHosp.Models.BlogPost", p =>
-                        {
-                            p.Property<int>("ID")
-                                .ValueGeneratedOnAdd();
-
-                            p.Property<int>("BlogCategoryID");
-
-                            p.Property<string>("Body")
-                                .HasMaxLength(2147483647);
-
-                            p.Property<DateTime?>("DatePublished")
-                                .IsRequired();
-
-                            p.Property<string>("Title")
-                                .IsRequired()
-                                .HasMaxLength(255);
-
-                            p.HasKey("ID");
-
-                            p.HasIndex("BlogCategoryID");
-
-                            p.ToTable("BlogPosts");
-                        });
-
-                    modelBuilder.Entity("SensenHosp.Models.BlogPostTag", t =>
-                        {
-                            t.Property<int>("PostId");
-
-                            t.Property<int>("TagId");
-
-                            t.Property<int?>("BlogPostID");
-
-                            t.Property<int?>("BlogTagID");
-
-                            t.HasKey("PostId", "TagId");
-
-                            t.HasIndex("BlogPostID");
-
-                            t.HasIndex("BlogTagID");
-
-                            t.ToTable("BlogPostsTags");
-                        });
-
-                    modelBuilder.Entity("SensenHosp.Models.BlogTag", t =>
-                        {
-                            t.Property<int>("ID")
-                                .ValueGeneratedOnAdd();
-
-                            t.Property<string>("Name")
-                                .IsRequired()
-                                .HasMaxLength(50);
-
-                            t.HasKey("ID");
-
-                            t.ToTable("BlogTags");
-                        });
-
-                    modelBuilder.Entity("SensenHosp.Models.Contact", c =>
-                        {
-                            c.Property<int>("ID")
-                                .ValueGeneratedOnAdd();
-                            c.Property<DateTime>("DateSent");
-
-                            c.Property<string>("FullName")
-                                .IsRequired()
-                                .HasMaxLength(255);
-
-                            c.Property<string>("Subject")
-                                .IsRequired()
-                                .HasMaxLength(255);
-
-                            c.Property<string>("email")
-                                .IsRequired()
-                                .HasMaxLength(255);
-
-                            c.Property<string>("message")
-                                .HasMaxLength(2147483647);
-
-                            c.Property<bool>("message_status");
-
-                            c.Property<string>("phone")
-                                .IsRequired()
-                                .HasMaxLength(255);
-
-                            c.HasKey("ID");
-
-                            c.ToTable("Contact");
-                        });
-
-                    modelBuilder.Entity("SensenHosp.Models.FreqAskQuestion", f =>
-                        {
-                            f.Property<int>("ID")
-                                .ValueGeneratedOnAdd();
-
-                            f.Property<string>("Answer")
-                                .HasMaxLength(2147483647);
-
-                            f.Property<DateTime>("DateCreated");
-
-                            f.Property<DateTime>("DateModified");
-
-                            f.Property<string>("Question")
-                                .IsRequired()
-                                .HasMaxLength(255);
-
-                            f.HasKey("ID");
-
-                            f.ToTable("FreqAskQuestion");
-
-                            modelBuilder.Entity("SensenHosp.Models.Media", m =>
-                    {
-                        m.Property<int?>("AlbumID");
-
-                        m.Property<string>("Extension");
-
-                        m.Property<string>("Name")
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                        m.HasKey("ID");
-
-                        m.HasIndex("AlbumID");
-
-                        m.ToTable("Media");
-                    });
-
-                            modelBuilder.Entity("SensenHosp.Models.User", u =>
-                        {
-                            u.Property<int>("UserID")
-                                .ValueGeneratedOnAdd();
-
-                            u.Property<string>("UserCity")
-                                .HasMaxLength(255);
-
-                            u.Property<string>("UserCountry")
-                                .HasMaxLength(255);
-
-                            u.Property<string>("UserCreatedOn")
-                                .IsRequired();
-
-                            u.Property<string>("UserDOB");
-
-                            u.Property<string>("UserEmail")
-                                .IsRequired()
-                                .HasMaxLength(255);
-
-                            u.Property<string>("UserFName")
-                                .IsRequired()
-                                .HasMaxLength(255);
-
-                            u.Property<string>("UserLName")
-                                .IsRequired()
-                                .HasMaxLength(255);
-
-                            u.Property<string>("UserMName")
-                                .HasMaxLength(255);
-
-                            u.Property<string>("UserPhone")
-                                .IsRequired()
-                                .HasMaxLength(20);
-
-                            u.Property<string>("UserPostal")
-                                .HasMaxLength(255);
-
-                            u.Property<string>("UserStreetAdd")
-                                .HasMaxLength(255);
-
-                            u.HasKey("UserID");
-
-                            u.ToTable("User");
-                        });
-
-                            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", i =>
-                        {
-                            i.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
-                                .WithMany()
-                                .HasForeignKey("RoleId")
-                                .OnDelete(DeleteBehavior.Cascade);
-                        });
-
-                            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", i =>
-                        {
-                            i.HasOne("SensenHosp.Models.ApplicationUser")
-                                .WithMany()
-                                .HasForeignKey("UserId")
-                                .OnDelete(DeleteBehavior.Cascade);
-                        });
-
-                            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", l =>
-                        {
-                            l.HasOne("SensenHosp.Models.ApplicationUser")
-                                .WithMany()
-                                .HasForeignKey("UserId")
-                                .OnDelete(DeleteBehavior.Cascade);
-                        });
-
-                            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", r =>
-                        {
-                            r.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
-                                .WithMany()
-                                .HasForeignKey("RoleId")
-                                .OnDelete(DeleteBehavior.Cascade);
-
-                            r.HasOne("SensenHosp.Models.ApplicationUser")
-                                .WithMany()
-                                .HasForeignKey("UserId")
-                                .OnDelete(DeleteBehavior.Cascade);
-                        });
-
-                            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", t =>
-                        {
-                            t.HasOne("SensenHosp.Models.ApplicationUser")
-                                .WithMany()
-                                .HasForeignKey("UserId")
-                                .OnDelete(DeleteBehavior.Cascade);
-                        });
-
-                            modelBuilder.Entity("SensenHosp.Models.ApplicationUser", a =>
-                        {
-                            a.HasOne("SensenHosp.Models.User", "user")
-                                .WithMany()
-                                .HasForeignKey("UserID");
-                        });
-
-                            modelBuilder.Entity("SensenHosp.Models.BlogPost", p =>
-                        {
-                            p.HasOne("SensenHosp.Models.BlogCategory", "BlogCategory")
-                                .WithMany("BlogPosts")
-                                .HasForeignKey("BlogCategoryID")
-                                .OnDelete(DeleteBehavior.Cascade);
-                        });
-
-                            modelBuilder.Entity("SensenHosp.Models.BlogPostTag", t =>
-                        {
-                            t.HasOne("SensenHosp.Models.BlogPost", "BlogPost")
-                                .WithMany("BlogPostsTags")
-                                .HasForeignKey("BlogPostID");
-
-                            t.HasOne("SensenHosp.Models.BlogTag", "BlogTag")
-                                .WithMany("BlogPostsTags")
-                                .HasForeignKey("BlogTagID");
-                        });
-
-                            modelBuilder.Entity("SensenHosp.Models.Media", m =>
-                        {
-                            m.HasOne("SensenHosp.Models.Album", "Album")
-                                .WithMany("Media")
-                                .HasForeignKey("AlbumID");
-                        });
-#pragma warning restore 612, 618
-                        });
                 });
+
+            modelBuilder.Entity("SensenHosp.Models.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<int?>("UserID");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("SensenHosp.Models.Appointment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime?>("AppointmentDate");
+
+                    b.Property<string>("AppointmentTime")
+                        .HasMaxLength(20);
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500);
+
+                    b.Property<string>("DoctorName")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<string>("EmailId")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<int>("IsConfirmed");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("MiddleName")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("MobileNo")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Appointments");
+                });
+
+            modelBuilder.Entity("SensenHosp.Models.BlogCategory", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("ID");
+
+                    b.ToTable("BlogCategories");
+                });
+
+            modelBuilder.Entity("SensenHosp.Models.BlogPost", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("BlogCategoryID");
+
+                    b.Property<string>("Body")
+                        .HasMaxLength(2147483647);
+
+                    b.Property<DateTime?>("DatePublished")
+                        .IsRequired();
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BlogCategoryID");
+
+                    b.ToTable("BlogPosts");
+                });
+
+            modelBuilder.Entity("SensenHosp.Models.BlogPostTag", b =>
+                {
+                    b.Property<int>("PostId");
+
+                    b.Property<int>("TagId");
+
+                    b.Property<int?>("BlogPostID");
+
+                    b.Property<int?>("BlogTagID");
+
+                    b.HasKey("PostId", "TagId");
+
+                    b.HasIndex("BlogPostID");
+
+                    b.HasIndex("BlogTagID");
+
+                    b.ToTable("BlogPostsTags");
+                });
+
+            modelBuilder.Entity("SensenHosp.Models.BlogTag", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("ID");
+
+                    b.ToTable("BlogTags");
+                });
+
+            modelBuilder.Entity("SensenHosp.Models.Contact", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateSent");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("email")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("message")
+                        .HasMaxLength(2147483647);
+
+                    b.Property<bool>("message_status");
+
+                    b.Property<string>("phone")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Contact");
+                });
+
+            modelBuilder.Entity("SensenHosp.Models.Donation", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<decimal>("Amount");
+
+                    b.Property<string>("DonorEmail");
+
+                    b.Property<string>("DonorName");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Donations");
+                });
+
+            modelBuilder.Entity("SensenHosp.Models.FreqAskQuestion", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Answer")
+                        .HasMaxLength(2147483647);
+
+                    b.Property<DateTime>("DateCreated");
+
+                    b.Property<DateTime>("DateModified");
+
+                    b.Property<string>("Question")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.HasKey("ID");
+
+                    b.ToTable("FreqAskQuestion");
+                });
+
+            modelBuilder.Entity("SensenHosp.Models.Media", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("AlbumID");
+
+                    b.Property<string>("Extension");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AlbumID");
+
+                    b.ToTable("Media");
+                });
+
+            modelBuilder.Entity("SensenHosp.Models.User", b =>
+                {
+                    b.Property<int>("UserID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("UserCity")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("UserCountry")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("UserCreatedOn")
+                        .IsRequired();
+
+                    b.Property<string>("UserDOB");
+
+                    b.Property<string>("UserEmail")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("UserFName")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("UserLName")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("UserMName")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("UserPhone")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.Property<string>("UserPostal")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("UserStreetAdd")
+                        .HasMaxLength(255);
+
+                    b.HasKey("UserID");
+
+                    b.ToTable("User");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("SensenHosp.Models.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("SensenHosp.Models.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SensenHosp.Models.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("SensenHosp.Models.ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SensenHosp.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("SensenHosp.Models.User", "user")
+                        .WithMany()
+                        .HasForeignKey("UserID");
+                });
+
+            modelBuilder.Entity("SensenHosp.Models.BlogPost", b =>
+                {
+                    b.HasOne("SensenHosp.Models.BlogCategory", "BlogCategory")
+                        .WithMany("BlogPosts")
+                        .HasForeignKey("BlogCategoryID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SensenHosp.Models.BlogPostTag", b =>
+                {
+                    b.HasOne("SensenHosp.Models.BlogPost", "BlogPost")
+                        .WithMany("BlogPostsTags")
+                        .HasForeignKey("BlogPostID");
+
+                    b.HasOne("SensenHosp.Models.BlogTag", "BlogTag")
+                        .WithMany("BlogPostsTags")
+                        .HasForeignKey("BlogTagID");
+                });
+
+            modelBuilder.Entity("SensenHosp.Models.Media", b =>
+                {
+                    b.HasOne("SensenHosp.Models.Album", "Album")
+                        .WithMany("Media")
+                        .HasForeignKey("AlbumID");
+                });
+#pragma warning restore 612, 618
         }
     }
 }
