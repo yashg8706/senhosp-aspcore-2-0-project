@@ -4,26 +4,27 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2 class="text-center">@Model.Title</h2>
+
 
 <div>
-    <h4>Album</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-    </dl>
+    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
 </div>
+
+<div class="d-flex flex-wrap">
+    @foreach (var m in Model.Media)
+    {
+        <div class="col-4 py-3">
+            <div class="card">
+                <div class="card-img-top">
+                    <img src="~/Uploads/Media/Albums/@Model.Title/@m.Name.@m.Extension" class="img-fluid" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
     <a asp-action="Index">Back to List</a>
