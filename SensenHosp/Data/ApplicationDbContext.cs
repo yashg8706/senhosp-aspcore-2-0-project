@@ -57,6 +57,13 @@ namespace SensenHosp.Data
         // Testimonial Feature
         public DbSet<Testimonial> Testimonials { get; set; }
 
+        //Careers Feature
+        public DbSet<Career> Careers { get; set; }
+        public DbSet<Applicant> Applicants { get; set; }
+
+        //Parient accounts payment feature
+        public DbSet<Payment> payments { get; set; }
+   
         // End of code addition
     }
 }

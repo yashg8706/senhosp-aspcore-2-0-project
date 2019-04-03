@@ -31,24 +31,12 @@ namespace SensenHosp.Models
         [Display(Name = "Contact")]
         public string contact { get; set; }
 
-        [Required]
-        [Display(Name = "Type")]
-        public string type { get; set; }
-
-        [Required]
-        [Display(Name = "Category")]
-        public string category { get; set; }
-
-        [Required]
-        [Display(Name = "Deadline")]
-        public DateTime deadline { get; set; }
-
         //Resume field is compulsary
-        public int resume { get; set; }
+        public string resume { get; set; }
 
         [ForeignKey("id")]
         public int career_id { get; set; }
-        //Blog Author
+        
         public virtual Career Career { get; set; }
     }
 }
