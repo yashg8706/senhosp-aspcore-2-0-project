@@ -45,8 +45,6 @@ namespace SensenHosp.Controllers
 
         public IActionResult Create()
         {
-            ViewData["BlogCategoryID"] = new SelectList(_context.BlogCategories, "ID", "Name");
-          //  ViewData["BlogTagID"] = new SelectList(_context.BlogTags, "ID", "Name");
             return View();
         }
 
