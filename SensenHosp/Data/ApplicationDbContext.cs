@@ -50,6 +50,13 @@ namespace SensenHosp.Data
         
         // Donation feature
         public DbSet<Donation> Donations { get; set; }
+
+        // Event feature
+        public DbSet<Event> Events { get; set; }
+
+        // Testimonial Feature
+        public DbSet<Testimonial> Testimonials { get; set; }
+
         // End of code addition
     }
 }
