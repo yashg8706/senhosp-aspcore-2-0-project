@@ -74,7 +74,7 @@ namespace SensenHosp.Controllers
                 if (file.Length > 0)
                 {
                     string[] extensions = { "jpeg", "jpg", "png", "gif", "avi", "mp4" };
-                    var extension = Path.GetExtension(file.FileName).Substring(1);
+                    var extension = Path.GetExtension(file.FileName).Substring(1).ToLower();
 
                     if (extensions.Contains(extension))
                     {
@@ -94,7 +94,6 @@ namespace SensenHosp.Controllers
                     }
                 }
             }
-            Debug.WriteLine("hey");
             if (ModelState.IsValid)
             {
                 _context.Add(media);

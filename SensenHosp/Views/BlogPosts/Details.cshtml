@@ -4,39 +4,22 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+@if (Model.HasImg == 1)
+{
+    <img src="~/Uploads/Blog/FeatureImages/@Model.ImgName" class="img-fluid" />
+}
+
+<h2 class="text-center" id="post-title">@Model.Title</h2>
+<div id="post-attr" class="d-flex justify-content-between">
+    <span>@Model.BlogCategory.Name</span>
+    <span>@Html.DisplayFor(modelItem => Model.DatePublished)</span>
+</div>
+<div id="post-body">
+    @Model.Body
+</div>
 
 <div>
-    <h4>BlogPost</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DatePublished)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DatePublished)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Body)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Body)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.BlogCategory)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.BlogCategory.Name)
-        </dd>
-    </dl>
-</div>
-<div>
     <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Delete" asp-route-id="@Model.ID">Delete</a> |
     <a asp-action="Index">Back to List</a>
 </div>

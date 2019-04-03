@@ -16,8 +16,8 @@ namespace SensenHosp.Models
         public string Name { get; set; }
         
         public string Extension { get; set; }
-
-        public int? AlbumID { get; set; }
+        
+        public int AlbumID { get; set; }
         public Album Album { get; set; }
     }
 }
