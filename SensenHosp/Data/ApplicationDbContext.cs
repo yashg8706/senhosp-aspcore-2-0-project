@@ -68,11 +68,6 @@ namespace SensenHosp.Data
         //Parient accounts payment feature
         public DbSet<Payment> payments { get; set; }
    
-=========
-        
-        // Donation feature
-        public DbSet<UserRole> UserRole { get; set; }
->>>>>>>>> Temporary merge branch 2
         // End of code addition
     }
 }
