@@ -50,6 +50,9 @@ namespace SensenHosp.Data
         
         // Donation feature
         public DbSet<Donation> Donations { get; set; }
+        
+        // Donation feature
+        public DbSet<UserRole> UserRole { get; set; }
 
         // Event feature
         public DbSet<Event> Events { get; set; }
@@ -63,7 +66,7 @@ namespace SensenHosp.Data
 
         //Parient accounts payment feature
         public DbSet<Payment> payments { get; set; }
-   
+        
         // End of code addition
     }
 }
