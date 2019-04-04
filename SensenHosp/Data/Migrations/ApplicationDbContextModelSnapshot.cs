@@ -300,6 +300,10 @@ namespace SensenHosp.Data.Migrations
                     b.Property<DateTime?>("DatePublished")
                         .IsRequired();
 
+                    b.Property<int>("HasImg");
+
+                    b.Property<string>("ImgName");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(255);
@@ -309,39 +313,6 @@ namespace SensenHosp.Data.Migrations
                     b.HasIndex("BlogCategoryID");
 
                     b.ToTable("BlogPosts");
-                });
-
-            modelBuilder.Entity("SensenHosp.Models.BlogPostTag", b =>
-                {
-                    b.Property<int>("PostId");
-
-                    b.Property<int>("TagId");
-
-                    b.Property<int?>("BlogPostID");
-
-                    b.Property<int?>("BlogTagID");
-
-                    b.HasKey("PostId", "TagId");
-
-                    b.HasIndex("BlogPostID");
-
-                    b.HasIndex("BlogTagID");
-
-                    b.ToTable("BlogPostsTags");
-                });
-
-            modelBuilder.Entity("SensenHosp.Models.BlogTag", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("ID");
-
-                    b.ToTable("BlogTags");
                 });
 
             modelBuilder.Entity("SensenHosp.Models.Contact", b =>
@@ -393,6 +364,33 @@ namespace SensenHosp.Data.Migrations
                     b.ToTable("Donations");
                 });
 
+            modelBuilder.Entity("SensenHosp.Models.Event", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(2147483647);
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Events");
+                });
+
             modelBuilder.Entity("SensenHosp.Models.FreqAskQuestion", b =>
                 {
                     b.Property<int>("ID")
@@ -411,6 +409,22 @@ namespace SensenHosp.Data.Migrations
 
                     b.HasKey("ID");
 
+                    b.ToTable("Contact");
+                });
+
+            modelBuilder.Entity("SensenHosp.Models.Donation", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<decimal>("Amount");
+
+                    b.Property<string>("DonorEmail");
+
+                    b.Property<string>("DonorName");
+
+                    b.HasKey("ID");
+
                     b.ToTable("FreqAskQuestion");
                 });
 
@@ -419,7 +433,7 @@ namespace SensenHosp.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("AlbumID");
+                    b.Property<int>("AlbumID");
 
                     b.Property<string>("Extension");
 
@@ -432,6 +446,28 @@ namespace SensenHosp.Data.Migrations
                     b.HasIndex("AlbumID");
 
                     b.ToTable("Media");
+                });
+
+            modelBuilder.Entity("SensenHosp.Models.Testimonial", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(2147483647);
+
+                    b.Property<bool>("IsPublished");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Testimonials");
                 });
 
             modelBuilder.Entity("SensenHosp.Models.User", b =>
@@ -478,23 +514,6 @@ namespace SensenHosp.Data.Migrations
                     b.HasKey("UserID");
 
                     b.ToTable("User");
-                });
-
-            modelBuilder.Entity("SensenHosp.Models.UserRole", b =>
-                {
-                    b.Property<int>("RoleID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("RoleDescription")
-                        .HasMaxLength(1000);
-
-                    b.Property<string>("RoleName")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("RoleID");
-
-                    b.ToTable("UserRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -557,22 +576,12 @@ namespace SensenHosp.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("SensenHosp.Models.BlogPostTag", b =>
-                {
-                    b.HasOne("SensenHosp.Models.BlogPost", "BlogPost")
-                        .WithMany("BlogPostsTags")
-                        .HasForeignKey("BlogPostID");
-
-                    b.HasOne("SensenHosp.Models.BlogTag", "BlogTag")
-                        .WithMany("BlogPostsTags")
-                        .HasForeignKey("BlogTagID");
-                });
-
             modelBuilder.Entity("SensenHosp.Models.Media", b =>
                 {
                     b.HasOne("SensenHosp.Models.Album", "Album")
                         .WithMany("Media")
-                        .HasForeignKey("AlbumID");
+                        .HasForeignKey("AlbumID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

@@ -8,24 +8,24 @@ using Microsoft.EntityFrameworkCore;
 using SensenHosp.Data;
 using SensenHosp.Models;
 
+
 namespace SensenHosp.Controllers
 {
-    public class BlogTagsController : Controller
+    public class CareersController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public BlogTagsController(ApplicationDbContext context)
+        public CareersController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: BlogTags
-        public async Task<IActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await _context.BlogTags.ToListAsync());
+
+            return View(_context.Careers.ToList());
         }
 
-        // GET: BlogTags/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,36 @@ namespace SensenHosp.Controllers
                 return NotFound();
             }
 
-            var blogTag = await _context.BlogTags
-                .SingleOrDefaultAsync(m => m.ID == id);
-            if (blogTag == null)
+            var career = await _context.Careers
+                .SingleOrDefaultAsync(m => m.id == id);
+            if (career == null)
             {
                 return NotFound();
             }
 
-            return View(blogTag);
+            return View(career);
         }
 
-        // GET: BlogTags/Create
         public IActionResult Create()
         {
+            ViewData["BlogCategoryID"] = new SelectList(_context.BlogCategories, "ID", "Name");
+          //  ViewData["BlogTagID"] = new SelectList(_context.BlogTags, "ID", "Name");
             return View();
         }
 
-        // POST: BlogTags/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name")] BlogTag blogTag)
+        public async Task<IActionResult> Create([Bind("id,title,description,department,type,category,deadline")] Career career)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(blogTag);
+                _context.Add(career);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(blogTag);
+             return View(career);
         }
 
-        // GET: BlogTags/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +70,21 @@ namespace SensenHosp.Controllers
                 return NotFound();
             }
 
-            var blogTag = await _context.BlogTags.SingleOrDefaultAsync(m => m.ID == id);
-            if (blogTag == null)
+            var career= await _context.Careers.SingleOrDefaultAsync(m => m.id == id);
+            if (career == null)
             {
                 return NotFound();
             }
-            return View(blogTag);
+            return View(career);
         }
 
-        // POST: BlogTags/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Careers/Edit/1
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name")] BlogTag blogTag)
+        public async Task<IActionResult> Edit(int id, [Bind("id,title,description,department,type,category,deadline")] Career career)
         {
-            if (id != blogTag.ID)
+            if (id != career.id)
             {
                 return NotFound();
             }
@@ -97,12 +93,12 @@ namespace SensenHosp.Controllers
             {
                 try
                 {
-                    _context.Update(blogTag);
+                    _context.Update(career);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BlogTagExists(blogTag.ID))
+                    if (!CareerExists(career.id))
                     {
                         return NotFound();
                     }
@@ -113,10 +109,14 @@ namespace SensenHosp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(blogTag);
+            return View(career);
         }
 
-        // GET: BlogTags/Delete/5
+        private bool CareerExists(int id)
+        {
+            return _context.Careers.Any(e => e.id == id);
+        }
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,26 @@ namespace SensenHosp.Controllers
                 return NotFound();
             }
 
-            var blogTag = await _context.BlogTags
-                .SingleOrDefaultAsync(m => m.ID == id);
-            if (blogTag == null)
+            var career= await _context.Careers
+                .SingleOrDefaultAsync(m => m.id == id);
+            if (career == null)
             {
                 return NotFound();
             }
 
-            return View(blogTag);
+            return View(career);
         }
 
-        // POST: BlogTags/Delete/5
+        // POST: Careers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var blogTag = await _context.BlogTags.SingleOrDefaultAsync(m => m.ID == id);
-            _context.BlogTags.Remove(blogTag);
+            var career = await _context.Careers.SingleOrDefaultAsync(m => m.id == id);
+            _context.Careers.Remove(career);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool BlogTagExists(int id)
-        {
-            return _context.BlogTags.Any(e => e.ID == id);
-        }
     }
 }

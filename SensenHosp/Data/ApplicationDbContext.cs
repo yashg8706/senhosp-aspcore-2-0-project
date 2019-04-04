@@ -22,8 +22,8 @@ namespace SensenHosp.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
 
-            builder.Entity<BlogPostTag>()
-            .HasKey(b => new { b.PostId, b.TagId });
+            //builder.Entity<BlogPostTag>()
+            //.HasKey(b => new { b.PostId, b.TagId });
         }
 
 
@@ -31,8 +31,8 @@ namespace SensenHosp.Data
         //Blog feature
         public DbSet<BlogCategory> BlogCategories { get; set; }
         public DbSet<BlogPost> BlogPosts { get; set; }
-        public DbSet<BlogPostTag> BlogPostsTags { get; set; }
-        public DbSet<BlogTag> BlogTags { get; set; }
+        //public DbSet<BlogPostTag> BlogPostsTags { get; set; }
+        //public DbSet<BlogTag> BlogTags { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
 
         //Contact Us Feature
@@ -50,9 +50,20 @@ namespace SensenHosp.Data
         
         // Donation feature
         public DbSet<Donation> Donations { get; set; }
-        
-        // Donation feature
-        public DbSet<UserRole> UserRole { get; set; }
+
+        // Event feature
+        public DbSet<Event> Events { get; set; }
+
+        // Testimonial Feature
+        public DbSet<Testimonial> Testimonials { get; set; }
+
+        //Careers Feature
+        public DbSet<Career> Careers { get; set; }
+        public DbSet<Applicant> Applicants { get; set; }
+
+        //Parient accounts payment feature
+        public DbSet<Payment> payments { get; set; }
+   
         // End of code addition
     }
 }

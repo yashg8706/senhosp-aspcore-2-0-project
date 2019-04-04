@@ -4,50 +4,39 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2 class="text-center">Articles</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Add New Article</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DatePublished)
-            </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.Body)
-            </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.BlogCategory.Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DatePublished)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Body)
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.BlogCategory.Name)
-            </td>
-            <td>
+
+@foreach (var item in Model)
+{
+    <div class="list-post-block d-flex flex-row">
+        <a class="post-image col-3" asp-action="Details" asp-route-id="@item.ID">
+            @if (item.HasImg == 1)
+            {
+                <img src="~/Uploads/Blog/FeatureImages/@item.ImgName" class="img-fluid" />
+            }
+            else
+            {
+                <div class="pseudo-img">@item.Title[0]</div>
+            }
+
+        </a>
+        <div class="post-text col-9 d-flex flex-column">
+            <div class="post-header d-flex flex-row justify-content-between">
+                <a asp-action="Details" asp-route-id="@item.ID" class="post-title">@item.Title</a>
+                    <div class="post-attr">
+                        <div class="post-category">@Html.DisplayFor(modelItem => item.BlogCategory.Name)</div>
+                        <div class="post-date">@Html.DisplayFor(modelItem => item.DatePublished)</div>
+                    </div>
+            </div>
+            <div class="post-body flex-shrink-1">@item.Body</div>
+            <div class="post-actions">
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
+            </div>
+        </div>
+    </div>
 }
-    </tbody>
-</table>

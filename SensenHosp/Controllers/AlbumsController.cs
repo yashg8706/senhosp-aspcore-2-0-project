@@ -26,7 +26,11 @@ namespace SensenHosp.Controllers
         // GET: Albums
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Albums.ToListAsync());
+            var album = await _context.Albums
+                .Include(a => a.Media)
+                .ToListAsync();
+            //return View(await _context.Albums.ToListAsync());
+            return View(album);
         }
 
         // GET: Albums/Details/5
@@ -38,12 +42,13 @@ namespace SensenHosp.Controllers
             }
 
             var album = await _context.Albums
+                .Include(a => a.Media)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (album == null)
             {
                 return NotFound();
             }
-
+            
             return View(album);
         }
 

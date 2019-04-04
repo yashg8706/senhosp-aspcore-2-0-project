@@ -23,17 +23,20 @@ namespace SensenHosp.Models
         [Display(Name = "Date Published")]
         public DateTime? DatePublished { get; set; }
 
+        public int HasImg { get; set; }
+        public string ImgName { get; set; }
+
         [StringLength(int.MaxValue)]
         [Display(Name = "Body")]
         public string Body { get; set; }
 
-        /*[ForeignKey("BlogCategoryID")]
-        [Display(Name = "")]*/
+        /*[ForeignKey("BlogCategoryID")]*/
+        [Display(Name = "Category")]
         public int BlogCategoryID { get; set; }
         public BlogCategory BlogCategory { get; set; }
-        
-        /*[InverseProperty("BlogPost")]*/
-        public List<BlogPostTag> BlogPostsTags { get; set; }
+
+        /*[InverseProperty("BlogPost")]
+        public List<BlogPostTag> BlogPostsTags { get; set; }*/
 
         public BlogPost()
         {
