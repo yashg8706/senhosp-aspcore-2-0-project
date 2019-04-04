@@ -51,6 +51,10 @@ namespace SensenHosp.Data
         // Donation feature
         public DbSet<Donation> Donations { get; set; }
 
+        //User Role
+
+        public DbSet<UserRole> UserRole { get; set; }
+
         // Event feature
         public DbSet<Event> Events { get; set; }
 
