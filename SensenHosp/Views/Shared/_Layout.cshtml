@@ -8,34 +8,66 @@
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/4.3.1/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">SensenHosp</a>
+    @*<nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">SensenHosp</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    </ul>
+                    @await Html.PartialAsync("_LoginPartial")
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                </ul>
-                @await Html.PartialAsync("_LoginPartial")
+        </nav>*@
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
+        <div class="d-flex justify-content-between" id="nav_width_wrapper">
+            <a class="navbar-brand" href="/">
+                <img alt="logo" src="~/images/SensenHumber_logo.jpg" height="100px" width="auto" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="d-flex flex-column">
+                <div class="d-flex flex-row align-items-center justify-content-end">
+                    <a class="btn btn-primary btn-sm mr-4" href="/donations">Donation</a>
+                    @await Html.PartialAsync("_LoginPartial")
+                    <i class="fab fa-instagram  mr-2"></i>
+                    <i class="fab fa-twitter mr-2"></i>
+                    <i class="fab fa-facebook-f mr-2"></i>
+                </div>
+                <div>
+                    <form class="form-inline py-2 my-lg-0 justify-content-end">
+                        <input class="form-control search-box mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-sm btn-light search-icon my-2 mr-0 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+                        
+                    </form>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <a class="btn btn-primary btn-sm mr-2" href="#">Emergency</a>
+                </div>
             </div>
         </div>
     </nav>
@@ -43,7 +75,10 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2019 - SensenHosp</p>
+
+            <div id="footer-bar">
+                <p>&copy;  - SensenHosp</p>
+            </div>
         </footer>
     </div>
 

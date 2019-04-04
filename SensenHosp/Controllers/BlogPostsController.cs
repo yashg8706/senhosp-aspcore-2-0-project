@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +17,13 @@ namespace SensenHosp.Controllers
     public class BlogPostsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHostingEnvironment _env;
 
-        public BlogPostsController(ApplicationDbContext context)
+        public BlogPostsController(ApplicationDbContext context, IHostingEnvironment env)
         {
             _context = context;
+            _env = env;
+
         }
 
         // GET: BlogPosts
@@ -49,7 +56,6 @@ namespace SensenHosp.Controllers
         public IActionResult Create()
         {
             ViewData["BlogCategoryID"] = new SelectList(_context.BlogCategories, "ID", "Name");
-            ViewData["BlogTagID"] = new SelectList(_context.BlogTags, "ID", "Name");
             return View();
         }
 
@@ -58,8 +64,37 @@ namespace SensenHosp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title,DatePublished,Body,BlogCategoryID")] BlogPost blogPost)
+        public async Task<IActionResult> Create([Bind("ID,Title,DatePublished,Body,BlogCategoryID")] BlogPost blogPost, IFormFile file)
         {
+            var webRoot = _env.WebRootPath;
+            blogPost.HasImg = 0;
+            if (file != null)
+            {
+                if (file.Length > 0)
+                {
+                    string[] extensions = { "jpeg", "jpg", "png", "gif" };
+                    var extension = Path.GetExtension(file.FileName).Substring(1).ToLower();
+
+                    if (extensions.Contains(extension))
+                    {
+                        string fn = file.FileName + "." + extension;
+
+                        string path = Path.Combine(webRoot, "Uploads/Blog/FeatureImages");
+                        path = Path.Combine(path, fn);
+
+                        //save the file
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            file.CopyTo(stream);
+                            Debug.WriteLine("hey");
+                        }
+                        //let the model know that there is a picture with an extension
+                        blogPost.HasImg = 1;
+                        blogPost.ImgName = fn.ToString();
+
+                    }
+                }
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(blogPost);
@@ -67,7 +102,6 @@ namespace SensenHosp.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["BlogCategoryID"] = new SelectList(_context.BlogCategories, "ID", "Name", blogPost.BlogCategoryID);
-            ViewData["BlogTagID"] = new SelectList(_context.BlogTags, "ID", "Name", blogPost.BlogPostsTags);
             return View(blogPost);
         }
 
@@ -91,10 +125,41 @@ namespace SensenHosp.Controllers
         // POST: BlogPosts/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,DatePublished,Body,BlogCategoryID")] BlogPost blogPost)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,DatePublished,Body,BlogCategoryID")] BlogPost blogPost, IFormFile file)
         {
+            var webRoot = _env.WebRootPath;
+            
+            if (file != null)
+            {
+                if (file.Length > 0)
+                {
+                    string[] extensions = { "jpeg", "jpg", "png", "gif" };
+                    var extension = Path.GetExtension(file.FileName).Substring(1).ToLower();
+
+                    if (extensions.Contains(extension))
+                    {
+                        string fn = file.FileName + "." + extension;
+
+                        string path = Path.Combine(webRoot, "Uploads/Blog/FeatureImages");
+                        path = Path.Combine(path, fn);
+
+                        //save the file
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            file.CopyTo(stream);
+                            Debug.WriteLine("hey");
+                        }
+                        //let the model know that there is a picture with an extension
+                        blogPost.HasImg = 1;
+                        blogPost.ImgName = fn.ToString();
+
+                    }
+                }
+            }
+
             if (id != blogPost.ID)
             {
                 return NotFound();

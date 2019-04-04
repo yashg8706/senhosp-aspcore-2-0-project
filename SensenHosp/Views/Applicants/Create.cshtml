@@ -1,16 +1,17 @@
 ﻿@model SensenHosp.Models.Applicant
 
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
 <h4>Applicant</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="id" class="control-label"></label>
-                <input asp-for="id" class="form-control" />
-                <span asp-validation-for="id" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="fname" class="control-label"></label>
                 <input asp-for="fname" class="form-control" />
@@ -32,23 +33,7 @@
                 <span asp-validation-for="contact" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="type" class="control-label"></label>
-                <input asp-for="type" class="form-control" />
-                <span asp-validation-for="type" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="category" class="control-label"></label>
-                <input asp-for="category" class="form-control" />
-                <span asp-validation-for="category" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="deadline" class="control-label"></label>
-                <input asp-for="deadline" class="form-control" />
-                <span asp-validation-for="deadline" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="resume" class="control-label"></label>
-                <input asp-for="resume" type="file" class="form-control" />
+                <input type="file" name="resume" id="file" />
                 <span asp-validation-for="resume" class="text-danger"></span>
             </div>
             <div class="form-group">

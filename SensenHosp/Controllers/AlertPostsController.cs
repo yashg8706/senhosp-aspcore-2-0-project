@@ -20,11 +20,31 @@ namespace SensenHosp.Controllers
         }
 
         // GET: AlertPosts
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pagenum)
         {
-            return View(await _context.AlertPosts.ToListAsync());
-        }
 
+            var _alertPost = await _context.AlertPosts.ToListAsync();
+            int alertcount = _alertPost.Count();
+            int perpage = 3;
+            int maxpage = (int)Math.Ceiling((decimal)alertcount / perpage) - 1;
+            if (maxpage < 0) maxpage = 0;
+            if (pagenum < 0) pagenum = 0;
+            if (pagenum > maxpage) pagenum = maxpage;
+            int start = perpage * pagenum;
+            ViewData["pagenum"] = (int)pagenum;
+            ViewData["PaginationSummary"] = "";
+            if (maxpage > 0)
+            {
+                ViewData["PaginationSummary"] =
+                    (pagenum + 1).ToString() + " of " +
+                    (maxpage + 1).ToString();
+            }
+
+            List<AlertPosts> alertPosts = await _context.AlertPosts.Skip(start).Take(perpage).ToListAsync();
+            return View(alertPosts);
+
+            //return View(await _context.AlertPosts.ToListAsync());
+        }
         // GET: AlertPosts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -58,6 +78,7 @@ namespace SensenHosp.Controllers
         {
             if (ModelState.IsValid)
             {
+                alertPosts.DateCreated = DateTime.Now;
                 _context.Add(alertPosts);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -97,6 +118,7 @@ namespace SensenHosp.Controllers
             {
                 try
                 {
+                    alertPosts.DateCreated = DateTime.Now;
                     _context.Update(alertPosts);
                     await _context.SaveChangesAsync();
                 }
