@@ -11,9 +11,10 @@ using System;
 namespace SensenHosp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190403203344_careers")]
+    partial class careers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,6 +170,39 @@ namespace SensenHosp.Data.Migrations
                     b.ToTable("AlertPosts");
                 });
 
+            modelBuilder.Entity("SensenHosp.Models.Applicant", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("Careerid");
+
+                    b.Property<int>("career_id");
+
+                    b.Property<string>("contact")
+                        .IsRequired();
+
+                    b.Property<string>("email")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<string>("fname")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("lname")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("resume");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("Careerid");
+
+                    b.ToTable("Applicants");
+                });
+
             modelBuilder.Entity("SensenHosp.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -300,10 +334,6 @@ namespace SensenHosp.Data.Migrations
                     b.Property<DateTime?>("DatePublished")
                         .IsRequired();
 
-                    b.Property<int>("HasImg");
-
-                    b.Property<string>("ImgName");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(255);
@@ -313,6 +343,35 @@ namespace SensenHosp.Data.Migrations
                     b.HasIndex("BlogCategoryID");
 
                     b.ToTable("BlogPosts");
+                });
+
+            modelBuilder.Entity("SensenHosp.Models.Career", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("category")
+                        .IsRequired();
+
+                    b.Property<DateTime>("deadline");
+
+                    b.Property<string>("department")
+                        .IsRequired();
+
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasMaxLength(2147483647);
+
+                    b.Property<string>("title")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("type")
+                        .IsRequired();
+
+                    b.HasKey("id");
+
+                    b.ToTable("Careers");
                 });
 
             modelBuilder.Entity("SensenHosp.Models.Contact", b =>
@@ -364,33 +423,6 @@ namespace SensenHosp.Data.Migrations
                     b.ToTable("Donations");
                 });
 
-            modelBuilder.Entity("SensenHosp.Models.Event", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("CreationDate");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(2147483647);
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Events");
-                });
-
             modelBuilder.Entity("SensenHosp.Models.FreqAskQuestion", b =>
                 {
                     b.Property<int>("ID")
@@ -417,7 +449,7 @@ namespace SensenHosp.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AlbumID");
+                    b.Property<int?>("AlbumID");
 
                     b.Property<string>("Extension");
 
@@ -432,26 +464,36 @@ namespace SensenHosp.Data.Migrations
                     b.ToTable("Media");
                 });
 
-            modelBuilder.Entity("SensenHosp.Models.Testimonial", b =>
+            modelBuilder.Entity("SensenHosp.Models.Payment", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CreationDate");
+                    b.Property<string>("invoice_date")
+                        .IsRequired();
 
-                    b.Property<string>("Description")
+                    b.Property<string>("invoice_id")
                         .IsRequired()
-                        .HasMaxLength(2147483647);
+                        .HasMaxLength(100);
 
-                    b.Property<bool>("IsPublished");
-
-                    b.Property<string>("Username")
+                    b.Property<string>("patient_fname")
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.HasKey("ID");
+                    b.Property<string>("patient_lname")
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.ToTable("Testimonials");
+                    b.Property<string>("transaction_amount")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<string>("transaction_number")
+                        .IsRequired();
+
+                    b.HasKey("id");
+
+                    b.ToTable("payments");
                 });
 
             modelBuilder.Entity("SensenHosp.Models.User", b =>
@@ -500,23 +542,6 @@ namespace SensenHosp.Data.Migrations
                     b.ToTable("User");
                 });
 
-                modelBuilder.Entity("SensenHosp.Models.UserRole", b =>
-                {
-                    b.Property<int>("RoleID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("RoleDescription")
-                        .HasMaxLength(1000);
-
-                    b.Property<string>("RoleName")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("RoleID");
-
-                    b.ToTable("UserRole");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -527,28 +552,6 @@ namespace SensenHosp.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("SensenHosp.Models.ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.HasOne("SensenHosp.Models.ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
->>>>>>>>> Temporary merge branch 2
                     b.HasOne("SensenHosp.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -584,6 +587,13 @@ namespace SensenHosp.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("SensenHosp.Models.Applicant", b =>
+                {
+                    b.HasOne("SensenHosp.Models.Career", "Career")
+                        .WithMany("Applicants")
+                        .HasForeignKey("Careerid");
+                });
+
             modelBuilder.Entity("SensenHosp.Models.ApplicationUser", b =>
                 {
                     b.HasOne("SensenHosp.Models.User", "user")
@@ -603,8 +613,7 @@ namespace SensenHosp.Data.Migrations
                 {
                     b.HasOne("SensenHosp.Models.Album", "Album")
                         .WithMany("Media")
-                        .HasForeignKey("AlbumID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AlbumID");
                 });
 #pragma warning restore 612, 618
         }

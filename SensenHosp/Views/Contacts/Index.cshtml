@@ -7,15 +7,15 @@
 <h2>Contact Us - Messages</h2>
 
 @*<p>
-    <a asp-action="Create">Create New</a>
-</p>*@
+        <a asp-action="Create">Create New</a>
+    </p>*@
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.FullName)
-                </th>
-                @*<th>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            @*<th>
                     @Html.DisplayNameFor(model => model.email)
                 </th>
                 <th>
@@ -24,48 +24,77 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Subject)
                 </th>*@
-                <th>
-                    @Html.DisplayNameFor(model => model.message)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateSent)
-                </th>
-                <th>
-                    Action
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.message)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateSent)
+            </th>
+            <th>
+                Message Status
+            </th>
+            <th>
+                Action
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullName)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.phone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Subject)
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.message)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateSent)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.message_status)
-            </td>*@
-            <td>
-                <a asp-action="Details" asp-route-id="@item.ID">View Message</a> |
-                <a asp-action="Edit" asp-route-id="@item.ID">Update</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
+        <div class="reccontainer" style="overflow:hidden;">
+            <div>
+                @ViewData["PaginationSummary"]
+                @Html.ActionLink("Prev",
+                    "Index",
+                    "Contacts",
+                    new { pagenum= ((int)ViewData["pagenum"]-1)}
+                    )
+                |
+                @Html.ActionLink("Next",
+                    "Index",
+                    "Contacts",
+                    new { pagenum = ((int)ViewData["pagenum"] + 1) }
+                    )
+            </div>
+        </div>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.phone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Subject)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.message)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateSent)
+                </td>
+                <td>
+                    <!--WHEN THE ADMIN READ AND CHECKED THE INBOX FRO MESSAGE STATUS IT SET THE MESSAGE STATUS IF ITS READ OR NOT-->
+                    @if (item.message_status == true)
+                    {
+                        <p>Read</p>
+                    }
+                    else
+                    {
+                        <p>Unead</p>
+                    }
+
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ID">View Message</a> |
+                    <a asp-action="Edit" asp-route-id="@item.ID">Update</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
