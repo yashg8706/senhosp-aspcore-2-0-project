@@ -20,9 +20,41 @@ namespace SensenHosp.Controllers
         }
 
         // GET: BlogCategories
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pagenum)
         {
-            return View(await _context.BlogCategories.ToListAsync());
+            var _blogcategory = await _context.BlogCategories
+                .Include(a => a.BlogPosts)
+                .ToListAsync();
+
+            int categorycount = _blogcategory.Count;
+            int perpage = 3;
+            int maxpage = (int)Math.Ceiling((decimal)categorycount / perpage) - 1;
+
+            if (pagenum < 0) pagenum = 0;
+            if (pagenum > maxpage) pagenum = maxpage;
+
+            int start = pagenum * perpage;
+
+            ViewData["maxpage"] = (int)maxpage;
+            ViewData["pagenum"] = (int)pagenum;
+            ViewData["pagesummary"] = "";
+
+            if (maxpage > 0)
+            {
+                ViewData["pagesummary"] = (pagenum + 1).ToString() + " of " + (maxpage + 1).ToString();
+            }
+            else
+            {
+                ViewData["pagesummary"] = "1 of 1";
+            }
+
+            var blogcategory = await _context.BlogCategories
+                .Include(a => a.BlogPosts)
+                .Skip(start)
+                .Take(perpage)
+                .ToListAsync();
+
+            return View(blogcategory);
         }
 
         // GET: BlogCategories/Details/5

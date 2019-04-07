@@ -47,6 +47,10 @@ namespace SensenHosp.Controllers
             {
                 ViewData["pagesummary"] = (pagenum + 1).ToString() + " of " + (maxpage + 1).ToString();
             }
+            else
+            {
+                ViewData["pagesummary"] = "1 of 1";
+            }
 
             var album = await _context.Albums
                 .Include(a => a.Media)
@@ -83,6 +87,10 @@ namespace SensenHosp.Controllers
             if (maxpage > 0)
             {
                 ViewData["pagesummary"] = (pagenum + 1).ToString() + " of " + (maxpage + 1).ToString();
+            }
+            else
+            {
+                ViewData["pagesummary"] = "1 of 1";
             }
 
             return View(album);

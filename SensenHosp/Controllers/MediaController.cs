@@ -45,11 +45,14 @@ namespace SensenHosp.Controllers
 
             ViewData["maxpage"] = (int)maxpage;
             ViewData["pagenum"] = (int)pagenum;
-            ViewData["pagesummary"] = "";
 
             if (maxpage > 0)
             {
                 ViewData["pagesummary"] = (pagenum + 1).ToString() + " of " + (maxpage + 1).ToString();
+            }
+            else
+            {
+                ViewData["pagesummary"] = "1 of 1";
             }
 
             var media = await _context.Media
