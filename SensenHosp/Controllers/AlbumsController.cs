@@ -24,17 +24,41 @@ namespace SensenHosp.Controllers
         }
 
         // GET: Albums
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pagenum = 0)
         {
-            var album = await _context.Albums
+            var _album = await _context.Albums
                 .Include(a => a.Media)
                 .ToListAsync();
-            //return View(await _context.Albums.ToListAsync());
+
+            int albumcount = _album.Count;
+            int perpage = 3;
+            int maxpage = (int)Math.Ceiling((decimal)albumcount / perpage) - 1;
+
+            if (pagenum < 0) pagenum = 0;
+            if (pagenum > maxpage) pagenum = maxpage;
+
+            int start = pagenum * perpage;
+
+            ViewData["maxpage"] = (int)maxpage;
+            ViewData["pagenum"] = (int)pagenum;
+            ViewData["pagesummary"] = "";
+
+            if (maxpage > 0)
+            {
+                ViewData["pagesummary"] = (pagenum + 1).ToString() + " of " + (maxpage + 1).ToString();
+            }
+
+            var album = await _context.Albums
+                .Include(a => a.Media)
+                .Skip(start)
+                .Take(perpage)
+                .ToListAsync();
+
             return View(album);
         }
 
         // GET: Albums/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, int pagenum = 0)
         {
             if (id == null)
             {
@@ -48,7 +72,19 @@ namespace SensenHosp.Controllers
             {
                 return NotFound();
             }
-            
+
+            int mediacount = album.Media.Count;
+            int perpage = 3;
+            int maxpage = (int)Math.Ceiling((decimal)mediacount / perpage) - 1;
+            ViewData["maxpage"] = (int)maxpage;
+            ViewData["pagenum"] = (int)pagenum;
+            ViewData["perpage"] = (int)perpage;
+
+            if (maxpage > 0)
+            {
+                ViewData["pagesummary"] = (pagenum + 1).ToString() + " of " + (maxpage + 1).ToString();
+            }
+
             return View(album);
         }
 

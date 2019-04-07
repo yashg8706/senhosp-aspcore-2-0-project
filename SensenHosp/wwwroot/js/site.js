@@ -8,14 +8,13 @@ window.onload = function () {
         console.log(donationAmount);
     }
     paypal.Buttons({
-        createOrder: function (data, actions) {
+        /*createOrder: function (data, actions) {
             return actions.order.create({
                 Prefer: "return=representation",
                 "Content-Type": "Application/json",
                 intent: "CAPTURE",
                 purchase_units: [{
                     amount: {
-                        currency: "CAD",
                         value: donationAmount
                     }
                 }],
@@ -25,24 +24,25 @@ window.onload = function () {
                     user_action: "PAY_NOW"
                 }
             });
-        },
-        /*createOrder: function () {
-            return fetch('/Donations/CreateOrder', {
+        }, */
+        createOrder: function (data, actions) {
+            return fetch('https://localhost:44335/Donations/CreateOrder', {
                 method: 'post',
                 headers: {
                     'content-type': 'application/json'
-                }
+                },
+                body: JSON.stringify(data)
             }).then(function (res) {
                 return res.json();
             }).then(function (data) {
                 return data.orderID;
             });
-        },*/
-        onApprove: function (data, actions) {
+        },
+        /*onApprove: function (data, actions) {
             return actions.order.capture().then(function (details) {
                 console.log('Transaction completed by ' + details.payer.name.given_name);
                 console.log('transaction id: ' + details.id);
-                return fetch('/donations/GetOrder', {
+                return fetch('/donations/paypal-transaction-complete', {
                     method: 'post',
                     headers: {
                         'content-type': 'application/json'
@@ -52,6 +52,6 @@ window.onload = function () {
                     })
                 });
             });
-        }
+        }*/
     }).render('#paypal-button-container');
 }

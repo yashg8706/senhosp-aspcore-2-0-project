@@ -10,6 +10,7 @@ using SensenHosp.Models;
 using PayPalCheckoutSdk.Core;
 using PayPalCheckoutSdk.Orders;
 using BraintreeHttp;
+using System.Diagnostics;
 
 namespace SensenHosp.Controllers
 {
@@ -161,7 +162,7 @@ namespace SensenHosp.Controllers
         // Paypal donation functionality
         // POST: Donations/CreateOrder
         [HttpPost, ActionName("CreateOrder")]
-        [Route("Donations/CreateOrder")]
+        //[Route("Donations/CreateOrder")]
         public async static Task<HttpResponse> CreateOrder(bool debug = false)
         {
             var request = new OrdersCreateRequest();
@@ -169,7 +170,7 @@ namespace SensenHosp.Controllers
             request.RequestBody(BuildRequestBody());
 
             var response = await PayPalClient.client().Execute(request);
-            
+            Debug.WriteLine("here in createorder");
             if (debug)
             {
                 var result = response.Result<Order>();
@@ -211,6 +212,7 @@ namespace SensenHosp.Controllers
         }
 
         [HttpPost]
+        //[Route("Donations/GetOrder")]
         public async static Task<HttpResponse> GetOrder(string orderId, bool debug = false)
         {
             OrdersGetRequest request = new OrdersGetRequest(orderId);
