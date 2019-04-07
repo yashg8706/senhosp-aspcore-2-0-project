@@ -61,8 +61,11 @@ namespace SensenHosp.Data
         public DbSet<Career> Careers { get; set; }
         public DbSet<Applicant> Applicants { get; set; }
 
-        //Parient accounts payment feature
+        //Patient accounts payment feature
         public DbSet<Payment> payments { get; set; }
+
+        //Career and Applicants ViewModel
+        public DbSet<CareerDetails> careerDetails { get; set; }
    
         // End of code addition
     }
