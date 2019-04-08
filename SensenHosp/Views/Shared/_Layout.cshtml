@@ -41,36 +41,56 @@
                 </div>
             </div>
         </nav>*@
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
-        <div class="d-flex justify-content-between" id="nav_width_wrapper">
+    <div class="top-bar">
+        <div class="d-flex flex-row justify-content-end align-items-center">
+            <a class="btn btn-outline-light btn-sm mr-4" href="/donations">Donation</a>
+            <a asp-area="" asp-controller="Account" asp-action="Login" class="mr-4" id="top-bar-login">Staff Log in</a>
+            <span style="color: white">
+                <i class="fab fa-instagram  mr-2"></i>
+                <i class="fab fa-twitter mr-2"></i>
+                <i class="fab fa-facebook-f mr-2"></i>
+            </span>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex flex-column">
+        <div class="d-flex justify-content-between align-items-center" id="nav_width_wrapper">
             <a class="navbar-brand" href="/">
-                <img alt="logo" src="~/images/SensenHumber_logo.jpg" height="100px" width="auto" />
+                <img alt="logo" src="~/images/logo.png" height="100px" width="auto" />
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="d-flex flex-column">
-                <div class="d-flex flex-row align-items-center justify-content-end">
-                    <a class="btn btn-primary btn-sm mr-4" href="/donations">Donation</a>
-                    @await Html.PartialAsync("_LoginPartial")
-                    <i class="fab fa-instagram  mr-2"></i>
-                    <i class="fab fa-twitter mr-2"></i>
-                    <i class="fab fa-facebook-f mr-2"></i>
-                </div>
+            <div class="d-flex flex-column pb-2">
                 <div>
                     <form class="form-inline py-2 my-lg-0 justify-content-end">
                         <input class="form-control search-box mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-sm btn-light search-icon my-2 mr-0 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-                        
+                        <button class="btn btn-light search-icon my-2 mr-0 my-sm-0" type="submit">&nbsp;
+                        </button>
+
                     </form>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <a class="btn btn-primary btn-sm mr-2" href="#">Emergency</a>
+                    <a class="btn btn-outline-primary mr-2" href="#">EMERGENCY</a>
                 </div>
             </div>
         </div>
     </nav>
+
+    <div class="nav navbar d-flex flex-row justify-content-between" id="main-nav">
+        <a href="#">Patients & Visitors</a>
+        <span>|</span>
+        <a href="#">Health Services</a>
+        <span>|</span>
+        <a href="#">Careers</a>
+        <span>|</span>
+        <a href="#">Who we are</a>
+        <span>|</span>
+        <a href="#">News & Events</a>
+        <span>|</span>
+        <a href="#">Contact Us</a>
+    </div>
+
     <div class="container body-content">
         @RenderBody()
         <hr />
