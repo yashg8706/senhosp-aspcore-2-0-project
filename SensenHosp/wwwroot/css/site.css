@@ -1,6 +1,6 @@
 ﻿body {
     padding-top: 0px;
-    padding-bottom: 20px;
+    padding-bottom: 0px;
 }
 
 /* Wrapping element */
@@ -100,6 +100,30 @@ a#top-bar-login {
 
 #main-nav a{
     color: white;
+}
+
+footer {
+    border-top: 1px solid lightgray;
+}
+
+#footer-link {
+    padding: 100px 75px;
+    background-color: #263238;
+}
+
+#footer-link a {
+    color: lightgrey;
+}
+
+#footer-bar {
+    background-color: black;
+    font-size: .9em;
+    color: white;
+    padding: 10px 50px;
+}
+
+#footer-bar p {
+    margin: 0;
 }
 
 /*Blog post feature*/
