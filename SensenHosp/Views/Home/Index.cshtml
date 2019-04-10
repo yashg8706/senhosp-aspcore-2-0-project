@@ -38,7 +38,9 @@
                     <div class="pseudo-img card-img-top">@item.Title[0]</div>
                 }
                 <div class="card-body">
-                    <h5 class="card-title">@item.Title</h5>
+                    <h5 class="card-title">
+                        <a asp-action="Details" asp-route-id="@item.ID" class="post-title">@item.Title</a>
+                    </h5>
                     <p class="card-text home-post-body">@item.Body</p>
                     <p class="card-text"><small class="text-muted">@Html.DisplayFor(modelItem => item.BlogCategory.Name)</small></p>
                 </div>
