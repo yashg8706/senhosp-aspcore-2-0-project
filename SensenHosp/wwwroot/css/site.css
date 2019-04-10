@@ -192,8 +192,12 @@ footer {
     background-color: #1531ab;
 }
 
-/* End of home page*/
+.home-post-body {
+    max-height: 150px;
+    overflow: hidden;
+}
 
+/* End of home page*/
 /*Blog post feature*/
 .list-post-block {
     padding: 20px 30px;
@@ -259,7 +263,7 @@ a.post-image:hover {
     color: #424242;
     width: 100%;
     height: 100%;
-    border-radius: 10px;
+    border-radius: .25rem;
     display: flex;
     justify-content: center;
     align-items: center;
