@@ -11,6 +11,7 @@ using PayPalCheckoutSdk.Core;
 using PayPalCheckoutSdk.Orders;
 using BraintreeHttp;
 using System.Diagnostics;
+using Microsoft.AspNetCore;
 
 namespace SensenHosp.Controllers
 {
@@ -162,11 +163,12 @@ namespace SensenHosp.Controllers
         // Paypal donation functionality
         // POST: Donations/CreateOrder
         [HttpPost, ActionName("CreateOrder")]
-        public async Task<object> CreateOrder(bool debug = true)
+        public async Task<object> CreateOrder([FromBody] dynamic OrderAmount, bool debug = true)
         {
+            var oa = (string)OrderAmount["OrderAmount"];
             var request = new OrdersCreateRequest();
             request.Headers.Add("prefer", "return=representation");
-            request.RequestBody(BuildRequestBody());
+            request.RequestBody(BuildRequestBody(oa));
 
             var response = await PayPalClient.client().Execute(request);
             var result = response.Result<Order>();
@@ -185,11 +187,11 @@ namespace SensenHosp.Controllers
             return response;
         }
 
-        private OrderRequest BuildRequestBody()
+        private OrderRequest BuildRequestBody(string oa)
         {
             OrderRequest orderRequest = new OrderRequest()
             {
-                Intent = "AUTHORIZE",
+                Intent = "CAPTURE",
 
                 ApplicationContext = new ApplicationContext
                 {
@@ -207,8 +209,8 @@ namespace SensenHosp.Controllers
                         Description = "Donation",
                         Amount = new AmountWithBreakdown
                         {
-                            CurrencyCode = "CAD",
-                            Value = "100"
+                            CurrencyCode = "USD",
+                            Value = oa
                         }
                     }
                 }
@@ -218,27 +220,42 @@ namespace SensenHosp.Controllers
         }
 
         [HttpPost]
-        //[Route("Donations/GetOrder")]
-        public async Task<HttpResponse> GetOrder(string orderId, bool debug = false)
+        //[Route("Donations/CaptureOrder")]
+        public async Task<HttpResponse> CaptureOrder([FromBody] dynamic OrderId, bool debug = true)
         {
-            OrdersGetRequest request = new OrdersGetRequest(orderId);
-            //3. Call PayPal to get the transaction
+            var oi = (string)OrderId["OrderId"];
+            var request = new OrdersCaptureRequest(oi);
+            request.Prefer("return=representation");
+            request.RequestBody(new OrderActionRequest());
+            //3. Call PayPal to capture an order
             var response = await PayPalClient.client().Execute(request);
-            //4. Save the transaction in your database. Implement logic to save transaction to your database for future reference.
             var result = response.Result<Order>();
-            Console.WriteLine("Retrieved Order Status");
-            Console.WriteLine("Status: {0}", result.Status);
-            Console.WriteLine("Order Id: {0}", result.Id);
-            Console.WriteLine("Intent: {0}", result.Intent);
-            Console.WriteLine("Links:");
-            foreach (LinkDescription link in result.Links)
+            response.Headers.Add("DonorName", result.Payer.Name.GivenName + " " + result.Payer.Name.Surname);
+            //4. Save the capture ID to your database. Implement logic to save capture to your database for future reference.
+            if (debug)
             {
-                Console.WriteLine("\t{0}: {1}\tCall Type: {2}", link.Rel, link.Href, link.Method);
+                Debug.WriteLine("Status: {0}", result.Status);
+                Debug.WriteLine("Order Id: {0}", result.Id);
+                Debug.WriteLine("Intent: {0}", result.Intent);
+                Debug.WriteLine("Links:");
+                foreach (LinkDescription link in result.Links)
+                {
+                    Debug.WriteLine("\t{0}: {1}\tCall Type: {2}", link.Rel, link.Href, link.Method);
+                }
+                Debug.WriteLine("Capture Ids: ");
+                foreach (PurchaseUnit purchaseUnit in result.PurchaseUnits)
+                {
+                    foreach (Capture capture in purchaseUnit.Payments.Captures)
+                    {
+                        Debug.WriteLine("\t {0}", capture.Id);
+                    }
+                }
+                AmountWithBreakdown amount = result.PurchaseUnits[0].Amount;
+                Debug.WriteLine("Buyer:");
+                Debug.WriteLine("\tEmail Address: {0}\n\tName: {1}\n\tPhone Number: {2}{3}", result.Payer.EmailAddress, result.Payer.Name.GivenName + " " + result.Payer.Name.Surname, result.Payer.Phone.CountryCode, result.Payer.Phone.NationalNumber);
             }
-            AmountWithBreakdown amount = result.PurchaseUnits[0].Amount;
-            Console.WriteLine("Total Amount: {0} {1}", amount.CurrencyCode, amount.Value);
 
             return response;
-        } 
+        }
     }
 }
