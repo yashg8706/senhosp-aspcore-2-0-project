@@ -44,6 +44,39 @@ namespace SensenHosp.Controllers
             //return View(await _context.Contact.ToListAsync());
         }
 
+        public async Task<IActionResult> Admin(int pagenum, string sortOrder)
+        {
+            var _contact = await _context.AlertPosts.ToListAsync();
+            int alertcount = _contact.Count();
+            int perpage = 3;
+            int maxpage = (int)Math.Ceiling((decimal)alertcount / perpage) - 1;
+            if (maxpage < 0) maxpage = 0;
+            if (pagenum < 0) pagenum = 0;
+            if (pagenum > maxpage) pagenum = maxpage;
+            int start = perpage * pagenum;
+            ViewData["pagenum"] = (int)pagenum;
+            ViewData["PaginationSummary"] = "";
+            if (maxpage > 0)
+            {
+                ViewData["PaginationSummary"] =
+                    (pagenum + 1).ToString() + " of " +
+                    (maxpage + 1).ToString();
+            }
+            //ViewData["DateSortParm"] = sortOrder == "Date" ? "DateSent" : "Date";
+            //var messages = from m in _context.Contact select m;
+
+            //switch (sortOrder)
+            //{
+            //    case "date_desc":
+            //        messages = messages.OrderBy(m => m.DateSent);
+            //        break;
+            //}
+            List <Contact> contact = await _context.Contact.Skip(start).Take(perpage).ToListAsync();
+            return View(contact);
+            //return View(await messages.AsNoTracking().ToListAsync());
+            //return View(await _context.Contact.ToListAsync());
+        }
+
         // GET: Contacts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
