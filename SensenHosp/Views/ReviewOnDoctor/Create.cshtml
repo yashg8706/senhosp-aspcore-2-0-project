@@ -1,4 +1,4 @@
-﻿@model SensenHosp.Models.FeedbackOnDoctor
+﻿@model SensenHosp.Models.ReviewOnDoctor
 
 @{
     ViewData["Title"] = "Create";
@@ -6,7 +6,7 @@
 
 <h2>Create</h2>
 
-<h4>FeedbackOnDoctor</h4>
+<h4>ReviewOnDoctor</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -18,9 +18,9 @@
                 <span asp-validation-for="DoctorName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Feedback" class="control-label"></label>
-                <input asp-for="Feedback" class="form-control" />
-                <span asp-validation-for="Feedback" class="text-danger"></span>
+                <label asp-for="Message" class="control-label"></label>
+                <input asp-for="Message" class="form-control" />
+                <span asp-validation-for="Message" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Reply" class="control-label"></label>
@@ -35,7 +35,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="List">Back to List</a>
 </div>
 
 @section Scripts {

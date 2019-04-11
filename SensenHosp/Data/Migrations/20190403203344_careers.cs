@@ -9,11 +9,11 @@ namespace SensenHosp.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "BlogPostsTags");
+            //migrationBuilder.DropTable(
+            //    name: "BlogPostsTags");
 
-            migrationBuilder.DropTable(
-                name: "BlogTags");
+            //migrationBuilder.DropTable(
+            //    name: "BlogTags");
 
             migrationBuilder.CreateTable(
                 name: "Careers",
