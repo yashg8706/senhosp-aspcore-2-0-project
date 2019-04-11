@@ -4,16 +4,16 @@
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
-
-<h4>Contact</h4>
+<h2>Admin Dashboard</h2>
+<h3>Contact Us - Messages</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <div>
-            <a asp-action="Index">Back to List</a> |
-            <a asp-action="Delete">Delete</a>
+            <a asp-action="Index"><i class="fas fa-arrow-left">&nbsp;Back to List</i></a>   |
+            <a asp-action="Delete" asp-route-id="@Model.ID"><i class="fas fa-trash-alt" title="Delete">&nbsp;Delete</i></a>
         </div>
+        <hr />
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
@@ -46,7 +46,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="message" class="control-label"></label>
-                <input asp-for="message" class="form-control" />
+                <textarea asp-for="message" rows="5" cols="45" class="form-control"></textarea>
                 <span asp-validation-for="message" class="text-danger"></span>
             </div>
             @*<div class="form-group">
@@ -56,7 +56,7 @@
                 </div>*@
 
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Submit" class="btn btn-default" />
             </div>
         </form>
     </div>
