@@ -4,13 +4,14 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Contact Us - Messages</h2>
+<h2>Admin Dashboard</h2>
+<h3>Contact Us - Messages</h3>
 
 @*<p>
         <a asp-action="Create">Create New</a>
     </p>*@
-<table class="table">
-    <thead>
+<table class="table table-hover">
+    <thead class="text-light bg-primary">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.FullName)
@@ -24,7 +25,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Subject)
                 </th>*@
-            <th>
+            <th class="contact-message">
                 @Html.DisplayNameFor(model => model.message)
             </th>
             <th>
@@ -36,11 +37,11 @@
             <th>
                 Action
             </th>
-            <th></th>
+
         </tr>
     </thead>
     <tbody>
-        <div class="reccontainer" style="overflow:hidden;">
+        <div class="pagination" style="overflow:hidden;float:right;padding-bottom:10px;">
             <div>
                 @ViewData["PaginationSummary"]
                 @Html.ActionLink("Prev",
@@ -56,23 +57,16 @@
                     )
             </div>
         </div>
+        <br/>
         @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FullName)
+                    <a asp-action="Details" asp-route-id="@item.ID">@Html.DisplayFor(modelItem => item.FullName)</a>
                 </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.email)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.phone)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Subject)
-                    </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.message)
+                <td class="contact-message" style="font-size:14px;">
+                    <a asp-action="Details" asp-route-id="@item.ID">@Html.DisplayFor(modelItem => item.message)</a>
+                    
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DateSent)
@@ -90,9 +84,9 @@
 
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.ID">View Message</a> |
-                    <a asp-action="Edit" asp-route-id="@item.ID">Update</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                    @*<a asp-action="Details" asp-route-id="@item.ID"><i class="fas fa-eye" tile="View Message"></i></a>*@
+                    <a asp-action="Edit" asp-route-id="@item.ID"><i class="fas fa-envelope-open-text" title="Mark as Read"></i></a>&nbsp;&nbsp;
+                    <a asp-action="Delete" asp-route-id="@item.ID"><i class="fas fa-trash-alt" title="Delete"></i></a>
                 </td>
             </tr>
         }

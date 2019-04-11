@@ -1,0 +1,145 @@
+﻿
+@model IEnumerable<SensenHosp.Models.Contact>
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<h2>Admin</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-2">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-inbox-tab" data-toggle="pill" href="#v-pills-inbox" role="tab" aria-controls="v-pills-home" aria-selected="true">Inbox</a>
+                <a class="nav-link" id="v-pills-read-tab" data-toggle="pill" href="#v-pills-read" role="tab" aria-controls="v-pills-profile" aria-selected="false">Read</a>
+            </div>
+        </div>
+        <div class="col-10">
+            <div class="tab-content" id="v-pills-tabContent">
+                <!--ALL MESSAGES IN INBOXTAB-->
+                <div class="tab-pane fade show active" id="v-pills-inbox" role="tabpanel" aria-labelledby="v-pills-inbox-tab">
+                    <table class="table table-hover">
+                        <thead class="text-light bg-primary">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.FullName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.message)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DateSent)
+                                </th>
+                                <th>
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <div class="reccontainer" style="overflow:hidden;">
+                                <div>
+                                    @ViewData["PaginationSummary"]
+                                    @Html.ActionLink("Prev",
+                                        "Admin",
+                                        "Contacts",
+                                        new { pagenum= ((int)ViewData["pagenum"]-1)}
+                                        )
+                                    |
+                                    @Html.ActionLink("Next",
+                                        "Admin",
+                                        "Contacts",
+                                        new { pagenum = ((int)ViewData["pagenum"] + 1) }
+                                        )
+                                </div>
+                            </div>
+                            <br />
+                            @foreach (var items in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => items.FullName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => items.message)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => items.DateSent)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@items.ID"><i class="fas fa-eye" tile="View Message"></i></a>&nbsp;&nbsp;
+                                        <a asp-action="Edit" asp-route-id="@items.ID"><i class="fas fa-envelope-open-text" title="Mark as Read"></i></a>&nbsp;&nbsp;
+                                        <a asp-action="Delete" asp-route-id="@items.ID"><i class="fas fa-trash-alt" title="Delete"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!--READ MESASGE TAB-->
+                <div class="tab-pane fade" id="v-pills-read" role="tabpanel" aria-labelledby="v-pills-read-tab">
+                    <table class="table table-hover">
+                        <thead class="text-light bg-primary">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.FullName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.message)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DateSent)
+                                </th>
+                                <th>
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                             {
+
+                                @if (item.message_status == true)
+                                 {
+                                    <div class="reccontainer" style="overflow:hidden;">
+                                        <div>
+                                            @ViewData["PaginationSummary"]
+                                            @Html.ActionLink("Prev",
+                                                "Admin",
+                                                "Contacts",
+                                                new { pagenum= ((int)ViewData["pagenum"]-1)}
+                                                )
+                                            |
+                                            @Html.ActionLink("Next",
+                                                "Admin",
+                                                "Contacts",
+                                                new { pagenum = ((int)ViewData["pagenum"] + 1) }
+                                                )
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.FullName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.message)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DateSent)
+                                        </td>
+                                        <td>
+                                            <a asp-action="Details" asp-route-id="@item.ID"><i class="fas fa-eye" tile="View Message"></i></a>&nbsp;&nbsp;
+                                            <a asp-action="Edit" asp-route-id="@item.ID"><i class="fas fa-envelope-open-text" title="Mark as Read"></i></a>&nbsp;&nbsp;
+                                            <a asp-action="Delete" asp-route-id="@item.ID"><i class="fas fa-trash-alt" title="Delete"></i></a>
+                                        </td>
+                                    </tr>
+                                 }
+                             }
+                        </tbody>
+                            </table>
+                   
+                </div> <!--END OF READ MESASGE TAB-->
+            </div>
+        </div>
+    </div>
+</div>
+
