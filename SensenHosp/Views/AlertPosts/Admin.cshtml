@@ -1,0 +1,75 @@
+﻿@model IEnumerable<SensenHosp.Models.AlertPosts>
+
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<h2>Admin Dashboard</h2>
+<h3>Alert Posts</h3>
+
+@*<p>
+        <a asp-action="Create">Create New</a>
+    </p>*@
+<table class="table table-hover">
+    <thead class="text-light bg-primary">
+        <tr>
+            <th class="alert-title-table" colspan="2">
+                @Html.DisplayNameFor(model => model.AlertTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AlertStatus)
+            </th>
+            <th>
+                Action
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <div class="pagination" style="overflow:hidden;float:right;padding-bottom:10px;">
+            <div>
+                @ViewData["PaginationSummary"]
+                @Html.ActionLink("Prev",
+                    "Admin",
+                    "AlertPosts",
+                    new { pagenum= ((int)ViewData["pagenum"]-1)}
+                    )
+                |
+                @Html.ActionLink("Next",
+                    "Admin",
+                    "AlertPosts",
+                    new { pagenum = ((int)ViewData["pagenum"] + 1) }
+                    )
+            </div>
+        </div>
+        <br />
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="alert-title-table" colspan="2">
+                    <a asp-action="Details" asp-route-id="@item.ID" style="font-size:14px;">@Html.DisplayFor(modelItem => item.AlertTitle)</a>
+                </td>
+                <td>
+
+                    @if (item.AlertStatus == "Active")
+                    {
+                        <span class="alert-status-active">
+                            @Html.DisplayFor(modelItem => item.AlertStatus)
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="alert-status-inactive">
+                            @Html.DisplayFor(modelItem => item.AlertStatus)
+                        </span>
+                    }
+                </td>
+                <td>
+                    @*<a asp-action="Details" asp-route-id="@item.ID"><i class="fas fa-eye" tile="View Message"></i></a>*@
+                    <a asp-action="Edit" asp-route-id="@item.ID"><i class="fas fa-envelope-open-text" title="Mark as Read"></i></a>&nbsp;&nbsp;
+                    <a asp-action="Delete" asp-route-id="@item.ID"><i class="fas fa-trash-alt" title="Delete"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

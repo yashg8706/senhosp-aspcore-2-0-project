@@ -20,7 +20,12 @@ namespace SensenHosp.Controllers
         }
 
         // GET: AlertPosts
-        public async Task<IActionResult> Index(int pagenum)
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.AlertPosts.ToListAsync());
+        }
+
+        public async Task<IActionResult> Admin(int pagenum)
         {
 
             var _alertPost = await _context.AlertPosts.ToListAsync();
@@ -47,6 +52,23 @@ namespace SensenHosp.Controllers
         }
         // GET: AlertPosts/Details/5
         public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var alertPosts = await _context.AlertPosts
+                .SingleOrDefaultAsync(m => m.ID == id);
+            if (alertPosts == null)
+            {
+                return NotFound();
+            }
+
+            return View(alertPosts);
+        }
+        //THIS WILL BE FOR THE PUBLIC PAGE WHEN A USER CLICK READ MORE IT WILL REDIRECT TO A PAGE WITH THE FULL CONTEXT OF THE ALERT POST
+        public async Task<IActionResult> ReadMore(int? id)
         {
             if (id == null)
             {

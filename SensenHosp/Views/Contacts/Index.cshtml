@@ -25,7 +25,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Subject)
                 </th>*@
-            <th>
+            <th class="contact-message">
                 @Html.DisplayNameFor(model => model.message)
             </th>
             <th>
@@ -41,7 +41,7 @@
         </tr>
     </thead>
     <tbody>
-        <div class="mr-auto" style="overflow:hidden;float:right;padding-bottom:10px;">
+        <div class="pagination" style="overflow:hidden;float:right;padding-bottom:10px;">
             <div>
                 @ViewData["PaginationSummary"]
                 @Html.ActionLink("Prev",
