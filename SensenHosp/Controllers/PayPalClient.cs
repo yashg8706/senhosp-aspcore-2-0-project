@@ -5,6 +5,7 @@ using BraintreeHttp;
 using System.IO;
 using System.Text;
 using System.Runtime.Serialization.Json;
+using System.Diagnostics;
 
 namespace SensenHosp.Controllers
 {
@@ -28,6 +29,7 @@ namespace SensenHosp.Controllers
          */
         public static HttpClient client()
         {
+            Debug.WriteLine("inside client method");
             return new PayPalHttpClient(environment());
         }
 

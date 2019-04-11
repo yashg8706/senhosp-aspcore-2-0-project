@@ -21,8 +21,8 @@ namespace SensenHosp.Controllers
         public DonationsController(ApplicationDbContext context)
         {
             _context = context;
-            CreateOrder(true).Wait();
-            GetOrder("7BY92840W79868215", true).Wait();
+            //CreateOrder(true).Wait();
+            //GetOrder("7BY92840W79868215", true).Wait();
         }
 
         // GET: Donations
@@ -162,25 +162,30 @@ namespace SensenHosp.Controllers
         // Paypal donation functionality
         // POST: Donations/CreateOrder
         [HttpPost, ActionName("CreateOrder")]
-        //[Route("Donations/CreateOrder")]
-        public async static Task<HttpResponse> CreateOrder(bool debug = false)
+        public async Task<object> CreateOrder(bool debug = true)
         {
             var request = new OrdersCreateRequest();
-            request.Prefer("return=representation");
+            request.Headers.Add("prefer", "return=representation");
             request.RequestBody(BuildRequestBody());
 
             var response = await PayPalClient.client().Execute(request);
-            Debug.WriteLine("here in createorder");
+            var result = response.Result<Order>();
+            response.Headers.Add("id", result.Id);
             if (debug)
             {
-                var result = response.Result<Order>();
-                Console.WriteLine("Status: {0}", result.Status);
+                Debug.WriteLine("Status: {0}", result.Status);
+                Debug.WriteLine("Order Id: {0}", result.Id);
+                Debug.WriteLine("Intent: {0}", result.Intent);
+                Debug.WriteLine("Links:");
+                foreach (LinkDescription link in result.Links)
+                {
+                    Debug.WriteLine("\t{0}: {1}\tCall Type: {2}", link.Rel, link.Href, link.Method);
+                }
             }
-
             return response;
         }
 
-        private static OrderRequest BuildRequestBody()
+        private OrderRequest BuildRequestBody()
         {
             OrderRequest orderRequest = new OrderRequest()
             {
@@ -208,12 +213,13 @@ namespace SensenHosp.Controllers
                     }
                 }
             };
+            Debug.WriteLine(orderRequest.PurchaseUnits);
             return orderRequest;
         }
 
         [HttpPost]
         //[Route("Donations/GetOrder")]
-        public async static Task<HttpResponse> GetOrder(string orderId, bool debug = false)
+        public async Task<HttpResponse> GetOrder(string orderId, bool debug = false)
         {
             OrdersGetRequest request = new OrdersGetRequest(orderId);
             //3. Call PayPal to get the transaction

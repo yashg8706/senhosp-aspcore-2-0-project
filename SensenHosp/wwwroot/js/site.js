@@ -25,33 +25,30 @@ window.onload = function () {
                 }
             });
         }, */
-        createOrder: function (data, actions) {
-            return fetch('https://localhost:44335/Donations/CreateOrder', {
+        createOrder: function () {
+            return fetch('/Donations/CreateOrder', {
                 method: 'post',
                 headers: {
                     'content-type': 'application/json'
-                },
-                body: JSON.stringify(data)
+                }
             }).then(function (res) {
                 return res.json();
-            }).then(function (data) {
-                return data.orderID;
+                }).then(function (data) {
+                    return(data.headers[7].value[0]);
             });
         },
-        /*onApprove: function (data, actions) {
-            return actions.order.capture().then(function (details) {
-                console.log('Transaction completed by ' + details.payer.name.given_name);
-                console.log('transaction id: ' + details.id);
-                return fetch('/donations/paypal-transaction-complete', {
-                    method: 'post',
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        orderID: data.orderID
-                    })
-                });
+        onApprove: function (data) {
+            return fetch('/Donations/GetOrder', {
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    orderID: data
+                })
+            }).then(function (res) {
+                return res.json();
+            }).then(function (details) {
+                alert('Transaction funds captured from ' + details.payer_given_name);
             });
-        }*/
     }).render('#paypal-button-container');
 }
