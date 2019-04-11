@@ -72,6 +72,12 @@ namespace SensenHosp.Controllers
             return View(donation);
         }
 
+        // GET: Donations/Donate
+        public IActionResult Donate()
+        {
+            return View();
+        }
+
         // GET: Donations/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -254,6 +260,20 @@ namespace SensenHosp.Controllers
                 Debug.WriteLine("Buyer:");
                 Debug.WriteLine("\tEmail Address: {0}\n\tName: {1}\n\tPhone Number: {2}{3}", result.Payer.EmailAddress, result.Payer.Name.GivenName + " " + result.Payer.Name.Surname, result.Payer.Phone.CountryCode, result.Payer.Phone.NationalNumber);
             }
+
+            Donation donation = new Donation();
+
+            donation.DonorName = (string)(result.Payer.Name.GivenName + " " + result.Payer.Name.Surname);
+            donation.DonorEmail = result.Payer.EmailAddress;
+            donation.Amount = result.PurchaseUnits[0].Amount.Value;
+            donation.PayPalOrderId = result.Id;
+
+            if (ModelState.IsValid)
+            {
+                _context.Add(donation);
+                await _context.SaveChangesAsync();
+            }
+
 
             return response;
         }

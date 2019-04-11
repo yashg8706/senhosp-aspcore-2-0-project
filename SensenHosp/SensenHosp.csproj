@@ -14,7 +14,6 @@
     <Compile Remove="Data\Migrations\20190403224342_roledata.Designer.cs" />
     <Compile Remove="Data\Migrations\20190403224535_adminrole.cs" />
     <Compile Remove="Data\Migrations\20190403224535_adminrole.Designer.cs" />
-    <Compile Remove="Data\Migrations\ApplicationDbContextModelSnapshot.cs" />
   </ItemGroup>
 
 

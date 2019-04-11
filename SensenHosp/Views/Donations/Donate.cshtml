@@ -4,43 +4,26 @@
     ViewData["Title"] = "Create";
 }
 
-<h2 id="page_title">Donate</h2>
+<h2 id="page_title" class="text-center">Donate</h2>
 
 <hr />
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-4">
         <form asp-action="CreateOrder" method="post" id="donation_form">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @*<div class="form-group">
-                <label asp-for="DonorName" class="control-label"></label>
-                <input asp-for="DonorName" class="form-control" />
-                <span asp-validation-for="DonorName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DonorEmail" class="control-label"></label>
-                <input asp-for="DonorEmail" class="form-control" />
-                <span asp-validation-for="DonorEmail" class="text-danger"></span>
-            </div>*@
             <div class="form-group">
                 <label asp-for="Amount" class="control-label"></label>
                 <input asp-for="Amount" class="form-control" id="donationAmount" placeholder="$10"/>
-                <small>Default amount is $10, type a different value if you want to donate other than $10</small>
+                <small>Type a different value if you want to donate other than default $10</small>
                 <span asp-validation-for="Amount" class="text-danger"></span>
             </div>
             <div id="paypal-button-container"></div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
         </form>
         <div id="donation_success" class="hidden">
             <p>Thank you <span id="donorName"></span> for your generous donation.</p>
             <p>All hospital staff, patients and their family are grateful to you.</p>
         </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
