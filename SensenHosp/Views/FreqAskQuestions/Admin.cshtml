@@ -1,0 +1,65 @@
+﻿
+@model IEnumerable<SensenHosp.Models.FreqAskQuestion>
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<h2 class="heading heading-h2">Admin Dashboard</h2>
+<h3 class="heading">Alert Posts</h3>
+
+<a asp-action="Create" class="submit">Create New</a>
+<br />
+<table class="table table-hover">
+    <thead class="text-light bg-primary">
+        <tr>
+            <th class="alert-title-table" colspan="2">
+                @Html.DisplayNameFor(model => model.Question)
+            </th>
+            <th class="alert-title-table" colspan="2">
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </th>
+            <th>
+                Action
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <div class="pagination" style="overflow:hidden;float:right;padding-bottom:10px;">
+            <div>
+                @ViewData["PaginationSummary"]
+                @Html.ActionLink("Prev",
+                    "Admin",
+                    "FreqAskQuestions",
+                    new { pagenum= ((int)ViewData["pagenum"]-1)}
+                    )
+                |
+                @Html.ActionLink("Next",
+                    "Admin",
+                    "FreqAskQuestions",
+                    new { pagenum = ((int)ViewData["pagenum"] + 1) }
+                    )
+            </div>
+        </div>
+        <br />
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td class="alert-title-table" colspan="2">
+                <a asp-action="Details" asp-route-id="@item.ID" style="font-size:14px;">@Html.DisplayFor(modelItem => item.Question)</a>
+            </td>
+            <td class="alert-title-table" colspan="2">
+               @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            <td>
+                @*<a asp-action="Details" asp-route-id="@item.ID"><i class="fas fa-eye" tile="View Message"></i></a>*@
+                <a asp-action="Edit" asp-route-id="@item.ID"><i class="fas fa-envelope-open-text" title="Mark as Read"></i></a>&nbsp;&nbsp;
+                <a asp-action="Delete" asp-route-id="@item.ID"><i class="fas fa-trash-alt" title="Delete"></i></a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+
