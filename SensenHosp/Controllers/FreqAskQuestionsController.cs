@@ -46,6 +46,29 @@ namespace SensenHosp.Controllers
             return View(freqAskQuestion);
             //return View(await _context.FreqAskQuestion.ToListAsync());
         }
+        public async Task<IActionResult> Admin(int pagenum)
+        {
+            var _faq = await _context.AlertPosts.ToListAsync();
+            int alertcount = _faq.Count();
+            int perpage = 3;
+            int maxpage = (int)Math.Ceiling((decimal)alertcount / perpage) - 1;
+            if (maxpage < 0) maxpage = 0;
+            if (pagenum < 0) pagenum = 0;
+            if (pagenum > maxpage) pagenum = maxpage;
+            int start = perpage * pagenum;
+            ViewData["pagenum"] = (int)pagenum;
+            ViewData["PaginationSummary"] = "";
+            if (maxpage > 0)
+            {
+                ViewData["PaginationSummary"] =
+                    (pagenum + 1).ToString() + " of " +
+                    (maxpage + 1).ToString();
+            }
+
+            List<FreqAskQuestion> freqAskQuestion = await _context.FreqAskQuestion.Skip(start).Take(perpage).ToListAsync();
+            return View(freqAskQuestion);
+            //return View(await _context.FreqAskQuestion.ToListAsync());
+        }
 
         // GET: FreqAskQuestions/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -83,7 +106,7 @@ namespace SensenHosp.Controllers
                 freqAskQuestion.DateCreated = DateTime.Now;
                 _context.Add(freqAskQuestion);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Admin));
             }
             return View(freqAskQuestion);
         }
@@ -135,7 +158,7 @@ namespace SensenHosp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Admin));
             }
             return View(freqAskQuestion);
         }
