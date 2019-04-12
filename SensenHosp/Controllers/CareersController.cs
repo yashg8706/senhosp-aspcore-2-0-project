@@ -22,13 +22,54 @@ namespace SensenHosp.Controllers
 
         public ActionResult Index()
         {
+            return RedirectToAction("List");
+        }
 
-            return View(_context.Careers.ToList());
+        public async Task<ActionResult> List(int pagenum)
+        {
+            ViewData["UserRole"] = "Admin";
+            /*Careers PAGINATION ALGORITHM*/
+            var _careers = await _context.Careers.ToListAsync();
+            int careercount = _careers.Count();
+            int perpage = 3;
+            int maxpage = (int)Math.Ceiling((decimal)careercount / perpage) - 1;
+            if (maxpage < 0) maxpage = 0;
+            if (pagenum < 0) pagenum = 0;
+            if (pagenum > maxpage) pagenum = maxpage;
+            int start = perpage * pagenum;
+            ViewData["pagenum"] = (int)pagenum;
+            ViewData["PaginationSummary"] = "";
+            if (maxpage > 0)
+            {
+                ViewData["PaginationSummary"] =
+                    (pagenum + 1).ToString() + " of " +
+                    (maxpage + 1).ToString();
+            }
+            //DATA NEEDED: All Blogs in DB
+            //However, we also have to include the info for the author on each blog
+            //[List<Blog> blogs]=> variable named blogs which is a list of Blog
+            //[.Include(b=>b.Author)]=> Get the blog's associated author
+            //[.ToListAsync()]=>Return a list of information asynchronously
+
+            //[.Skip(int)]=>ignore these many records
+            //[.Take(int)]=>fetch only this many more
+            List<Career> careers = await _context.Careers.Skip(start).Take(perpage).ToListAsync();
+            /*END OF BLLOG PAGINATION ALGORITHM*/
+            return View(careers);
+
+
+
         }
 
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+            Career located_career = await _context.Careers.Include(a => a.Applicants).SingleOrDefaultAsync(a => a.id == id);
+            if (located_career == null)
+            {
+                return NotFound();
+            }
+            return View(located_career);
+            /*if (id == null)
             {
                 return NotFound();
             }
@@ -40,7 +81,7 @@ namespace SensenHosp.Controllers
                 return NotFound();
             }
 
-            return View(career);
+            return View(career);*/
         }
 
         public IActionResult Create()

@@ -30,7 +30,8 @@ namespace SensenHosp.Models
         [Display(Name = "Type")]
         public string type { get; set; }
 
-
+        //[InverseProperty("Career")]
+        public List<Applicant> applicants{ get; set; }
 
 
 
