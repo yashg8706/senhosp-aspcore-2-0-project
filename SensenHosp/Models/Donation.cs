@@ -13,6 +13,8 @@ namespace SensenHosp.Models
 
         public string DonorEmail { get; set; }
 
-        public decimal Amount { get; set; }
+        public string Amount { get; set; }
+
+        public string PayPalOrderId { get; set; }
     }
 }

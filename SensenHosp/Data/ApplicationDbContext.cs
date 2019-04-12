@@ -51,6 +51,10 @@ namespace SensenHosp.Data
         // Donation feature
         public DbSet<Donation> Donations { get; set; }
 
+        //User Role
+
+        public DbSet<UserRole> UserRole { get; set; }
+
         // Event feature
         public DbSet<Event> Events { get; set; }
 
@@ -61,11 +65,11 @@ namespace SensenHosp.Data
         public DbSet<Career> Careers { get; set; }
         public DbSet<Applicant> Applicants { get; set; }
 
-        //Patient accounts payment feature
+        //Parient accounts payment feature
         public DbSet<Payment> payments { get; set; }
 
-        //Career and Applicants ViewModel
-        public DbSet<CareerDetails> careerDetails { get; set; }
+        //Parient accounts payment feature
+        public DbSet<FeedbackOnDoctor> FeedbackOnDoctor { get; set; }
    
         // End of code addition
     }

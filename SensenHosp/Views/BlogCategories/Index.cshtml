@@ -9,6 +9,36 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<div>
+    @ViewData["PageSummary"]
+    @if ((int)ViewData["pagenum"] < 1)
+    {
+        <span>Prev</span>
+    }
+    else
+    {
+        @Html.ActionLink("Prev",
+                    "Index",
+                    "BlogCategories",
+                    new { pagenum = ((int)ViewData["pagenum"] - 1) }
+                    )
+    }
+    |
+    @if ((int)ViewData["pagenum"] == (int)ViewData["maxpage"])
+    {
+        <span>Next</span>
+    }
+    else
+    {
+        @Html.ActionLink("Next",
+                 "Index",
+                 "BlogCategories",
+                 new { pagenum = ((int)ViewData["pagenum"] + 1) }
+                 )
+    }
+</div>
+
 <table class="table">
     <thead>
         <tr>

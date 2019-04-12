@@ -5,6 +5,7 @@ using BraintreeHttp;
 using System.IO;
 using System.Text;
 using System.Runtime.Serialization.Json;
+using System.Diagnostics;
 
 namespace SensenHosp.Controllers
 {
@@ -18,9 +19,9 @@ namespace SensenHosp.Controllers
         {
             return new SandboxEnvironment(
                  System.Environment.GetEnvironmentVariable("PAYPAL_CLIENT_ID") != null ?
-                 System.Environment.GetEnvironmentVariable("PAYPAL_CLIENT_ID") : "ATq1d8iLQVAx570MKudaGL3m1tDO9idY_-lC-beNPKzDOTNIDq5waciioAKgkXTqm9WgWJi3zh7z81Tz",
+                 System.Environment.GetEnvironmentVariable("PAYPAL_CLIENT_ID") : "AR2Q-v5-qj7JyB2PyJnNivCfzBbKy7TfCux9vvpLN3NMT8gnuCnOWX4uhbhsGIp1jVPW81jdF8A2BuiP",
                 System.Environment.GetEnvironmentVariable("PAYPAL_CLIENT_SECRET") != null ?
-                 System.Environment.GetEnvironmentVariable("PAYPAL_CLIENT_SECRET") : "EBxbuVZof9Ty-vc7vCqurjgsrnv8wDWDg2GQYWQyWWxrH5SIEqj42Oz4ukoD6OZLoUNM6Th76e83J9ad");
+                 System.Environment.GetEnvironmentVariable("PAYPAL_CLIENT_SECRET") : "ELAVJlHWRH8kpTs5AjQEAe8-RRMva0tjSYVuhvqposWB_U-sPi-W_lwMe0y1jQqzYchAlekat4p4rv82");
         }
 
         /**

@@ -1,18 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using SensenHosp.Data;
 using SensenHosp.Models;
+using SensenHosp.Models.ViewModels;
 
 namespace SensenHosp.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
+        public HomeController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var posts = _context.BlogPosts
+                .Include(a => a.BlogCategory)
+                .Skip(0)
+                .Take(3)
+                .ToList();
+
+            ViewData["testimonial"] = new SelectList(_context.Testimonials, "ID", "Description", "Username", "IsPublished");
+
+            return View(posts);
         }
 
         public IActionResult About()

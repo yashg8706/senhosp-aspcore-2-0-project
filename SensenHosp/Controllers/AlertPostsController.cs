@@ -25,8 +25,50 @@ namespace SensenHosp.Controllers
             return View(await _context.AlertPosts.ToListAsync());
         }
 
+        public async Task<IActionResult> Admin(int pagenum)
+        {
+
+            var _alertPost = await _context.AlertPosts.ToListAsync();
+            int alertcount = _alertPost.Count();
+            int perpage = 3;
+            int maxpage = (int)Math.Ceiling((decimal)alertcount / perpage) - 1;
+            if (maxpage < 0) maxpage = 0;
+            if (pagenum < 0) pagenum = 0;
+            if (pagenum > maxpage) pagenum = maxpage;
+            int start = perpage * pagenum;
+            ViewData["pagenum"] = (int)pagenum;
+            ViewData["PaginationSummary"] = "";
+            if (maxpage > 0)
+            {
+                ViewData["PaginationSummary"] =
+                    (pagenum + 1).ToString() + " of " +
+                    (maxpage + 1).ToString();
+            }
+
+            List<AlertPosts> alertPosts = await _context.AlertPosts.Skip(start).Take(perpage).ToListAsync();
+            return View(alertPosts);
+
+            //return View(await _context.AlertPosts.ToListAsync());
+        }
         // GET: AlertPosts/Details/5
         public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var alertPosts = await _context.AlertPosts
+                .SingleOrDefaultAsync(m => m.ID == id);
+            if (alertPosts == null)
+            {
+                return NotFound();
+            }
+
+            return View(alertPosts);
+        }
+        //THIS WILL BE FOR THE PUBLIC PAGE WHEN A USER CLICK READ MORE IT WILL REDIRECT TO A PAGE WITH THE FULL CONTEXT OF THE ALERT POST
+        public async Task<IActionResult> ReadMore(int? id)
         {
             if (id == null)
             {
@@ -58,6 +100,7 @@ namespace SensenHosp.Controllers
         {
             if (ModelState.IsValid)
             {
+                alertPosts.DateCreated = DateTime.Now;
                 _context.Add(alertPosts);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -97,6 +140,7 @@ namespace SensenHosp.Controllers
             {
                 try
                 {
+                    alertPosts.DateCreated = DateTime.Now;
                     _context.Update(alertPosts);
                     await _context.SaveChangesAsync();
                 }
@@ -111,7 +155,7 @@ namespace SensenHosp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Admin));
             }
             return View(alertPosts);
         }

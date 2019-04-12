@@ -4,51 +4,32 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h2>Admin Dashboard</h2>
+<h3>Contact Us - Messages</h3>
 
 <div>
-    <h4>Contact</h4>
-    <hr />
+
     <div>
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index"><i class="fas fa-arrow-left">&nbsp;Back to List</i></a>  |
+        <a asp-action="Edit" asp-route-id="@Model.ID"><i class="fas fa-envelope-open-text" title="Mark as Read">&nbsp;Mark as Read</i></a>
     </div>
+    <hr />
+    <h4>Subject:&nbsp;@Html.DisplayFor(model => model.Subject)</h4>
+    <div class="row">
+        <div class="col-12 col-md-8">
+            <dt>
+                <span class="contact-name"> @Html.DisplayFor(model => model.FullName)</span>
+                <span class="contact-email">< @Html.DisplayFor(model => model.email) ></span>
+            </dt>
+        </div>
+        <div class="col-6 col-md-4 contact-right">
+            <span class="contact-email mr-auto">@Html.DisplayFor(model => model.DateSent)&nbsp;</span>
+            <a asp-action="Edit" asp-route-id="@Model.ID"><i class="fas fa-envelope-open-text" title="Mark as Read"></i></a>&nbsp;&nbsp;
+            <a asp-action="Delete" asp-route-id="@Model.ID"><i class="fas fa-trash-alt" title="Delete"></i></a>
+        </div>
+    </div>
+    <hr>
     <dl class="dl-horizontal">
-        <dt>
-            Mark as Read
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.message_status)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.FullName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FullName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DateSent)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DateSent)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.email)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.email)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.phone)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.phone)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Subject)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Subject)
-        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.message)
         </dt>
@@ -58,6 +39,6 @@
 
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Update</a>
-</div>
+@*<div>
+        <a asp-action="Edit" asp-route-id="@Model.ID">Mark as Read</a>
+    </div>*@

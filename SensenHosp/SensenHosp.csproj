@@ -5,11 +5,23 @@
     <UserSecretsId>aspnet-SensenHosp-59B46704-89DC-44AF-981B-32EC63EA96A1</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20190401170355_roles.cs" />
+    <Compile Remove="Data\Migrations\20190401170355_roles.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190403223838_data.cs" />
+    <Compile Remove="Data\Migrations\20190403223838_data.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190403224342_roledata.cs" />
+    <Compile Remove="Data\Migrations\20190403224342_roledata.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190403224535_adminrole.cs" />
+    <Compile Remove="Data\Migrations\20190403224535_adminrole.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.2.0" />
     <PackageReference Include="jQuery.UI.Widgets.Datepicker" Version="1.8.9" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.3" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.3" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.4" PrivateAssets="All" />
     <PackageReference Include="PayPal" Version="1.9.1" />
     <PackageReference Include="PayPalCheckoutSdk" Version="1.0.0" />
