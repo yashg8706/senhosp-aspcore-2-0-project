@@ -7,10 +7,10 @@ body {
 .center-div{
     margin:0 auto;
 }
-h2, h3, h4{
-    text-align:center;
+.heading{
+    text-align: center;
 }
-h2 {
+.heading-h2 {
     padding-top: 20px;
 }
 .contact-message{
@@ -63,8 +63,19 @@ input[type="checkbox"]:checked {
 /********************************CONTACT US FEATURE CSS***********************************/
 
 /********************************FAQS CSS************************************************/
-/********************************FAQS CSS************************************************/
+.faq-arrow-down{
+    float:right;
+}
+.faq-btn {
+    background: #1531AB;
+    color: #fff;
+}
+.faq-btn:hover {
+    background: #000c7b;
+    color: #fff;
+}
 
+/********************************FAQS CSS************************************************/
 
 /********************************ALERT POSTS CSS*****************************************/
 .alert-container {
