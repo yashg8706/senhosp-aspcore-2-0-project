@@ -12,6 +12,7 @@ namespace SensenHosp.Models.ViewModels
 
         }
 
+        public IEnumerable<AlertPosts> AlertPosts { get; set; }
         public IEnumerable<BlogPost> BlogPosts { get; set; }
         public IEnumerable<Testimonial> Testimonials { get; set; }
     }
