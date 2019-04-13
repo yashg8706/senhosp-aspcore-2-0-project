@@ -30,7 +30,6 @@ namespace SensenHosp.Controllers
         }
         //POST: Appointments/Create
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public ActionResult Create(string FirstName, string MiddleName, string LastName, string EmailId, string MobileNo, string Description, string DoctorName, DateTime AppointmentDate)
         {
             string query = "insert into appointments (FirstName,MiddleName, LastName, EmailId, MobileNo, Description, DoctorName, AppointmentDate , IsConfirmed, CreatedOn)" +
@@ -48,13 +47,68 @@ namespace SensenHosp.Controllers
             myparams[7] = new SqlParameter("@appointmentdate", AppointmentDate);
 
             _context.Database.ExecuteSqlCommand(query, myparams);
-            return RedirectToAction("Create");
+            return RedirectToAction("List");
         }
 
-        public IActionResult List()
+        public async Task<IActionResult> List(int pagenum)
         {
-            return View(_context.Appointments.ToList());
+            var _appointment = await _context.Appointments.ToListAsync();
+            int count = _appointment.Count();
+            int perpage = 3;
+            int maxpage = (int)Math.Ceiling((decimal)count / perpage) - 1;
+            if (maxpage < 0) maxpage = 0;
+            if (pagenum < 0) pagenum = 0;
+            if (pagenum > maxpage) pagenum = maxpage;
+            int start = perpage * pagenum;
+            ViewData["pagenum"] = (int)pagenum;
+            ViewData["PaginationSummary"] = "";
+            if (maxpage > 0)
+            {
+                ViewData["PaginationSummary"] =
+                    (pagenum + 1).ToString() + " of " +
+                    (maxpage + 1).ToString();
+            }
+            List<Appointment> appointment = await _context.Appointments.Skip(start).Take(perpage).ToListAsync();
+            return View(appointment);
 
+        }
+
+        //GET: Appointment/AcceptReject/1
+        public async Task<IActionResult> AcceptReject()
+        {
+            string query = "select * from appointments where IsConfirmed = 0";
+            IEnumerable<Appointment> appointments = _context.Appointments.FromSql(query);
+            return View(appointments);
+        }
+
+        //POST:
+        public async Task<IActionResult> Accept(int id)
+        {
+            if (id == null || (_context.Appointments.Find(id) == null))
+            {
+                return NotFound();
+            }
+            string query = "update appointments set IsConfirmed = 1 where ID = @id";
+            SqlParameter[] myparams = new SqlParameter[1];
+
+            myparams[0] = new SqlParameter("@id", id);
+            _context.Database.ExecuteSqlCommand(query, myparams);
+            return RedirectToAction("Edit/" + id);
+        }
+
+        //POST:
+        public async Task<IActionResult> Reject(int id)
+        {
+            if (id == null || (_context.Appointments.Find(id) == null))
+            {
+                return NotFound();
+            }
+            string query = "update appointments set IsConfirmed = 2 where ID = @id";
+            SqlParameter[] myparams = new SqlParameter[1];
+
+            myparams[0] = new SqlParameter("@id", id);
+            _context.Database.ExecuteSqlCommand(query, myparams);
+            return RedirectToAction("AcceptReject");
         }
 
         //GET: Appointment/Edit/5
