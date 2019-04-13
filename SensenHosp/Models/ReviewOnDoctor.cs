@@ -17,7 +17,7 @@ namespace SensenHosp.Models
         [Required,StringLength(1000),Display(Name ="Message")]
         public string Message { get; set; }
 
-        [Required,StringLength(1000),Display(Name = "Reply")]
+        [StringLength(1000),Display(Name = "Reply")]
         public string Reply { get; set; }
 
     }
