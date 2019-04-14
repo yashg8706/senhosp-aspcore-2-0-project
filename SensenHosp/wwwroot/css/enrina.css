@@ -78,7 +78,11 @@ input[type="checkbox"]:checked {
 /********************************FAQS CSS************************************************/
 
 /********************************ALERT POSTS CSS*****************************************/
+#alert{
+    display:none;
+}
 .alert-container {
+    display:none;
     text-align: center;
     /*background: #ffffdc;*/
     padding: 10px;

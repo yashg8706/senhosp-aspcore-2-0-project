@@ -93,6 +93,8 @@
         <a href="/Contacts/Create">Contact Us</a>
     </div>
 
+    <!--TO USE THE VIEWCOMPONENT ITS NEEDS TO BE InvokeAsync METHOD-->
+    @await Component.InvokeAsync("AlertPostsViewComponent");
     <div class="container body-content">
         @RenderBody()
 

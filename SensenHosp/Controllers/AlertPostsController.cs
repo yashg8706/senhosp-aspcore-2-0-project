@@ -186,7 +186,7 @@ namespace SensenHosp.Controllers
             var alertPosts = await _context.AlertPosts.SingleOrDefaultAsync(m => m.ID == id);
             _context.AlertPosts.Remove(alertPosts);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Admin));
         }
 
         private bool AlertPostsExists(int id)
