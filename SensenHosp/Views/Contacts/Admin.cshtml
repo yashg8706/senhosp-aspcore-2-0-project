@@ -1,145 +1,194 @@
-﻿
-@model IEnumerable<SensenHosp.Models.Contact>
+﻿@model IEnumerable<SensenHosp.Models.Contact>
+
 @{
-    ViewData["Title"] = "Admin";
+    ViewData["Title"] = "Index";
 }
 
-<h2 class="heading heading-h2">Admin</h2>
-<div class="container">
-    <div class="row">
-        <div class="col-2">
-            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link active" id="v-pills-inbox-tab" data-toggle="pill" href="#v-pills-inbox" role="tab" aria-controls="v-pills-home" aria-selected="true">Inbox</a>
-                <a class="nav-link" id="v-pills-read-tab" data-toggle="pill" href="#v-pills-read" role="tab" aria-controls="v-pills-profile" aria-selected="false">Read</a>
-            </div>
-        </div>
-        <div class="col-10">
-            <div class="tab-content" id="v-pills-tabContent">
-                <!--ALL MESSAGES IN INBOXTAB-->
-                <div class="tab-pane fade show active" id="v-pills-inbox" role="tabpanel" aria-labelledby="v-pills-inbox-tab">
-                    <table class="table table-hover">
-                        <thead class="text-light bg-primary">
-                            <tr>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.FullName)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.message)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.DateSent)
-                                </th>
-                                <th>
-                                    Action
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <div class="reccontainer" style="overflow:hidden;">
-                                <div>
-                                    @ViewData["PaginationSummary"]
-                                    @Html.ActionLink("Prev",
-                                        "Admin",
-                                        "Contacts",
-                                        new { pagenum= ((int)ViewData["pagenum"]-1)}
-                                        )
-                                    |
-                                    @Html.ActionLink("Next",
-                                        "Admin",
-                                        "Contacts",
-                                        new { pagenum = ((int)ViewData["pagenum"] + 1) }
-                                        )
-                                </div>
-                            </div>
-                            <br />
-                            @foreach (var items in Model)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => items.FullName)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => items.message)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => items.DateSent)
-                                    </td>
-                                    <td>
-                                        <a asp-action="Details" asp-route-id="@items.ID"><i class="fas fa-eye" tile="View Message"></i></a>&nbsp;&nbsp;
-                                        <a asp-action="Edit" asp-route-id="@items.ID"><i class="fas fa-envelope-open-text" title="Mark as Read"></i></a>&nbsp;&nbsp;
-                                        <a asp-action="Delete" asp-route-id="@items.ID"><i class="fas fa-trash-alt" title="Delete"></i></a>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-                <!--READ MESASGE TAB-->
-                <div class="tab-pane fade" id="v-pills-read" role="tabpanel" aria-labelledby="v-pills-read-tab">
-                    <table class="table table-hover">
-                        <thead class="text-light bg-primary">
-                            <tr>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.FullName)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.message)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.DateSent)
-                                </th>
-                                <th>
-                                    Action
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                             {
+<h2 class="heading heading-h2">Admin Dashboard</h2>
+<h3 class="heading">Contact Us - Messages</h3>
 
+<div class="pagination ml-auto">
+    <div>
+        @ViewData["pagesummary"]
+        @Html.ActionLink("Prev",
+            "Admin",
+            "Contacts",
+            new { pagenum= ((int)ViewData["pagenum"]-1) }
+            )
+        |
+        @Html.ActionLink("Next",
+            "Admin",
+            "Contacts",
+            new { pagenum = ((int)ViewData["pagenum"] + 1) }
+            )
+    </div>
+</div>
+<br />
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" id="nav-inbox-tab" data-toggle="tab" href="#nav-inbox" role="tab" aria-controls="nav-inbox" aria-selected="true">Inbox</a>
+        <a class="nav-item nav-link" id="nav-read-message-tab" data-toggle="tab" href="#nav-read-message" role="tab" aria-controls="nav-read-message" aria-selected="false">Read Messages</a>
+    </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-inbox" role="tabpanel" aria-labelledby="nav-inbox-tab">
+        <div class="table-responsive-sm">
+            <table class="table table-hover">
+                <thead class="text-light bg-primary">
+                    <tr>
+                        <th>
+                            <input type="checkbox" />
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FullName)
+                        </th>
+                        <th class="contact-message">
+                            @Html.DisplayNameFor(model => model.message)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DateSent)
+                        </th>
+                        <th>
+                            Message Status
+                        </th>
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="contact-status" id="contact-status">
+                            <td>
+                                <input type="checkbox" />
+                            </td>
+                            <td>
                                 @if (item.message_status == true)
-                                 {
-                                    <div class="reccontainer" style="overflow:hidden;">
-                                        <div>
-                                            @ViewData["PaginationSummary"]
-                                            @Html.ActionLink("Prev",
-                                                "Admin",
-                                                "Contacts",
-                                                new { pagenum= ((int)ViewData["pagenum"]-1)}
-                                                )
-                                            |
-                                            @Html.ActionLink("Next",
-                                                "Admin",
-                                                "Contacts",
-                                                new { pagenum = ((int)ViewData["pagenum"] + 1) }
-                                                )
-                                        </div>
-                                    </div>
-                                    <br />
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.FullName)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.message)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.DateSent)
-                                        </td>
-                                        <td>
-                                            <a asp-action="Details" asp-route-id="@item.ID"><i class="fas fa-eye" tile="View Message"></i></a>&nbsp;&nbsp;
-                                            <a asp-action="Edit" asp-route-id="@item.ID"><i class="fas fa-envelope-open-text" title="Mark as Read"></i></a>&nbsp;&nbsp;
-                                            <a asp-action="Delete" asp-route-id="@item.ID"><i class="fas fa-trash-alt" title="Delete"></i></a>
-                                        </td>
-                                    </tr>
-                                 }
-                             }
-                        </tbody>
-                            </table>
-                   
-                </div> <!--END OF READ MESASGE TAB-->
-            </div>
+                                {
+                                    <a asp-action="Details" asp-route-id="@item.ID">@Html.DisplayFor(modelItem => item.FullName)</a>
+                                }
+                                else
+                                {
+                                    <a asp-action="Details" asp-route-id="@item.ID" class="contacts-read">@Html.DisplayFor(modelItem => item.FullName)</a>
+                                }
+                            </td>
+                            <td class="contact-message" style="font-size:14px;">
+                                @if (item.message_status == true)
+                                {
+                                    <a asp-action="Details" asp-route-id="@item.ID">@Html.DisplayFor(modelItem => item.message)</a>
+                                }
+                                else
+                                {
+                                    <a asp-action="Details" asp-route-id="@item.ID" class="contacts-read">@Html.DisplayFor(modelItem => item.message)</a>
+                                }
+
+                            </td>
+                            <td>
+                                @if (item.message_status == true)
+                                {
+                                    <span>@Html.DisplayFor(modelItem => item.DateSent)</span>
+                                }
+                                else
+                                {
+                                    <span class="contacts-read">@Html.DisplayFor(modelItem => item.DateSent)</span>
+                                }
+                            </td>
+                            <td>
+                                <!--WHEN THE ADMIN READ AND CHECKED THE INBOX FRO MESSAGE STATUS IT SET THE MESSAGE STATUS IF ITS READ OR NOT-->
+                                @if (item.message_status == true)
+                                {
+                                    <p>Read</p>
+                                }
+                                else
+                                {
+                                    <p>Unead</p>
+                                }
+
+                            </td>
+                            <td>
+                                @*<a asp-action="Details" asp-route-id="@item.ID"><i class="fas fa-eye" tile="View Message"></i></a>*@
+                                <a asp-action="Edit" asp-route-id="@item.ID"><i class="fas fa-envelope-open-text" title="Mark as Read"></i></a>&nbsp;&nbsp;
+                                <a asp-action="Delete" asp-route-id="@item.ID"><i class="fas fa-trash-alt" title="Delete"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
+
+    <!--READ MESSAGES TAB-->
+    <div class="tab-pane fade" id="nav-read-message" role="tabpanel" aria-labelledby="nav-read-message-tab">
+        <div class="table-responsive-sm">
+            <table class="table table-hover">
+                <thead class="text-light bg-primary">
+                    <tr>
+                        <th>
+                            <input type="checkbox" />
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FullName)
+                        </th>
+                        <th class="contact-message">
+                            @Html.DisplayNameFor(model => model.message)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DateSent)
+                        </th>
+                        <th>
+                            Message Status
+                        </th>
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        @if (item.message_status == true)
+                        {
+                    <tr class="contact-status">
+                        <td>
+                            <input type="checkbox" />
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.ID">@Html.DisplayFor(modelItem => item.FullName)</a>
+                        </td>
+                        <td class="contact-message" style="font-size:14px;">
+                            <a asp-action="Details" asp-route-id="@item.ID">@Html.DisplayFor(modelItem => item.message)</a>
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateSent)
+                        </td>
+                        <td>
+                            <!--WHEN THE ADMIN READ AND CHECKED THE INBOX FRO MESSAGE STATUS IT SET THE MESSAGE STATUS IF ITS READ OR NOT-->
+                            @if (item.message_status == true)
+                            {
+                                <p>Read</p>
+                            }
+                            else
+                            {
+                                <p>Unead</p>
+                            }
+
+                        </td>
+                        <td>
+                            @*<a asp-action="Details" asp-route-id="@item.ID"><i class="fas fa-eye" tile="View Message"></i></a>*@
+                            <a asp-action="Edit" asp-route-id="@item.ID"><i class="fas fa-envelope-open-text" title="Mark as Read"></i></a>&nbsp;&nbsp;
+                            <a asp-action="Delete" asp-route-id="@item.ID"><i class="fas fa-trash-alt" title="Delete"></i></a>
+                        </td>
+                    </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
 </div>
 

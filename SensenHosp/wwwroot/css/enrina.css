@@ -52,9 +52,11 @@ td a {
     color: white;
 
 }
-
+.contacts-read{
+    font-weight: bold;
+    font-style: italic;
+}
 /********************************CONTACT US FEATURE CSS***********************************/
-
 /********************************FAQS CSS************************************************/
 .faq-arrow-down {
     float: right;
@@ -205,4 +207,11 @@ td a {
     .form-group{
         display:block;
     }
+}
+
+/********************************PAGINATION CSS*****************************************/
+.pagination {
+    overflow: hidden;
+    float: right;
+    padding-bottom: 10px;
 }
