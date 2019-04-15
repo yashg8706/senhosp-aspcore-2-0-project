@@ -10,6 +10,35 @@
     <a asp-action="Create">Add New Article</a>
 </p>
 
+<div>
+    @ViewData["PageSummary"]
+    @if ((int)ViewData["pagenum"] < 1)
+    {
+        <span>Prev</span>
+    }
+    else
+    {
+        @Html.ActionLink("Prev",
+                    "Index",
+                    "BlogPosts",
+                    new { pagenum = ((int)ViewData["pagenum"] - 1) }
+                    )
+    }
+    |
+    @if ((int)ViewData["pagenum"] == (int)ViewData["maxpage"])
+    {
+        <span>Next</span>
+    }
+    else
+    {
+        @Html.ActionLink("Next",
+                 "Index",
+                 "BlogPosts",
+                 new { pagenum = ((int)ViewData["pagenum"] + 1) }
+                 )
+    }
+</div>
+
 @foreach (var item in Model)
 {
     <div class="list-post-block d-flex flex-row">

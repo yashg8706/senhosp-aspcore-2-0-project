@@ -4,16 +4,73 @@
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
-
-<h4>Contact</h4>
+<h2 class="heading heading-h2">Admin Dashboard</h2>
+<h3 class="heading">Contact Us - Messages</h3>
 <hr />
+
 <div class="row">
+    <div class="col-md-8  center-div">
+        <div>
+            <a asp-action="Index"><i class="fas fa-arrow-left">&nbsp;Back to List</i></a>   |
+            <a asp-action="Delete" asp-route-id="@Model.ID"><i class="fas fa-trash-alt fas-style" title="Delete">&nbsp;Delete</i></a>
+        </div>
+        <hr />
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <div class="checkbox contact-checkbox">
+                    <label>
+                        <input asp-for="message_status" class="contact-checkbox" /> <span class="checkbox-label">Mark as Read and Received</span>
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label asp-for="FullName" class="control-label"></label>
+                    <input asp-for="FullName" class="form-control" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+                <div class="col">
+                    <label asp-for="email" class="control-label"></label>
+                    <input asp-for="email" class="form-control" />
+                    <span asp-validation-for="email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label asp-for="phone" class="control-label"></label>
+                    <input asp-for="phone" class="form-control" />
+                    <span asp-validation-for="phone" class="text-danger"></span>
+                </div>
+                <div class="col">
+                    <label asp-for="Subject" class="control-label"></label>
+                    <input asp-for="Subject" class="form-control" />
+                    <span asp-validation-for="Subject" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label asp-for="message" class="control-label"></label>
+                    <textarea asp-for="message" rows="5" cols="45" class="form-control"></textarea>
+                    <span asp-validation-for="message" class="text-danger"></span>
+                </div>
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-default submit" />
+            </div>
+        </form>
+    </div>
+</div>
+<!--end of edit-->
+@*<div class="row">
     <div class="col-md-4">
         <div>
-            <a asp-action="Index">Back to List</a> |
-            <a asp-action="Delete" >Delete</a>
+            <a asp-action="Index"><i class="fas fa-arrow-left">&nbsp;Back to List</i></a>   |
+            <a asp-action="Delete" asp-route-id="@Model.ID"><i class="fas fa-trash-alt fas-style" title="Delete">&nbsp;Delete</i></a>
         </div>
+        <hr />
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
@@ -46,25 +103,20 @@
             </div>
             <div class="form-group">
                 <label asp-for="message" class="control-label"></label>
-                <input asp-for="message" class="form-control" />
+                <textarea asp-for="message" rows="5" cols="45" class="form-control"></textarea>
                 <span asp-validation-for="message" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateSent" class="control-label"></label>
-                <input asp-for="DateSent" class="form-control" />
-                <span asp-validation-for="DateSent" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Submit" class="btn btn-default" />
             </div>
         </form>
     </div>
-</div>
+</div>*@
 
 @*<div>
-    <a asp-action="Index">Back to List</a>
-</div>*@
+        <a asp-action="Index">Back to List</a>
+    </div>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

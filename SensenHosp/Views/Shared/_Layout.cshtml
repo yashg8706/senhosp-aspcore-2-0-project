@@ -9,8 +9,9 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:100,200,300,400,500" rel="stylesheet">
         <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/enrina.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -41,46 +42,99 @@
                 </div>
             </div>
         </nav>*@
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
-        <div class="d-flex justify-content-between" id="nav_width_wrapper">
+    <div class="top-bar">
+        <div class="d-flex flex-row justify-content-end align-items-center">
+            <a class="btn btn-outline-light btn-sm mr-4" href="/donations/donate">DONATE</a>
+            <a asp-area="" asp-controller="Account" asp-action="Login" class="mr-4" id="top-bar-login">Staff Log in</a>
+            <span style="color: white">
+                <i class="fab fa-instagram  mr-2"></i>
+                <i class="fab fa-twitter mr-2"></i>
+                <i class="fab fa-facebook-f mr-2"></i>
+            </span>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex flex-column">
+        <div class="d-flex justify-content-between align-items-center" id="nav_width_wrapper">
             <a class="navbar-brand" href="/">
-                <img alt="logo" src="~/images/SensenHumber_logo.jpg" height="100px" width="auto" />
+                <img alt="logo" src="~/images/logo.png" height="100px" width="auto" />
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="d-flex flex-column">
-                <div class="d-flex flex-row align-items-center justify-content-end">
-                    <a class="btn btn-primary btn-sm mr-4" href="/donations">Donation</a>
-                    @await Html.PartialAsync("_LoginPartial")
-                    <i class="fab fa-instagram  mr-2"></i>
-                    <i class="fab fa-twitter mr-2"></i>
-                    <i class="fab fa-facebook-f mr-2"></i>
-                </div>
+            <div class="d-flex flex-column pb-2">
                 <div>
                     <form class="form-inline py-2 my-lg-0 justify-content-end">
                         <input class="form-control search-box mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-sm btn-light search-icon my-2 mr-0 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-                        
+                        <button class="btn btn-light search-icon my-2 mr-0 my-sm-0" type="submit">
+                            &nbsp;
+                        </button>
+
                     </form>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <a class="btn btn-primary btn-sm mr-2" href="#">Emergency</a>
+                    <a class="btn btn-outline-primary mr-2" href="#">EMERGENCY</a>
                 </div>
             </div>
         </div>
     </nav>
+
+    <div class="nav navbar d-flex flex-row justify-content-between" id="main-nav">
+        <a href="#">Patients & Visitors</a>
+        <span>|</span>
+        <a href="#">Health Services</a>
+        <span>|</span>
+        <a href="#">Careers</a>
+        <span>|</span>
+        <a href="#">Who we are</a>
+        <span>|</span>
+        <a href="#">News & Events</a>
+        <span>|</span>
+        <a href="/Contacts/Create">Contact Us</a>
+    </div>
+
+    <!--TO USE THE VIEWCOMPONENT ITS NEEDS TO BE InvokeAsync METHOD-->
+    @await Component.InvokeAsync("AlertPostsViewComponent");
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
 
-            <div id="footer-bar">
-                <p>&copy;  - SensenHosp</p>
-            </div>
-        </footer>
     </div>
+
+    <footer>
+        <div class="d-flex flex-row justify-content-around flex-wrap" id="footer-link">
+            <div class="d-flex flex-column col-md-3 col-6 pl-md-5">
+                <a href="#">Patients & Visitors</a>
+                <a href="#">Health Services</a>
+                <a href="#">Careers</a>
+                <a href="#">Find a Doctor</a>
+            </div>
+            <div class="d-flex flex-column col-md-3 col-6 pl-md-5">
+                <a href="#">Privacy</a>
+                <a href="#">Terms and Conditions</a>
+                <a href="#">Legal</a>
+            </div>
+            <div class="d-flex flex-column col-md-3 col-6 mt-5 mt-md-0 pl-md-5">
+                <a href="#">Health Canada</a>
+                <a href="#">Ontario Health</a>
+                <a href="#">Health Force Ontario</a>
+                <a href="#">Ontario Hospital Association</a>
+            </div>
+            <div class="d-flex flex-column col-md-3 col-6 mt-5 mt-md-0 pl-md-5">
+                <a href="/FreqASkQuestions/Index">FAQs</a>
+                <a href="/Contacts/Create">Contact Us</a>
+                <a href="#">Who we are</a>
+                <a href="#">Blog</a>
+            </div>
+        </div>
+        <div id="footer-bar" class="d-flex flex-row justify-content-between">
+            <p>Copyright @DateTime.Now.Year &copy;  Sensenbrenner Hospital</p>
+            <span style="color: white">
+                <i class="fab fa-instagram  mr-2"></i>
+                <i class="fab fa-twitter mr-2"></i>
+                <i class="fab fa-facebook-f mr-2"></i>
+            </span>
+        </div>
+    </footer>
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -101,7 +155,7 @@
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
         </script>
     </environment>
-    <script src="https://www.paypal.com/sdk/js?client-id=ATq1d8iLQVAx570MKudaGL3m1tDO9idY_-lC-beNPKzDOTNIDq5waciioAKgkXTqm9WgWJi3zh7z81Tz"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=AR2Q-v5-qj7JyB2PyJnNivCfzBbKy7TfCux9vvpLN3NMT8gnuCnOWX4uhbhsGIp1jVPW81jdF8A2BuiP&currency=CAD"></script>
 
     <script src="~/js/site.min.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)

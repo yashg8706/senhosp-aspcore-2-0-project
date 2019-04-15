@@ -26,10 +26,42 @@ namespace SensenHosp.Controllers
         }
 
         // GET: Media
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pagenum = 0)
         {
             var applicationDbContext = _context.Media.Include(m => m.Album);
-            return View(await applicationDbContext.ToListAsync());
+
+            var _media = await _context.Media
+                .Include(a => a.Album)
+                .ToListAsync();
+
+            int mediacount = _media.Count;
+            int perpage = 6;
+            int maxpage = (int)Math.Ceiling((decimal)mediacount / perpage) - 1;
+
+            if (pagenum < 0) pagenum = 0;
+            if (pagenum > maxpage) pagenum = maxpage;
+
+            int start = pagenum * perpage;
+
+            ViewData["maxpage"] = (int)maxpage;
+            ViewData["pagenum"] = (int)pagenum;
+
+            if (maxpage > 0)
+            {
+                ViewData["pagesummary"] = (pagenum + 1).ToString() + " of " + (maxpage + 1).ToString();
+            }
+            else
+            {
+                ViewData["pagesummary"] = "1 of 1";
+            }
+
+            var media = await _context.Media
+                .Include(a => a.Album)
+                .Skip(start)
+                .Take(perpage)
+                .ToListAsync();
+
+            return View(media);
         }
 
         // GET: Media/Details/5

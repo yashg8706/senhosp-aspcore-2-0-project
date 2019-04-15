@@ -1,0 +1,53 @@
+﻿@model IEnumerable<SensenHosp.Models.Appointment>
+@{
+    ViewData["Title"] = "AcceptReject";
+}
+
+<h2 class="heading heading-h2">AcceptReject</h2>
+<a asp-action="Create" class="submit">Create New</a>
+<br />
+<table class="table table-hover">
+    <thead class="text-light bg-primary">
+        <tr>
+            <th class="alert-title-table" colspan="2">
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th class="alert-title-table" colspan="2">
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th class="alert-title-table" colspan="2">
+                @Html.DisplayNameFor(model => model.DoctorName)
+            </th>
+            <th class="alert-title-table" colspan="2">
+                @Html.DisplayNameFor(model => model.AppointmentDate)
+            </th>
+            <th class="alert-title-table" colspan="2"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="alert-title-table" colspan="2">
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td class="alert-title-table" colspan="2">
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td class="alert-title-table" colspan="2">
+                    @Html.DisplayFor(modelItem => item.DoctorName)
+                </td>
+                <td class="alert-title-table" colspan="2">
+                    @Html.DisplayFor(modelItem => item.AppointmentDate)
+                </td>
+                <td class="alert-title-table" colspan="2">
+                    <a asp-action="Accept" asp-route-id="@item.Id" class="btn btn-success">Accept</a>
+                    <a asp-action="Reject" asp-route-id="@item.Id" class="btn btn-danger">Reject</a>
+                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

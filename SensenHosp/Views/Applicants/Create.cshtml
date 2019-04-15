@@ -1,16 +1,17 @@
 ﻿@model SensenHosp.Models.Applicant
 
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
 <h4>Applicant</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="id" class="control-label"></label>
-                <input asp-for="id" class="form-control" />
-                <span asp-validation-for="id" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="fname" class="control-label"></label>
                 <input asp-for="fname" class="form-control" />
@@ -33,9 +34,10 @@
             </div>
             <div class="form-group">
                 <input type="file" name="resume" id="file" />
+                <span asp-validation-for="resume" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="career_id" style="display:none;" class="control-label"></label>
+                <label asp-for="career_id" class="control-label"></label>
                 <input asp-for="career_id" class="form-control" />
                 <span asp-validation-for="career_id" class="text-danger"></span>
             </div>

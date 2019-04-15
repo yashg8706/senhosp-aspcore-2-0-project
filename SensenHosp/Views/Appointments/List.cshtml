@@ -4,56 +4,66 @@
     ViewData["Title"] = "List";
 }
 
-<h2>List</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+<h2 class="heading heading-h2">List</h2>
+<a asp-action="Create" class="submit">Create New</a>
+<br />
+<table class="table table-hover">
+    <thead class="text-light bg-primary">
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LastName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.MobileNo)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DoctorName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.AppointmentDate)
-                </th>
-            <th></th>
+            <th class="alert-title-table" colspan="2">
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th class="alert-title-table" colspan="2">
+                @Html.DisplayNameFor(model => model.MobileNo)
+            </th>
+            <th class="alert-title-table" colspan="2">
+                @Html.DisplayNameFor(model => model.DoctorName)
+            </th>
+            <th class="alert-title-table" colspan="2">
+                @Html.DisplayNameFor(model => model.AppointmentDate)
+            </th>
+            <th class="alert-title-table" colspan="2"></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MobileNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DoctorName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AppointmentDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        <div class="pagination" style="overflow:hidden;float:right;padding-bottom:10px;">
+            <div>
+                @ViewData["PaginationSummary"]
+                @Html.ActionLink("Prev",
+                    "List",
+                    "Appointments",
+                    new { pagenum= ((int)ViewData["pagenum"]-1)}
+                    )
+                |
+                @Html.ActionLink("Next",
+                    "List",
+                    "Appointments",
+                    new { pagenum = ((int)ViewData["pagenum"] + 1) }
+                    )
+            </div>
+        </div>
+        <br />
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="alert-title-table" colspan="2">
+                    @Html.DisplayFor(modelItem => item.FirstName)  @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td class="alert-title-table" colspan="2">
+                    @Html.DisplayFor(modelItem => item.MobileNo)
+                </td>
+                <td class="alert-title-table" colspan="2">
+                    @Html.DisplayFor(modelItem => item.DoctorName)
+                </td>
+                <td class="alert-title-table" colspan="2">
+                    @Html.DisplayFor(modelItem => item.AppointmentDate)
+                </td>
+                <td class="alert-title-table" colspan="2">
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

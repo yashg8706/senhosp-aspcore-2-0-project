@@ -1,6 +1,6 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 /* Wrapping element */
@@ -8,7 +8,10 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
-    padding-top: 100px;
+}
+
+.hidden {
+    display: none;
 }
 
 /* Carousel */
@@ -35,17 +38,54 @@
     }
 }
 
+.top-bar {
+    background-color: #1531ab;
+    padding: 10px 75px;
+}
+
+a#top-bar-login {
+    color: white;
+}
+
+.bg-light {
+    background-color: #fefefe!important;
+}
+
+.navbar {
+    padding: 0;
+}
 #nav_width_wrapper {
     width: 100%;
-    padding: 0 20px;
+    padding: 0 75px;
+}
+
+.navbar-brand {
+    padding: 0;
 }
 
 .form-control.search-box {
     height: calc(1.5em + .4rem + 2px);
+    border: 1px solid #1531ab;
+    border-radius: 0;
 }
 
 .btn-light.search-icon {
-    color: #808080;
+    width: 40px;
+    height: 40px;
+    background-image: url(../images/search-icon1.png);
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-size: 40px 40px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-outline-primary {
+    color: #1531ab;
+    border-color: #1531ab;
+}
+.btn, .btn-sm {
+    border-radius: 0;
 }
 
 .btn-light.search-icon:hover {
@@ -54,6 +94,114 @@
     border-color: #f8f9fa;
 }
 
+#main-nav {
+    font-size: 1.2em;
+    padding: 10px 75px;
+    background-color: #1531ab;
+    color: white;
+}
+
+#main-nav a{
+    color: white;
+}
+
+footer {
+    border-top: 1px solid lightgray;
+}
+
+#footer-link {
+    padding: 100px 75px;
+    background-color: #263238;
+}
+
+#footer-link a {
+    color: lightgrey;
+}
+
+#footer-bar {
+    background-color: black;
+    font-size: .9em;
+    color: white;
+    padding: 10px 50px;
+}
+
+#footer-bar p {
+    margin: 0;
+}
+
+
+/* Home page */
+#banner {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5em;
+    background-color: #1531ab;
+    background-image: url(../images/banner.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 50px 70px;
+    font-weight:300;
+}
+
+#banner-title {
+    text-transform: uppercase;
+    font-size: 4rem;
+    line-height: 1.2em;
+    font-weight: 200;
+}
+
+#banner-text {
+    line-height: 1.4em;
+    padding: 20px 0 50px;
+}
+
+#banner-moto {
+    font-size: 1.8rem;
+}
+
+
+#quick-links {
+    background-color: #000c7b;
+    color: white;
+}
+
+.list-group {
+    border: none;
+}
+
+.list-group-item {
+    background-color: inherit;
+    border-right: 1px solid #fefefe;
+    color: inherit;
+    height: 100px;
+}
+
+.list-group-item:first-child, .list-group-item:last-child {
+    border-radius: 0;
+}
+
+.list-group-item:last-child {
+    border: none;
+}
+
+.list-group-item-action {
+    transition: background-color linear 400ms;
+}
+
+.list-group-item-action:hover, .list-group-item-action:focus {
+    z-index: 1;
+    color: inherit;
+    text-decoration: none;
+    background-color: #1531ab;
+}
+
+.home-post-body {
+    max-height: 150px;
+    overflow: hidden;
+}
+
+/* End of home page*/
 /*Blog post feature*/
 .list-post-block {
     padding: 20px 30px;
@@ -119,7 +267,7 @@ a.post-image:hover {
     color: #424242;
     width: 100%;
     height: 100%;
-    border-radius: 10px;
+    border-radius: .25rem;
     display: flex;
     justify-content: center;
     align-items: center;
