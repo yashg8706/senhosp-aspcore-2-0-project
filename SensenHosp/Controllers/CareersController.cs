@@ -20,12 +20,7 @@ namespace SensenHosp.Controllers
             _context = context;
         }
 
-        public ActionResult Index()
-        {
-            return RedirectToAction("List");
-        }
-
-        public async Task<ActionResult> List(int pagenum)
+        public async Task<ActionResult> Index(int pagenum)
         {
             ViewData["UserRole"] = "Admin";
             /*Careers PAGINATION ALGORITHM*/

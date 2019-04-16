@@ -13,31 +13,31 @@
     <div>
         @ViewData["PaginationSummary"]
         @Html.ActionLink("Prev",
-            "List",
-            "Career",
+            "Index",
+            "Careers",
             new { pagenum= ((int)ViewData["pagenum"]-1)}
             )
         |
         @Html.ActionLink("Next",
-            "List",
-            "Career",
+            "Index",
+            "Careers",
             new { pagenum = ((int)ViewData["pagenum"] + 1) }
             )
     </div>
     @foreach (var career in Model)
     {
     <div class="recbody">
-        <label>@Html.ActionLink(career.title, "Show/" + career.id)</label>
+        <label>@Html.ActionLink(career.title, "Details/" + career.id)</label>
 
         <p>@career.id</p>
         @if (String.Equals("Admin", (string)ViewData["UserRole"]))
         {
             <span class="del">
-                <a href="@Url.Action("Delete" , "Blog", new { id = career.id })"><i class="far fa-trash-alt"></i></a>
+                <a href="@Url.Action("Delete", "Career", new { id = career.id })"><i class="far fa-trash-alt"></i></a>
             </span>
             <a asp-action="Edit" asp-route-id="@career.id">Edit</a>
             <a asp-action="Details" asp-route-id ="@career.id"> Details </a>
-}
+            }
     </div>
         <div class="clearfix"></div>
 

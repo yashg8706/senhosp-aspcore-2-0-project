@@ -1,4 +1,4 @@
-﻿@model SensenHosp.Models.Applicant
+﻿@model SensenHosp.Models.ViewModels.ApplicantEdit
 
 @{
     ViewData["Title"] = "Create";
@@ -12,34 +12,30 @@
     <div class="col-md-4">
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" name="career_id" value="@ViewData["CareerID"]" class="form-control" />
             <div class="form-group">
-                <label asp-for="fname" class="control-label"></label>
-                <input asp-for="fname" class="form-control" />
-                <span asp-validation-for="fname" class="text-danger"></span>
+                <label  class="control-label">First Name: </label>
+                <input name="fname" class="form-control" />
+               
             </div>
             <div class="form-group">
-                <label asp-for="lname" class="control-label"></label>
-                <input asp-for="lname" class="form-control" />
-                <span asp-validation-for="lname" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="email" class="control-label"></label>
-                <input asp-for="email" class="form-control" />
-                <span asp-validation-for="email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="contact" class="control-label"></label>
-                <input asp-for="contact" class="form-control" />
-                <span asp-validation-for="contact" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="file" name="file" id="file" />
+                <label for="lname" class="control-label">Last Name: </label>
+                <input name="lname" class="form-control" />
                 
             </div>
             <div class="form-group">
-                <label asp-for="career_id" class="control-label"></label>
-                <input asp-for="career_id" class="form-control" />
-                <span asp-validation-for="career_id" class="text-danger"></span>
+                <label for="email" class="control-label">Email: </label>
+                <input name="email" class="form-control" />
+
+            </div>
+            <div class="form-group">
+                <label for="contact" class="control-label">Contact: </label>
+                <input name="contact" class="form-control" />
+
+            </div>
+            <div class="form-group">
+                <input type="file" name="file" id="file" />
+
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

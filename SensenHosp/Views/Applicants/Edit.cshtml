@@ -38,11 +38,7 @@
                 <input asp-for="resume" class="form-control" />
                 <span asp-validation-for="resume" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="career_id" class="control-label"></label>
-                <input asp-for="career_id" class="form-control" />
-                <span asp-validation-for="career_id" class="text-danger"></span>
-            </div>
+                <input asp-for="career_id" type="hidden" class="form-control" />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>

@@ -52,7 +52,7 @@
             @foreach (var applicant in Model.Applicants)
             {
                 <div class="recitem">
-                    @Html.ActionLink(applicant.fname, "Show", "Applicant", new { id = applicant.id })
+                    @Html.ActionLink(applicant.fname, "Details", "Applicant", new { id = applicant.id })
                 </div>
             }
         </div>
@@ -64,5 +64,6 @@
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Back to List</a> |
+    <a href="/Applicants/Create/@Model.id">Apply</a>
 </div>

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SensenHosp.Data;
+using Microsoft.EntityFrameworkCore;
 using SensenHosp.Models;
 using SensenHosp.Models.ViewModels;
 
