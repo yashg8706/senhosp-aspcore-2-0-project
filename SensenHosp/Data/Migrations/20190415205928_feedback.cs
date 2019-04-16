@@ -24,7 +24,7 @@ namespace SensenHosp.Data.Migrations
             //    {
             //        table.PrimaryKey("PK_physician", x => x.physicianId);
             //    });
-
+            /*
             migrationBuilder.CreateTable(
                 name: "ReviewOnDoctor",
                 columns: table => new
@@ -39,6 +39,7 @@ namespace SensenHosp.Data.Migrations
                 {
                     table.PrimaryKey("PK_ReviewOnDoctor", x => x.ReviewId);
                 });
+                */
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
