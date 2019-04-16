@@ -10,7 +10,7 @@ window.onload = function () {
         let donationAmount = 10;
         const amountInput = document.getElementById('donationAmount');
         amountInput.onblur = function () {
-            donationAmount = Number(amountInput.value);
+            donationAmount = Number(amountInput.value == 0 ? 10 : amountInput.value);
             console.log(donationAmount);
         }
         paypal.Buttons({

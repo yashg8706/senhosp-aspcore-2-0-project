@@ -22,8 +22,6 @@ namespace SensenHosp.Controllers
         public DonationsController(ApplicationDbContext context)
         {
             _context = context;
-            //CreateOrder(true).Wait();
-            //GetOrder("7BY92840W79868215", true).Wait();
         }
 
         // GET: Donations
@@ -215,7 +213,7 @@ namespace SensenHosp.Controllers
                         Description = "Donation",
                         Amount = new AmountWithBreakdown
                         {
-                            CurrencyCode = "USD",
+                            CurrencyCode = "CAD",
                             Value = oa
                         }
                     }

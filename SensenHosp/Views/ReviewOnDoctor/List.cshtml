@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SensenHosp.Models.Appointment>
+﻿@model IEnumerable<SensenHosp.Models.ReviewOnDoctor>
 
 @{
     ViewData["Title"] = "List";
@@ -11,16 +11,10 @@
     <thead class="text-light bg-primary">
         <tr>
             <th class="alert-title-table" colspan="2">
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th class="alert-title-table" colspan="2">
-                @Html.DisplayNameFor(model => model.MobileNo)
-            </th>
-            <th class="alert-title-table" colspan="2">
                 @Html.DisplayNameFor(model => model.DoctorName)
             </th>
             <th class="alert-title-table" colspan="2">
-                @Html.DisplayNameFor(model => model.AppointmentDate)
+                @Html.DisplayNameFor(model => model.Message)
             </th>
             <th class="alert-title-table" colspan="2"></th>
         </tr>
@@ -31,13 +25,13 @@
                 @ViewData["PaginationSummary"]
                 @Html.ActionLink("Prev",
                     "List",
-                    "Appointments",
+                    "ReviewOnDoctor",
                     new { pagenum= ((int)ViewData["pagenum"]-1)}
                     )
                 |
                 @Html.ActionLink("Next",
                     "List",
-                    "Appointments",
+                    "ReviewOnDoctor",
                     new { pagenum = ((int)ViewData["pagenum"] + 1) }
                     )
             </div>
@@ -47,21 +41,15 @@
         {
             <tr>
                 <td class="alert-title-table" colspan="2">
-                    @Html.DisplayFor(modelItem => item.FirstName)  @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td class="alert-title-table" colspan="2">
-                    @Html.DisplayFor(modelItem => item.MobileNo)
-                </td>
-                <td class="alert-title-table" colspan="2">
                     @Html.DisplayFor(modelItem => item.DoctorName)
                 </td>
                 <td class="alert-title-table" colspan="2">
-                    @Html.DisplayFor(modelItem => item.AppointmentDate)
+                    @Html.DisplayFor(modelItem => item.Message)
                 </td>
                 <td class="alert-title-table" colspan="2">
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.ReviewId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ReviewId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ReviewId">Delete</a>
                 </td>
             </tr>
         }

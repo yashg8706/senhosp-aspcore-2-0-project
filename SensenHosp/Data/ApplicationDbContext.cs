@@ -73,7 +73,10 @@ namespace SensenHosp.Data
         public DbSet<Payment> payments { get; set; }
 
         //Parient accounts payment feature
-        public DbSet<FeedbackOnDoctor> FeedbackOnDoctor { get; set; }
+        public DbSet<ReviewOnDoctor> ReviewOnDoctor { get; set; }
+
+        //Parient accounts payment feature
+        //public DbSet<FeedbackOnDoctor> FeedbackOnDoctor { get; set; }
    
         // End of code addition
     }
