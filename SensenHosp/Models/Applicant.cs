@@ -36,7 +36,7 @@ namespace SensenHosp.Models
 
         [ForeignKey("id")]
         public int career_id { get; set; }
-        
+
         public virtual Career Career { get; set; }
     }
 }

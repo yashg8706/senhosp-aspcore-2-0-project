@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SensenHosp.Data;
 
 namespace SensenHosp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190416163309_yash_test")]
+    partial class yash_test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -481,6 +483,27 @@ namespace SensenHosp.Data.Migrations
                     b.ToTable("Events");
                 });
 
+            modelBuilder.Entity("SensenHosp.Models.FeedbackOnDoctor", b =>
+                {
+                    b.Property<int>("FeedbackID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("DoctorName")
+                        .IsRequired()
+                        .HasMaxLength(500);
+
+                    b.Property<string>("Feedback")
+                        .IsRequired()
+                        .HasMaxLength(1000);
+
+                    b.Property<string>("Reply")
+                        .HasMaxLength(1000);
+
+                    b.HasKey("FeedbackID");
+
+                    b.ToTable("FeedbackOnDoctor");
+                });
+
             modelBuilder.Entity("SensenHosp.Models.FreqAskQuestion", b =>
                 {
                     b.Property<int>("ID")
@@ -554,50 +577,18 @@ namespace SensenHosp.Data.Migrations
                     b.ToTable("payments");
                 });
 
-            modelBuilder.Entity("SensenHosp.Models.Physician", b =>
+            modelBuilder.Entity("SensenHosp.Models.Sections", b =>
                 {
-                    b.Property<int>("physicianId")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("physicianName")
+                    b.Property<string>("name")
                         .IsRequired()
-                        .HasMaxLength(100);
+                        .HasMaxLength(50);
 
-                    b.Property<string>("scheduleEndTime")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.HasKey("ID");
 
-                    b.Property<string>("scheduleStartTime")
-                        .IsRequired()
-                        .HasMaxLength(100);
-
-                    b.HasKey("physicianId");
-
-                    b.ToTable("physician");
-                });
-
-            modelBuilder.Entity("SensenHosp.Models.ReviewOnDoctor", b =>
-                {
-                    b.Property<int>("ReviewId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("DoctorName")
-                        .HasMaxLength(100);
-
-                    b.Property<string>("Message")
-                        .IsRequired()
-                        .HasMaxLength(1000);
-
-                    b.Property<string>("Reply")
-                        .HasMaxLength(1000);
-
-                    b.Property<int>("physicianId");
-
-                    b.HasKey("ReviewId");
-
-                    b.HasIndex("physicianId");
-
-                    b.ToTable("ReviewOnDoctor");
+                    b.ToTable("Sections");
                 });
 
             modelBuilder.Entity("SensenHosp.Models.Testimonial", b =>
@@ -768,14 +759,6 @@ namespace SensenHosp.Data.Migrations
                     b.HasOne("SensenHosp.Models.Album", "Album")
                         .WithMany("Media")
                         .HasForeignKey("AlbumID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SensenHosp.Models.ReviewOnDoctor", b =>
-                {
-                    b.HasOne("SensenHosp.Models.Physician", "Physician")
-                        .WithMany()
-                        .HasForeignKey("physicianId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

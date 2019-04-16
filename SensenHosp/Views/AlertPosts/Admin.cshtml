@@ -4,14 +4,14 @@
     ViewData["Title"] = "Admin";
 }
 
-<h2>Admin Dashboard</h2>
-<h3>Alert Posts</h3>
+<h2 class="heading heading-h2">ADMIN DASHBOARD</h2>
+<h3 class="heading">Alert Posts</h3>
 
 <a asp-action="Create" class="submit">Create New</a>
-<br/>
-<div class="pagination" style="overflow:hidden;float:right;padding-bottom:10px;">
+<br />
+<div class="pagination">
     <div>
-        @ViewData["PaginationSummary"]
+        @ViewData["pagesummary"]
         @Html.ActionLink("Prev",
             "Admin",
             "AlertPosts",
@@ -41,7 +41,7 @@
         </tr>
     </thead>
     <tbody>
-        
+
         <br />
         @foreach (var item in Model)
         {
@@ -53,19 +53,23 @@
 
                     @if (item.AlertStatus == "Active")
                     {
-                        <span class="alert-status-active">
-                            @Html.DisplayFor(modelItem => item.AlertStatus)
-                        </span>
+                        <a asp-action="Edit" asp-route-id="@item.ID">
+                            <span class="alert-status-active">
+                                @Html.DisplayFor(modelItem => item.AlertStatus)
+                            </span>
+                        </a>
+
                     }
                     else
                     {
-                        <span class="alert-status-inactive">
-                            @Html.DisplayFor(modelItem => item.AlertStatus)
-                        </span>
+                        <a asp-action="Edit" asp-route-id="@item.ID">
+                            <span class="alert-status-inactive">
+                                @Html.DisplayFor(modelItem => item.AlertStatus)
+                            </span>
+                        </a>
                     }
                 </td>
                 <td>
-                    @*<a asp-action="Details" asp-route-id="@item.ID"><i class="fas fa-eye" tile="View Message"></i></a>*@
                     <a asp-action="Edit" asp-route-id="@item.ID"><i class="fas fa-envelope-open-text" title="Mark as Read"></i></a>&nbsp;&nbsp;
                     <a asp-action="Delete" asp-route-id="@item.ID"><i class="fas fa-trash-alt" title="Delete"></i></a>
                 </td>

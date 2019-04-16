@@ -35,10 +35,11 @@
             @Html.DisplayFor(model => model.contact)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.resume)
+            <a href="~/Uploads/Resume/@(Model.resume)">Resume</a>
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.resume)
+           <!--<a href="model => model.resume"></a>-->
+            
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.career_id)
