@@ -20,61 +20,54 @@ namespace SensenHosp.Controllers
         }
 
         // GET: Contacts
-        public async Task<IActionResult> Index(int pagenum)
+        public async Task<IActionResult> Admin(int pagenum)
         {
-            var _contact = await _context.AlertPosts.ToListAsync();
-            int alertcount = _contact.Count();
+            //var countMsg = await _context.Contact.Where(m => m.message_status == false).ToListAsync();
+
+           
+
+
+            var _contact = await _context.Contact.ToListAsync();
+            
+
+            int contactCount = _contact.Count();
             int perpage = 3;
-            int maxpage = (int)Math.Ceiling((decimal)alertcount / perpage) - 1;
-            if (maxpage < 0) maxpage = 0;
-            if (pagenum < 0) pagenum = 0;
-            if (pagenum > maxpage) pagenum = maxpage;
-            int start = perpage * pagenum;
-            ViewData["pagenum"] = (int)pagenum;
-            ViewData["PaginationSummary"] = "";
-            if (maxpage > 0)
-            {
-                ViewData["PaginationSummary"] =
-                    (pagenum + 1).ToString() + " of " +
-                    (maxpage + 1).ToString();
+            int maxpage = (int)Math.Ceiling((decimal)contactCount / perpage) - 1;
+
+            var msgCount = _contact.Count(m => m.message_status == false);
+
+            //THIS WILL DISPLAY A BOTSTRAP BADGE WHERE IT COUNTS HOW MANY UNREAD MESSAGES CURRENTLY ON DATABASE
+            if(msgCount > 0) {
+
+            ViewData["UnreadMessages"] = _contact.Count(m => m.message_status == false);
             }
 
-            List<Contact> contact = await _context.Contact.Skip(start).Take(perpage).ToListAsync();
+            if (maxpage < 0) maxpage = 0;
+
+            if (pagenum < 0) pagenum = 0;
+
+            if (pagenum > maxpage) pagenum = maxpage;
+
+            int start = perpage * pagenum;
+
+            ViewData["pagenum"] = (int)pagenum;
+
+            ViewData["pagesummary"] = "";
+
+            if (maxpage > 0)
+            {
+                ViewData["pagesummary"] = (pagenum + 1).ToString() + " of " + (maxpage + 1).ToString();
+            }
+
+            //THE LIST OF MESSAGES THAT WILL BE DISPLAYED WILL BE IN DESCENDING ORDER SO ADMIN CAN SEE THE MOST RECENT MESSAGES RECEIVED FROM USERS
+            List<Contact> contact = await _context.Contact.OrderByDescending(m => m.DateSent).Skip(start).Skip(start).Take(perpage).ToListAsync();
             return View(contact);
-            //return View(await _context.Contact.ToListAsync());
         }
 
-        public async Task<IActionResult> Admin(int pagenum, string sortOrder)
+        // GET: Contacts/SuccessMesasge
+        public IActionResult SuccessMesasge()
         {
-            var _contact = await _context.AlertPosts.ToListAsync();
-            int alertcount = _contact.Count();
-            int perpage = 3;
-            int maxpage = (int)Math.Ceiling((decimal)alertcount / perpage) - 1;
-            if (maxpage < 0) maxpage = 0;
-            if (pagenum < 0) pagenum = 0;
-            if (pagenum > maxpage) pagenum = maxpage;
-            int start = perpage * pagenum;
-            ViewData["pagenum"] = (int)pagenum;
-            ViewData["PaginationSummary"] = "";
-            if (maxpage > 0)
-            {
-                ViewData["PaginationSummary"] =
-                    (pagenum + 1).ToString() + " of " +
-                    (maxpage + 1).ToString();
-            }
-            //ViewData["DateSortParm"] = sortOrder == "Date" ? "DateSent" : "Date";
-            //var messages = from m in _context.Contact select m;
-
-            //switch (sortOrder)
-            //{
-            //    case "date_desc":
-            //        messages = messages.OrderBy(m => m.DateSent);
-            //        break;
-            //}
-            List <Contact> contact = await _context.Contact.Skip(start).Take(perpage).ToListAsync();
-            return View(contact);
-            //return View(await messages.AsNoTracking().ToListAsync());
-            //return View(await _context.Contact.ToListAsync());
+            return View();
         }
 
         // GET: Contacts/Details/5
@@ -113,7 +106,7 @@ namespace SensenHosp.Controllers
                 contact.DateSent = DateTime.Now;
                 _context.Add(contact);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(SuccessMesasge));
             }
             return View(contact);
         }
@@ -139,7 +132,7 @@ namespace SensenHosp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,FullName,email,phone,Subject,message,DateSent,message_status")] Contact contact)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,FullName,email,phone,Subject,message,message_status")] Contact contact)
         {
             if (id != contact.ID)
             {
@@ -150,7 +143,8 @@ namespace SensenHosp.Controllers
             {
                 try
                 {
-                    //IM GOING TO FIX THE DATE CAUSE EVRYTIME I UPDATE THE MESSAGE STATUS THE DATE IS NOT DISPLAYING RIGHT INFORMATION
+
+                    //I STILL DON'T KNOW TO NOT TO TOUCH OTHER FIELDS AND THE DATE
                     contact.DateSent = DateTime.Now;
                     _context.Update(contact);
                     await _context.SaveChangesAsync();
@@ -166,7 +160,7 @@ namespace SensenHosp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Admin));
             }
             return View(contact);
         }
@@ -197,7 +191,7 @@ namespace SensenHosp.Controllers
             var contact = await _context.Contact.SingleOrDefaultAsync(m => m.ID == id);
             _context.Contact.Remove(contact);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Admin));
         }
 
         private bool ContactExists(int id)

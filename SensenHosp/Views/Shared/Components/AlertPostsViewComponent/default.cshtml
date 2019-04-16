@@ -3,29 +3,30 @@
     ViewData["Title"] = "AlertPostsViewComponent";
 }
 
-
 <div class="alert-container container" id="alert">
-    <div class="alert-tittle">
-        <ul>
-            @foreach (var item in Model)
-            {
-                @if (item.AlertStatus == "Active")
-                {
-                    <script>
-                        document.getElementById("alert").style.display = "block";
-                    </script>
-                    <li>@Html.DisplayFor(modelItem => item.AlertTitle) &nbsp <a href="/AlertPosts/Details/@item.ID">Read More</a></li>
-                    @*<li>@Html.DisplayFor(modelItem => item.AlertTitle) &nbsp <a asp-action="ReadMore" asp-route-id="@item.ID">Read More</a></li>*@
-                }
-                
-            }
-        </ul>
-    </div>
+    <div class="row">
+        <div class="container">
+            <div id="carouselAlertPosts" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active align-middle alert-title">
+                        This is a test website redesign for SensenHumber Hospital
+                    </div>
+                    @foreach (var item in Model)
+                    {
+                        <div class="carousel-item align-middle alert-title">
+                            @Html.DisplayFor(modelItem => item.AlertTitle) &nbsp <a href="/AlertPosts/Details/@item.ID">Read More</a>
+                        </div>
+                    }
+                </div>
+                <a class="carousel-control-prev" href="#carouselAlertPosts" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon  fas fa-chevron-left alert-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselAlertPosts" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon fas fa-chevron-right alert-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div> 
 </div>
-
-@*else
-    {
-        <script>
-            document.getElementById('alert').style.display = "none";
-        </script>
-    }*@
