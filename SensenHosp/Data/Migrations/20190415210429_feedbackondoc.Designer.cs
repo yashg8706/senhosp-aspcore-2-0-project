@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SensenHosp.Data;
 
 namespace SensenHosp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190415210429_feedbackondoc")]
+    partial class feedbackondoc
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -174,8 +176,6 @@ namespace SensenHosp.Data.Migrations
 
                     b.Property<int?>("Careerid");
 
-                    b.Property<int?>("Careerid1");
-
                     b.Property<int>("career_id");
 
                     b.Property<string>("contact")
@@ -198,8 +198,6 @@ namespace SensenHosp.Data.Migrations
                     b.HasKey("id");
 
                     b.HasIndex("Careerid");
-
-                    b.HasIndex("Careerid1");
 
                     b.ToTable("Applicants");
                 });
@@ -412,30 +410,6 @@ namespace SensenHosp.Data.Migrations
                     b.ToTable("Contact");
                 });
 
-            modelBuilder.Entity("SensenHosp.Models.Department", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("details")
-                        .IsRequired()
-                        .HasMaxLength(1000);
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<int?>("sectionID");
-
-                    b.Property<int>("section_id");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("sectionID");
-
-                    b.ToTable("Department");
-                });
-
             modelBuilder.Entity("SensenHosp.Models.Donation", b =>
                 {
                     b.Property<int>("ID")
@@ -580,9 +554,6 @@ namespace SensenHosp.Data.Migrations
                 {
                     b.Property<int>("ReviewId")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("DoctorName")
-                        .HasMaxLength(100);
 
                     b.Property<string>("Message")
                         .IsRequired()
@@ -735,10 +706,6 @@ namespace SensenHosp.Data.Migrations
                     b.HasOne("SensenHosp.Models.Career", "Career")
                         .WithMany("Applicants")
                         .HasForeignKey("Careerid");
-
-                    b.HasOne("SensenHosp.Models.Career")
-                        .WithMany("applicants")
-                        .HasForeignKey("Careerid1");
                 });
 
             modelBuilder.Entity("SensenHosp.Models.ApplicationUser", b =>
@@ -754,13 +721,6 @@ namespace SensenHosp.Data.Migrations
                         .WithMany("BlogPosts")
                         .HasForeignKey("BlogCategoryID")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SensenHosp.Models.Department", b =>
-                {
-                    b.HasOne("SensenHosp.Models.Sections", "section")
-                        .WithMany("departments")
-                        .HasForeignKey("sectionID");
                 });
 
             modelBuilder.Entity("SensenHosp.Models.Media", b =>

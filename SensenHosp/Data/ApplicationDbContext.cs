@@ -75,6 +75,8 @@ namespace SensenHosp.Data
         //Parient accounts payment feature
         public DbSet<ReviewOnDoctor> ReviewOnDoctor { get; set; }
 
+        public DbSet<Physician> physician { get; set; }
+
         //Parient accounts payment feature
         //public DbSet<FeedbackOnDoctor> FeedbackOnDoctor { get; set; }
    
