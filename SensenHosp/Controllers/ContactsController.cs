@@ -22,11 +22,25 @@ namespace SensenHosp.Controllers
         // GET: Contacts
         public async Task<IActionResult> Admin(int pagenum)
         {
+            //var countMsg = await _context.Contact.Where(m => m.message_status == false).ToListAsync();
+
+           
+
+
             var _contact = await _context.Contact.ToListAsync();
+            
 
             int contactCount = _contact.Count();
             int perpage = 3;
             int maxpage = (int)Math.Ceiling((decimal)contactCount / perpage) - 1;
+
+            var msgCount = _contact.Count(m => m.message_status == false);
+
+            //THIS WILL DISPLAY A BOTSTRAP BADGE WHERE IT COUNTS HOW MANY UNREAD MESSAGES CURRENTLY ON DATABASE
+            if(msgCount > 0) {
+
+            ViewData["UnreadMessages"] = _contact.Count(m => m.message_status == false);
+            }
 
             if (maxpage < 0) maxpage = 0;
 
@@ -45,6 +59,7 @@ namespace SensenHosp.Controllers
                 ViewData["pagesummary"] = (pagenum + 1).ToString() + " of " + (maxpage + 1).ToString();
             }
 
+            //THE LIST OF MESSAGES THAT WILL BE DISPLAYED WILL BE IN DESCENDING ORDER SO ADMIN CAN SEE THE MOST RECENT MESSAGES RECEIVED FROM USERS
             List<Contact> contact = await _context.Contact.OrderByDescending(m => m.DateSent).Skip(start).Skip(start).Take(perpage).ToListAsync();
             return View(contact);
         }
@@ -117,7 +132,7 @@ namespace SensenHosp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,FullName,email,phone,Subject,message,DateSent,message_status")] Contact contact)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,FullName,email,phone,Subject,message,message_status")] Contact contact)
         {
             if (id != contact.ID)
             {
@@ -128,7 +143,8 @@ namespace SensenHosp.Controllers
             {
                 try
                 {
-                    //IM GOING TO FIX THE DATE CAUSE EVRYTIME I UPDATE THE MESSAGE STATUS THE DATE IS NOT DISPLAYING RIGHT INFORMATION
+
+                    //I STILL DON'T KNOW TO NOT TO TOUCH OTHER FIELDS AND THE DATE
                     contact.DateSent = DateTime.Now;
                     _context.Update(contact);
                     await _context.SaveChangesAsync();

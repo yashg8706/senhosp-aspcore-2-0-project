@@ -56,6 +56,32 @@ td a {
     font-weight: bold;
     font-style: italic;
 }
+#nav-inbox-tab {
+    color: red;
+    border: none;
+    background: #F9F4F5;
+    border-bottom: 2px solid red;
+}
+#nav-inbox-tab:hover{
+    border: none;
+    background: #F9F4F5;
+    border-bottom: 2px solid #2d2d2d;
+    
+}
+#nav-read-message-tab {
+    border: none;
+    background: #F9F4F5;
+    border-bottom: 2px solid #00b0cc;
+}
+#nav-read-message-tab:hover {
+    border: none;
+    background: #F9F4F5;
+    border-bottom: 2px solid green;
+}
+.nav-tabs {
+    background: #F9F4F5;
+    width: 100%;
+}
 /********************************CONTACT US FEATURE CSS***********************************/
 /********************************FAQS CSS************************************************/
 .faq-arrow-down {

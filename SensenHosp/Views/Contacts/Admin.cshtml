@@ -26,7 +26,10 @@
 <br />
 <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link active" id="nav-inbox-tab" data-toggle="tab" href="#nav-inbox" role="tab" aria-controls="nav-inbox" aria-selected="true">Inbox</a>
+        <span class="nav-item nav-link contacts-tab-menu" id="nav-checkbox-tab" role="tab" aria-controls="nav-checkbox" aria-selected="true"><input type="checkbox" /></span>
+        <a class="nav-item nav-link active contacts-tab-menu" id="nav-inbox-tab" data-toggle="tab" href="#nav-inbox" role="tab" aria-controls="nav-inbox" aria-selected="true">Inbox&nbsp;
+            <!--THIS IS TO DISPLAY A BOOTSTRAP BADGE TO COUNT UNREAD MESSAGE CURRENTLY STORED IN THE DATABASE-->
+            <span class="badge badge-primary">@ViewData["UnreadMessages"]</span></a>
         <a class="nav-item nav-link" id="nav-read-message-tab" data-toggle="tab" href="#nav-read-message" role="tab" aria-controls="nav-read-message" aria-selected="false">Read Messages</a>
     </div>
 </nav>
