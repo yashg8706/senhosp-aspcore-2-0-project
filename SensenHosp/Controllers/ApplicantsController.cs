@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using SensenHosp.Data;
 using SensenHosp.Models;
 using System.Diagnostics;
+using SensenHosp.Models.ViewModels;
 
 namespace SensenHosp.Controllers
 {
@@ -39,6 +40,7 @@ namespace SensenHosp.Controllers
                 return NotFound();
             }
 
+
             var applicant = await _context.Applicants
                 .SingleOrDefaultAsync(m => m.id == id);
             if (applicant == null)
@@ -50,9 +52,18 @@ namespace SensenHosp.Controllers
         }
 
         // GET: Applicants/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+            //The user should have an author if not 0 or 1
+            ViewData["CareerID"] = id;
+            //Model defined in Models/ViewModels/BlogEdit.cs
+            ApplicantEdit blogeditview = new ApplicantEdit();
+
+            return View(blogeditview);
         }
 
         // POST: Applicants/Create
@@ -60,17 +71,17 @@ namespace SensenHosp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,fname,lname,email,contact,career_id")] Applicant applicant, IFormFile resume)
+        public async Task<IActionResult> Create(int id, [Bind("id,fname,lname,email,contact,career_id")] Applicant applicant, IFormFile file)
         {
             var webRoot = _env.WebRootPath;
 
 
-            if (resume != null)
+            if (file != null)
             {
-                if (resume.Length > 0)
+                if (file.Length > 0)
                 {
                     string filetype = "pdf";
-                    var extension = Path.GetExtension(resume.FileName).Substring(1);
+                    var extension = Path.GetExtension(file.FileName).Substring(1);
 
                     if (filetype.Equals(extension))
                     {
@@ -82,7 +93,7 @@ namespace SensenHosp.Controllers
                         //save the file
                         using (var stream = new FileStream(path, FileMode.Create))
                         {
-                            resume.CopyTo(stream);
+                            file.CopyTo(stream);
                         }
                         //let the model know that there is a resume with an extension
                         applicant.resume = fn;

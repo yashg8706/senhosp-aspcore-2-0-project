@@ -46,8 +46,24 @@
             @Html.DisplayFor(model => model.deadline)
         </dd>
     </dl>
+    @if (Model.Applicants != null)
+    {
+        <div class="inprow">
+            @foreach (var applicant in Model.Applicants)
+            {
+                <div class="recitem">
+                    @Html.ActionLink(applicant.fname, "Details", "Applicant", new { id = applicant.id })
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <span style="font-style:italic;">No Applications yet.</span>
+    }
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Back to List</a> |
+    <a href="/Applicants/Create/@Model.id">Apply</a>
 </div>
