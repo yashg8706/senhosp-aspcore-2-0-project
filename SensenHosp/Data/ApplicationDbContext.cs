@@ -70,7 +70,7 @@ namespace SensenHosp.Data
         public DbSet<Department> Department { get; set; }
 
         //Parient accounts payment feature
-        public DbSet<Payment> payments { get; set; }
+        //public DbSet<Payment> payments { get; set; }
 
         //Parient accounts payment feature
         public DbSet<ReviewOnDoctor> ReviewOnDoctor { get; set; }

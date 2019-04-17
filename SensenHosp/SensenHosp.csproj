@@ -5,21 +5,6 @@
     <UserSecretsId>aspnet-SensenHosp-59B46704-89DC-44AF-981B-32EC63EA96A1</UserSecretsId>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Data\Migrations\20190401170355_roles.cs" />
-    <Compile Remove="Data\Migrations\20190401170355_roles.Designer.cs" />
-    <Compile Remove="Data\Migrations\20190403223838_data.cs" />
-    <Compile Remove="Data\Migrations\20190403223838_data.Designer.cs" />
-    <Compile Remove="Data\Migrations\20190403224342_roledata.cs" />
-    <Compile Remove="Data\Migrations\20190403224342_roledata.Designer.cs" />
-    <Compile Remove="Data\Migrations\20190403224535_adminrole.cs" />
-    <Compile Remove="Data\Migrations\20190403224535_adminrole.Designer.cs" />
-    <Compile Remove="Data\Migrations\20190415211554_feedbackondoctor.cs" />
-    <Compile Remove="Data\Migrations\20190415211554_feedbackondoctor.Designer.cs" />
-    <Compile Remove="Data\Migrations\20190415212303_feedbackondoctor.cs" />
-    <Compile Remove="Data\Migrations\20190415212303_feedbackondoctor.Designer.cs" />
-  </ItemGroup>
-
 
   <ItemGroup>
     <PackageReference Include="jQuery.UI.Widgets.Datepicker" Version="1.8.9" />

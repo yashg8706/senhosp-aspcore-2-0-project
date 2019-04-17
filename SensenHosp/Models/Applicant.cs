@@ -9,8 +9,8 @@ namespace SensenHosp.Models
 {
     public class Applicant
     {
-        [Key]
-        public int id { get; set; }
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
         [Required]
         [StringLength(255)]

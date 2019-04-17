@@ -42,7 +42,7 @@ namespace SensenHosp.Controllers
 
 
             var applicant = await _context.Applicants
-                .SingleOrDefaultAsync(m => m.id == id);
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (applicant == null)
             {
                 return NotFound();
@@ -118,7 +118,7 @@ namespace SensenHosp.Controllers
                 return NotFound();
             }
 
-            var applicant = await _context.Applicants.SingleOrDefaultAsync(m => m.id == id);
+            var applicant = await _context.Applicants.SingleOrDefaultAsync(m => m.Id == id);
             if (applicant == null)
             {
                 return NotFound();
@@ -133,7 +133,7 @@ namespace SensenHosp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("id,fname,lname,email,contact,resume,career_id")] Applicant applicant)
         {
-            if (id != applicant.id)
+            if (id != applicant.Id)
             {
                 return NotFound();
             }
@@ -147,7 +147,7 @@ namespace SensenHosp.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ApplicantExists(applicant.id))
+                    if (!ApplicantExists(applicant.Id))
                     {
                         return NotFound();
                     }
@@ -170,7 +170,7 @@ namespace SensenHosp.Controllers
             }
 
             var applicant = await _context.Applicants
-                .SingleOrDefaultAsync(m => m.id == id);
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (applicant == null)
             {
                 return NotFound();
@@ -184,7 +184,7 @@ namespace SensenHosp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var applicant = await _context.Applicants.SingleOrDefaultAsync(m => m.id == id);
+            var applicant = await _context.Applicants.SingleOrDefaultAsync(m => m.Id == id);
             _context.Applicants.Remove(applicant);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -192,7 +192,7 @@ namespace SensenHosp.Controllers
 
         private bool ApplicantExists(int id)
         {
-            return _context.Applicants.Any(e => e.id == id);
+            return _context.Applicants.Any(e => e.Id == id);
         }
     }
 }

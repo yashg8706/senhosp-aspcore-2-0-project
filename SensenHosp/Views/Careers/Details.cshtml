@@ -52,7 +52,7 @@
             @foreach (var applicant in Model.Applicants)
             {
                 <div class="recitem">
-                    @Html.ActionLink(applicant.fname, "Details", "Applicant", new { id = applicant.id })
+                    @Html.ActionLink(applicant.fname, "Details", "Applicant", new { id = applicant.Id })
                 </div>
             }
         </div>
