@@ -31,6 +31,12 @@ namespace SensenHosp.Controllers
                 .ToListAsync();
 
             int albumcount = _album.Count;
+
+            if (albumcount == 0)
+            {
+                return RedirectToAction("Create");
+            }
+
             int perpage = 3;
             int maxpage = (int)Math.Ceiling((decimal)albumcount / perpage) - 1;
 

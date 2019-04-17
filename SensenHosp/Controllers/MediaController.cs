@@ -35,6 +35,12 @@ namespace SensenHosp.Controllers
                 .ToListAsync();
 
             int mediacount = _media.Count;
+
+            if (mediacount == 0)
+            {
+                return RedirectToAction("Create");
+            }
+
             int perpage = 6;
             int maxpage = (int)Math.Ceiling((decimal)mediacount / perpage) - 1;
 

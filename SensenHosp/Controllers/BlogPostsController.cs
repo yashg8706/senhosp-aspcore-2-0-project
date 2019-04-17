@@ -34,6 +34,10 @@ namespace SensenHosp.Controllers
                 .ToListAsync();
 
             int postcount = _posts.Count;
+            if(postcount == 0)
+            {
+                return RedirectToAction("Create");
+            }
             int perpage = 6;
             int maxpage = (int)Math.Ceiling((decimal)postcount / perpage) - 1;
 
