@@ -27,6 +27,12 @@ namespace SensenHosp.Controllers
                 .ToListAsync();
 
             int categorycount = _blogcategory.Count;
+
+            if (categorycount == 0)
+            {
+                return RedirectToAction("Create");
+            }
+
             int perpage = 3;
             int maxpage = (int)Math.Ceiling((decimal)categorycount / perpage) - 1;
 

@@ -65,11 +65,17 @@ namespace SensenHosp.Data
         public DbSet<Career> Careers { get; set; }
         public DbSet<Applicant> Applicants { get; set; }
 
+        //Locatons and Departments features
+        public DbSet<Sections> Sections { get; set; }
+        public DbSet<Department> Department { get; set; }
+
         //Parient accounts payment feature
-        public DbSet<Payment> payments { get; set; }
+        //public DbSet<Payment> payments { get; set; }
 
         //Parient accounts payment feature
         public DbSet<ReviewOnDoctor> ReviewOnDoctor { get; set; }
+
+        public DbSet<Physician> physician { get; set; }
 
         //Parient accounts payment feature
         //public DbSet<FeedbackOnDoctor> FeedbackOnDoctor { get; set; }

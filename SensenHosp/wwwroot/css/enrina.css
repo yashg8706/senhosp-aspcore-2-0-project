@@ -4,121 +4,170 @@
 body {
     font-family: 'Nunito Sans', sans-serif;
 }
-.center-div{
-    margin:0 auto;
+
+.center-div {
+    margin: 0 auto;
 }
-.heading{
+
+.heading {
     text-align: center;
 }
+
 .heading-h2 {
     padding-top: 20px;
 }
-.contact-message{
-    width:650px;
+
+.contact-message {
+    width: 650px;
 }
+
 th {
     background: #1531AB;
 }
-td a{
+
+td a {
     color: #2d2d2d;
-    text-decoration:none;
+    text-decoration: none;
 }
-td a:hover{
-    color: #1531ab;
-    text-decoration:none;
-}
+
+    td a:hover {
+        color: #1531ab;
+        text-decoration: none;
+    }
+
 .pagination {
     color: #1531ab;
 }
+
 .submit {
     padding: 10px 30px;
     margin-top: 10px;
     background: #1531ab;
     color: white;
 }
+
 .submit:hover {
     margin-top: 10px;
     background: #00b0cc;
     color: white;
-}
-/*input[type="checkbox"] {
-    height: 25px;
-    width: 25px;
-    background-color: grey !important;
-    border: none;
-    -webkit-appearance: none;
-    color: white;
-}
-input[type="checkbox"]:checked {
-    height: 25px;
-    width: 25px;
-    background-color: #1531ab !important;
-    border: none;
-    -webkit-appearance: none;
-    color: white;
-}
-.checkbox-label {
-    font-family: 'Nunito Sans', sans-serif;
-}*/
-/********************************CONTACT US FEATURE CSS***********************************/
 
-/********************************FAQS CSS************************************************/
-.faq-arrow-down{
-    float:right;
 }
+.contacts-read{
+    font-weight: bold;
+    font-style: italic;
+}
+#nav-inbox-tab {
+    color: red;
+    border: none;
+    background: #F9F4F5;
+    border-bottom: 2px solid red;
+}
+#nav-inbox-tab:hover{
+    border: none;
+    background: #F9F4F5;
+    border-bottom: 2px solid #2d2d2d;
+    
+}
+#nav-read-message-tab {
+    border: none;
+    background: #F9F4F5;
+    border-bottom: 2px solid #00b0cc;
+}
+#nav-read-message-tab:hover {
+    border: none;
+    background: #F9F4F5;
+    border-bottom: 2px solid green;
+}
+.nav-tabs {
+    background: #F9F4F5;
+    width: 100%;
+}
+/********************************CONTACT US FEATURE CSS***********************************/
+/********************************FAQS CSS************************************************/
+.faq-arrow-down {
+    float: right;
+}
+
 .faq-btn {
     background: #1531AB;
     color: #fff;
 }
+
 .faq-btn:hover {
-    background: #000c7b;
-    color: #fff;
+        background: #000c7b;
+        color: #fff;
 }
 
 /********************************FAQS CSS************************************************/
 
 /********************************ALERT POSTS CSS*****************************************/
-#alert{
-    display:none;
+/*#alert {
+    display: none;
+}*/
+
+.carousel-item {
+    margin: 0 auto;
 }
+
+.alert-icon {
+    color: #2d2d2d !important;
+    font-size: 20px;
+}
+
+.alert-icon:hover {
+    color: blue !important;
+}
+
 .alert-container {
-    display:none;
     text-align: center;
     /*background: #ffffdc;*/
-    padding: 10px;
+    /*padding: 10px;*/
 }
-.alert-tittle {
-    margin:5px;
-    border-top: 2px solid red;
-    border-bottom: 2px solid red;
+
+.alert-title {
+    padding: 5px 30px;
+    margin: 10px;
+    background: #fffde3;
+    border-top: 1px dashed red;
+    border-bottom: 1px dashed red;
 }
-.alert-tittle li{
+
+.alert-title li {
     list-style: none;
     margin: 10px;
 }
-.alert-tittle a{
-    text-decoration:none;
-    font-weight:bold;
+
+.alert-title a {
+    text-decoration: none;
+    font-weight: bold;
 }
-.alert-tittle a {
-    font-size:10px;
-    padding: 5px 20px;
-    margin-top: 10px;
-    background: #1531ab;
-    color: white;
+
+.alert-title a {
+     font-size: 10px;
+     padding: 5px 20px;
+     margin-top: 10px;
+     background: #1531ab;
+     color: white;
 }
-.alert-tittle a:hover {
-    margin-top: 10px;
-    background: #00b0cc;
-    color: white;
+
+.alert-title a:hover {
+     margin-top: 10px;
+     background: #00b0cc;
+     color: white;
 }
+
 .alert-status-active {
-    text-align:center;
-    font-size:12px;
+    text-align: center;
+    font-size: 12px;
     padding: 5px 14px;
     background: #1531ab;
     color: #fff;
 }
+.alert-status-active:hover, .alert-status-inactive:hover {
+    background: #00b0cc;
+    color: white;
+}
+
 .alert-status-inactive {
     text-align: center;
     font-size: 12px;
@@ -126,8 +175,69 @@ input[type="checkbox"]:checked {
     background: #2d2d2d;
     color: #fff;
 }
-.alert-title-table{
-    width:650px;
+
+.alert-title-table {
+    width: 650px;
 }
 
+.alert-readMore a {
+    background-color: #1531AB;
+    color: #fff;
+    font-size: 12px;
+}
+
+.carousel-control-prev, .carousel-control-next {
+    width: 5% !important;
+}
+
+
 /********************************ALERT POSTS CSS*****************************************/
+.details-description p{
+    text-align:justify !important;
+}
+.details-span{
+    font-style: italic;
+    font-weight:bold;
+}
+
+@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+        width: 100%;
+    }
+    td {
+        /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+    }
+    .container {
+        width: 100%;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        border: 1px solid #ccc;
+    }
+    .form-group{
+        display:block;
+    }
+}
+
+/********************************PAGINATION CSS*****************************************/
+.pagination {
+    overflow: hidden;
+    float: right;
+    padding-bottom: 10px;
+}

@@ -7,6 +7,7 @@ using SensenHosp.Models;
 using SensenHosp.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Data.SqlClient;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace SensenHosp.Controllers
 {
@@ -22,34 +23,35 @@ namespace SensenHosp.Controllers
         //GET: ReviewOnDoctor/Create
         public async Task<IActionResult> Create()
         {
+            ViewData["physicianId"] = new SelectList(_context.physician, "physicianId", "physicianName");
             return View();
         }
 
         //POST: ReviewOnDoctor/Create
         [HttpPost]
-        public async Task<IActionResult> Create(string DoctorName, string Message)
-        {
-            string query = "insert into ReviewOnDoctor(DoctorName,Message)" +
-                "values(@doctorname,@message)";
-            SqlParameter[] myparams = new SqlParameter[2];
-
-            myparams[0] = new SqlParameter("@doctorname",DoctorName);
-            myparams[1] = new SqlParameter("@message",Message);
-
-            _context.Database.ExecuteSqlCommand(query, myparams);
-            return RedirectToAction(nameof(List));
-        }
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("ReviewId", "DoctorName", "Message", "Reply")] ReviewOnDoctor review)
+        //public async Task<IActionResult> Create(string DoctorName, string Message)
         //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(review);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(List));
-        //    }
-        //    return View(review);
+        //    string query = "insert into ReviewOnDoctor(DoctorName,Message)" +
+        //        "values(@doctorname,@message)";
+        //    SqlParameter[] myparams = new SqlParameter[2];
+
+        //    myparams[0] = new SqlParameter("@doctorname",DoctorName);
+        //    myparams[1] = new SqlParameter("@message",Message);
+
+        //    _context.Database.ExecuteSqlCommand(query, myparams);
+        //    return RedirectToAction(nameof(List));
         //}
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("ReviewId", "DoctorName", "physicianId", "Message", "Reply")] ReviewOnDoctor review)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(review);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(List));
+            }
+            return View(review);
+        }
         //GET: Reviews
         public async Task<IActionResult> List(int pagenum)
         {

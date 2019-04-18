@@ -9,8 +9,8 @@ namespace SensenHosp.Models
 {
     public class Applicant
     {
-        [Key]
-        public int id { get; set; }
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
         [Required]
         [StringLength(255)]
@@ -36,7 +36,7 @@ namespace SensenHosp.Models
 
         [ForeignKey("id")]
         public int career_id { get; set; }
-        
+
         public virtual Career Career { get; set; }
     }
 }
