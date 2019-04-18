@@ -9,7 +9,7 @@ namespace SensenHosp.Data
     public static class DbInitializer
     {
         public static void Initialize(ApplicationDbContext context)
-        {          
+        {
             context.Database.EnsureCreated();
 
             return;
@@ -18,8 +18,8 @@ namespace SensenHosp.Data
         public static async Task CreateRoles(IServiceProvider serviceProvider)
         {
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-         
-            string[] roleNames = { "Patient","Doctor" };
+
+            string[] roleNames = { "Patient", "Doctor" };
             IdentityResult roleResult;
 
             foreach (var roleName in roleNames)
@@ -31,6 +31,8 @@ namespace SensenHosp.Data
                     roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
                 }
             }
+
+
         }
     }
 }

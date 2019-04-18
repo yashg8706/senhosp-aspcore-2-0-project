@@ -2,11 +2,18 @@
 @using System.Linq
 @using Microsoft.AspNetCore.Http
 @using Microsoft.AspNetCore.Http.Authentication
+
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.Extensions.Configuration;
 @model LoginViewModel
 @inject SignInManager<ApplicationUser> SignInManager
 
 @{
     ViewData["Title"] = "Log in";
+    string userType = string.Empty;
+
+  
+
 }
 
 <h2>@ViewData["Title"]</h2>
