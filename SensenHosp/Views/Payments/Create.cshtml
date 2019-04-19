@@ -1,0 +1,50 @@
+﻿@model SensenHosp.Models.Payments
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h4>Payments</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="patientFname" class="control-label"></label>
+                <input asp-for="patientFname" class="form-control" />
+                <span asp-validation-for="patientFname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="patientLname" class="control-label"></label>
+                <input asp-for="patientLname" class="form-control" />
+                <span asp-validation-for="patientLname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="invoiceId" class="control-label"></label>
+                <input asp-for="invoiceId" class="form-control" />
+                <span asp-validation-for="invoiceId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="invoiceDate" class="control-label"></label>
+                <input asp-for="invoiceDate" type="date" class="form-control" id="datetimepicker" data-date-format="yyyy-mm-dd" />
+                <span asp-validation-for="invoiceDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="amount" class="control-label"></label>
+                <input asp-for="amount" class="form-control" />
+                <span asp-validation-for="amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

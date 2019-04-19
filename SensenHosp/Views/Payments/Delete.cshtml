@@ -1,0 +1,51 @@
+﻿@model SensenHosp.Models.Payments
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Donation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.patientFname)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.patientFname)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.patientLname)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.patientLname)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.payeeEmail)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.payeeEmail)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.invoiceId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.invoiceId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.amount)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.amount)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="id" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

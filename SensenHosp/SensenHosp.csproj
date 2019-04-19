@@ -28,4 +28,16 @@
     <Folder Include="wwwroot\Uploads\Resume\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Payments\Delete.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Payments\Details.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Payments\Edit.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
 </Project>
