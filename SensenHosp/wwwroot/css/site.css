@@ -30,13 +30,6 @@
     margin: 15px;
 }
 
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
-}
 
 .top-bar {
     background-color: #1531ab;
@@ -61,6 +54,80 @@ a#top-bar-login {
 
 .navbar-brand {
     padding: 0;
+}
+
+#main-nav div, #main-nav a {
+    position: relative;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+#main-nav div:hover, #main-nav > a:hover {
+    background-color: #1838c2;
+    text-decoration: none;
+}
+
+#main-nav div ul {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 48px;
+    left: -2px;
+    background-color: #1531ab;
+    z-index: 100;
+    font-size: .8em;
+    min-width: 100%;
+    padding: 0;
+    border-top: 2px solid white;
+    -webkit-transition: opacity 0.2s linear, visibility 0.2s linear;
+    -moz-transition: opacity 0.2s linear, visibility 0.2s linear;
+    -o-transition: opacity 0.2s linear, visibility 0.2s linear;
+    transition: opacity 0.2s linear, visibility 0.2s linear;
+}
+
+#main-nav div ul li a {
+    white-space: nowrap;
+}
+
+#main-nav div ul li{
+    list-style: none;
+    padding: 7px 10px;
+    border:0 none;
+    border-top:1px solid #c9c9c9;
+}
+
+#main-nav div:hover > ul {
+    visibility:visible;
+    opacity:1;
+    position: absolute;
+    top: 48px;
+
+}
+
+#main-nav div ul li:hover {
+    background-color: #1838c2;
+    text-decoration: none;
+}
+
+#main-nav div ul li:hover a{
+    text-decoration: none;
+}
+
+#nav-collapse-closebtn {
+    display: none;
+}
+
+#side-search-block {
+    display: none;
+}
+
+
+.navbar-brand span {
+    display: none;
+}
+
+#side-bar-donate, #side-bar-login {
+    display: none;
 }
 
 .form-control.search-box {
@@ -96,7 +163,7 @@ a#top-bar-login {
 
 #main-nav {
     font-size: 1.2em;
-    padding: 10px 75px;
+    padding: 0px 75px;
     background-color: #1531ab;
     color: white;
 }
@@ -172,17 +239,12 @@ footer {
 
 .list-group-item {
     background-color: inherit;
-    border-right: 1px solid #fefefe;
     color: inherit;
     height: 100px;
 }
 
 .list-group-item:first-child, .list-group-item:last-child {
     border-radius: 0;
-}
-
-.list-group-item:last-child {
-    border: none;
 }
 
 .list-group-item-action {
@@ -298,3 +360,136 @@ a.pseudo-img:hover {
 
 
 /*End of Blog post feature*/
+
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 1200px) {
+    #main-nav div, #main-nav a {
+        padding: 10px 5px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    #main-nav div, #main-nav a {
+        font-size: .9em;
+    }
+}
+
+@media screen and (min-width: 921px) {
+    .navbar-expand-lg .navbar-toggler {
+        display: none;
+    }
+
+    #side-nav {
+        display: none;
+    }
+    
+}
+
+
+
+#side-nav div ul {
+    display: none;
+    z-index: 100;
+    font-size: .8em;
+    padding: 0;
+}
+
+@media screen and (max-width: 920px) {
+    #main-nav {
+        display: none!important;
+    }
+    #side-nav {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 100;
+        top: 0;
+        right: 0;
+        background-color: #263238;
+        overflow-x: scroll;
+        padding-top: 40px;
+        transition: 0.5s;
+
+        color: white;
+    }
+
+    #nav-collapse-closebtn {
+        display: inline;
+        position: absolute;
+        top: 0;
+        left: 210px;
+        font-size: 36px;
+    }
+
+
+
+    #side-nav div, #side-nav a {
+        position: relative;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+
+    #side-nav a {
+        color: white;
+    }
+
+    #side-nav div:hover, #side-nav > a:hover {
+        text-decoration: none;
+    }
+
+    #side-nav div ul li {
+        list-style: none;
+        padding: 7px 10px;
+    }
+}
+
+@media screen and (max-width: 780px) {
+    #main-search-block {
+        display: none;
+    }
+
+    #side-search-block {
+        display: block;
+    }
+
+    #nav_width_wrapper {
+        padding: 0 50px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #nav_width_wrapper {
+        padding: 0 25px;
+    }
+
+    .navbar-brand img {
+        display: none;
+    }
+
+    .navbar-brand span {
+        display: inline-block;
+        text-transform: uppercase;
+        margin-left: 10px;
+        padding: 5px 0;
+        color: white;
+    }
+
+    nav {
+        padding-top: 30px!important;
+        background-color: #1531ab!important;
+    }
+
+    .btn-outline-primary {
+        color: white;
+        border-color: white;
+    }
+
+    .top-bar {
+        display: none;
+    }
+
+    #side-bar-donate, #side-bar-login {
+        display: inline-block;
+    }
+}
