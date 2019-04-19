@@ -29,29 +29,29 @@ namespace SensenHosp.Controllers
 
         //POST: ReviewOnDoctor/Create
         [HttpPost]
-        //public async Task<IActionResult> Create(string DoctorName, string Message)
-        //{
-        //    string query = "insert into ReviewOnDoctor(DoctorName,Message)" +
-        //        "values(@doctorname,@message)";
-        //    SqlParameter[] myparams = new SqlParameter[2];
-
-        //    myparams[0] = new SqlParameter("@doctorname",DoctorName);
-        //    myparams[1] = new SqlParameter("@message",Message);
-
-        //    _context.Database.ExecuteSqlCommand(query, myparams);
-        //    return RedirectToAction(nameof(List));
-        //}
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ReviewId", "DoctorName", "physicianId", "Message", "Reply")] ReviewOnDoctor review)
+        public async Task<IActionResult> Create(string physicianId, string Message)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(review);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(List));
-            }
-            return View(review);
+            string query = "insert into ReviewOnDoctor(physicianId,Message)" +
+                "values(@doctorname,@message)";
+            SqlParameter[] myparams = new SqlParameter[2];
+
+            myparams[0] = new SqlParameter("@doctorname", physicianId);
+            myparams[1] = new SqlParameter("@message", Message);
+
+            _context.Database.ExecuteSqlCommand(query, myparams);
+            return RedirectToAction(nameof(List));
         }
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("ReviewId", "DoctorName", "physicianId", "Message", "Reply")] ReviewOnDoctor review)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(review);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(List));
+        //    }
+        //    return View(review);
+        //}
         //GET: Reviews
         public async Task<IActionResult> List(int pagenum)
         {
@@ -71,7 +71,8 @@ namespace SensenHosp.Controllers
                     (pagenum + 1).ToString() + " of " +
                     (maxpage + 1).ToString();
             }
-            List<ReviewOnDoctor> review = await _context.ReviewOnDoctor.Skip(start).Take(perpage).ToListAsync();
+            List<ReviewOnDoctor> review = await _context.ReviewOnDoctor.Include(a=>a.Physician).Skip(start).Take(perpage).ToListAsync();
+            //await _context.ReviewOnDoctor.Skip(start).Take(perpage).ToListAsync();
             return View(review);
             //return View(await _context.ReviewOnDoctor.ToListAsync());
         }
@@ -88,28 +89,32 @@ namespace SensenHosp.Controllers
             {
                 return NotFound();
             }
+            ViewData["physicianId"] = new SelectList(_context.physician, "physicianId", "physicianName");
             return View(review);
         }
         //POST: ReviewOnDoctor/Edit/5
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, string DoctorName, string Message, string Reply)
+        public async Task<IActionResult> Edit(int id, string physicianId, string Message, string Reply)
         {
             if (id == null || (_context.ReviewOnDoctor.Find(id) == null))
             {
                 return NotFound();
             }
-            string query = "update ReviewOnDoctor set" +
-                "DoctorName = @doctorname," +
+            string query = "update ReviewOnDoctor set " +
+                "physicianId = @doctorname," +
                 "Message = @message," +
-                "Reply = @reply" +
+                "Reply = @reply " +
                 "where ReviewId = @id";
 
             SqlParameter[] myparams = new SqlParameter[4];
             myparams[0] = new SqlParameter("@id",id);
-            myparams[1] = new SqlParameter("@doctorname", DoctorName);
+            myparams[1] = new SqlParameter("@doctorname", physicianId);
             myparams[2] = new SqlParameter("@message", Message);
             myparams[3] = new SqlParameter("@reply", Reply);
-            return View();
+
+            _context.Database.ExecuteSqlCommand(query, myparams);
+            return RedirectToAction("List");
+            //return View(nameof(List));
         }
         //public async Task<IActionResult> Edit(int id,[Bind("ReviewId", "DoctorName", "Message", "Reply")] ReviewOnDoctor review)
         //{
@@ -152,6 +157,8 @@ namespace SensenHosp.Controllers
             {
                 return NotFound();
             }
+            //ViewData["physicianId"] = await _context.ReviewOnDoctor.Include(a => a.Physician).Skip(start).Take(perpage).ToListAsync();
+            ViewData["physicianId"] = new SelectList(_context.physician, "physicianId", "physicianName");
             return View(review);
         }
 
