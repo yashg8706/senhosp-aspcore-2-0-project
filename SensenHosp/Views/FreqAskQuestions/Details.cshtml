@@ -4,39 +4,24 @@
     ViewData["Title"] = "Details";
 }
 
-<h2 class="heading heading-h2">Details</h2>
+<h2 class="heading heading-h2">@Html.DisplayFor(model => model.Question)</h2>
+<hr />
+<div class="container">
+    <div class="row">
+        <div class="col-md-10  center-div">
+            <div>
+                <a asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-arrow-left">&nbsp;Back to Homepage</i></a>  |
+                <a asp-action="Edit" asp-route-id="@Model.ID" class="submit">Update</a>&nbsp;&nbsp;
+                <a asp-action="Delete" asp-route-id="@Model.ID" class="submit">Delete</a>
+            </div>
+            <br />
+            <h6>Alert Status:&nbsp;<span class="details-span">@Html.DisplayFor(model => model.Question)</span></h6>
+            <p>Date Created:&nbsp;<span class="details-span">@Html.DisplayFor(model => model.DateCreated)</span></p>
 
-<div>
-    <h4>FreqAskQuestion</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Question)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Question)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Answer)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Answer)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DateCreated)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DateModified)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DateModified)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+            <div class="details-description">
+                <h6>Answer:</h6>
+                <p>@Html.Raw(Model.Answer)</p>
+            </div>
+        </div>
+    </div>
 </div>
