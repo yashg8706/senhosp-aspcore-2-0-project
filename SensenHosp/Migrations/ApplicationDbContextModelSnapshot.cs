@@ -522,6 +522,37 @@ namespace SensenHosp.Migrations
                     b.ToTable("Media");
                 });
 
+            modelBuilder.Entity("SensenHosp.Models.Payments", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("amount")
+                        .IsRequired();
+
+                    b.Property<DateTime>("invoiceDate");
+
+                    b.Property<string>("invoiceId")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("patientFname")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("patientLname")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("payeeEmail");
+
+                    b.Property<string>("transactionId");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Payments");
+                });
+
             modelBuilder.Entity("SensenHosp.Models.Physician", b =>
                 {
                     b.Property<int>("physicianId")

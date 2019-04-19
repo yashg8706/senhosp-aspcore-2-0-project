@@ -10,8 +10,8 @@ using SensenHosp.Data;
 namespace SensenHosp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190417194354_init")]
-    partial class init
+    [Migration("20190419173853_Payments_table")]
+    partial class Payments_table
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -171,7 +171,7 @@ namespace SensenHosp.Migrations
 
             modelBuilder.Entity("SensenHosp.Models.Applicant", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int?>("Careerid");
@@ -195,7 +195,7 @@ namespace SensenHosp.Migrations
 
                     b.Property<string>("resume");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.HasIndex("Careerid");
 
@@ -216,6 +216,10 @@ namespace SensenHosp.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -518,6 +522,37 @@ namespace SensenHosp.Migrations
                     b.HasIndex("AlbumID");
 
                     b.ToTable("Media");
+                });
+
+            modelBuilder.Entity("SensenHosp.Models.Payments", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("amount")
+                        .IsRequired();
+
+                    b.Property<DateTime>("invoiceDate");
+
+                    b.Property<string>("invoiceId")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("patientFname")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("patientLname")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("payeeEmail");
+
+                    b.Property<string>("transactionId");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("SensenHosp.Models.Physician", b =>
