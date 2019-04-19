@@ -61,9 +61,11 @@ namespace SensenHosp.Controllers
             {
                 _context.Add(payments);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Pay", "Payments");
+                //return RedirectToAction(nameof(Index));
             }
             return View(payments);
+         
         }
 
         // GET: Payments/Pay
@@ -249,12 +251,15 @@ namespace SensenHosp.Controllers
                 AmountWithBreakdown amount = result.PurchaseUnits[0].Amount;
                 Debug.WriteLine("Buyer:");
                 Debug.WriteLine("\tEmail Address: {0}\n\tName: {1}\n\tPhone Number: {2}{3}", result.Payer.EmailAddress, result.Payer.Name.GivenName + " " + result.Payer.Name.Surname, result.Payer.Phone.CountryCode, result.Payer.Phone.NationalNumber);
-            }
 
+                
+            }
+            Debug.WriteLine("************************************************************************************** ");
             int last_payment_id = _context.Payments.Max(item => item.id);
 
-
+            Debug.WriteLine("Buyer:", last_payment_id);
             Payments payments = await _context.Payments.SingleOrDefaultAsync(m => m.id == last_payment_id);
+            Debug.WriteLine("************************************************************************************** ");
 
             payments.amount = result.PurchaseUnits[0].Amount.Value;
             payments.transactionId = result.Id;
