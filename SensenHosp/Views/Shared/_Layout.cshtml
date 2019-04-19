@@ -80,17 +80,46 @@
     </nav>
 
     <div class="nav navbar d-flex flex-row justify-content-between" id="main-nav">
-        <a href="#">Patients & Visitors</a>
+        <div href="#">Patients & Visitors &raquo;
+            <ul>
+                <li><a href="/account">Account Payment</a></li>
+                <li><a href="/appointments/list">Request an Appointment</a></li>
+                <li><a href="#">Patient Registration</a>
+            </ul>
+        </div>
         <span>|</span>
-        <a href="#">Health Services</a>
+        <div href="#">Health Services &raquo;
+            <ul>
+                <li><a href="#">Find a Doctor</a></li>
+                <li><a href="/physicians/create">Reviews of Physicians</a></li>
+                <li><a href="#">Departments</a>
+            </ul>
+        </div>
         <span>|</span>
         <a href="/Careers/">Careers</a>
         <span>|</span>
-        <a href="#">Who we are</a>
+        <div href="#">Who we are &raquo;
+            <ul>
+                <li><a href="/home/about">About Us</a></li>
+                <li><a href="#">Departments</a>
+            </ul>
+        </div>
         <span>|</span>
-        <a href="#">News & Events</a>
+        <div href="#">News & Events &raquo;
+            <ul>
+                <li><a href="/blogposts">Blog</a></li>
+                <li><a href="/albums">Media</a></li>
+                <li><a href="/events">Events</a>
+            </ul>
+        </div>
         <span>|</span>
-        <a href="/Contacts/Create">Contact Us</a>
+        <div href="/Contacts/Create">Contact Us &raquo;
+            <ul>
+                <li><a href="#">Location</a></li>
+                <li><a href="/testimonials">Testimonials</a></li>
+                <li><a href="/freqAskQuestions">FAQ</a>
+            </ul>
+        </div>
     </div>
 
     <!--TO USE THE VIEWCOMPONENT ITS NEEDS TO BE InvokeAsync METHOD-->
