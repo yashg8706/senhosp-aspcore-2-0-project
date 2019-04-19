@@ -2,6 +2,29 @@
 
 window.onload = function () {
 
+    const side_nav = document.getElementById("side-nav");
+
+    document.getElementById('navbar-toggler').onclick = function () {
+        side_nav.style.width = "250px";
+    }
+
+    /* Set the width of the side navigation to 0 */
+    document.getElementById('nav-collapse-closebtn').onclick = function () {
+        side_nav.style.width = "0";
+    }
+
+
+    $("#side-nav>div>div").click(function () {
+        if ($(this).next('ul')[0].style['display'] === 'block') {
+            $(this).next('ul').hide(400, 'swing');
+            return;
+        }
+        $('#side-nav>div>ul').hide(400, 'swing');
+        $(this).next('ul').show(400, 'swing');
+    });
+    
+
+
     if (document.getElementById('donation_form')) {
         var donation_form = document.getElementById('donation_form');
         var donations_success = document.getElementById('donation_success');

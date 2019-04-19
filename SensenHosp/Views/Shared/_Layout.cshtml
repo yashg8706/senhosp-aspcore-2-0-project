@@ -21,27 +21,64 @@
     </environment>
 </head>
 <body>
-    @*<nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">SensenHosp</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    </ul>
-                    @await Html.PartialAsync("_LoginPartial")
-                </div>
+    <div id="side-nav">
+        <span href="javascript:void(0)" id="nav-collapse-closebtn" class="closebtn">&times;</span>
+        <div id="side-search-block">
+            <form class="form-inline py-2 my-lg-0 justify-content-end d-flex flex-row">
+                <input class="form-control search-box mr-sm-2 col-8" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-light search-icon my-2 mr-0 my-sm-0" type="submit">
+                    &nbsp;
+                </button>
+
+            </form>
+        </div>
+
+        <div class="nav navbar d-flex flex-column align-items-start">
+            <a class="btn btn-outline-light btn-sm mr-4" id="side-bar-donate" href="/donations/donate">DONATE</a>
+            <a asp-area="" asp-controller="Account" asp-action="Login" asp-route-usertype="staff" class="mr-4" id="side-bar-login">Staff Log in</a>
+            <div>
+                Patients & Visitors &raquo;
             </div>
-        </nav>*@
+            <ul>
+                <li><a href="#">Patient Registration</a>
+                <li><a href="/appointments/list">Request an Appointment</a></li>
+                <li><a href="/payments/payment">Account Payment</a></li>
+            </ul>
+            <div>
+                Health Services &raquo;
+            </div>
+            <ul>
+                <li><a href="#">Find a Doctor</a></li>
+                <li><a href="/physicians/create">Reviews of Physicians</a></li>
+                <li><a href="#">Departments</a>
+            </ul>
+            <a href="/Careers/">Careers</a>
+            <div>
+                Who we are &raquo;
+            </div>
+            <ul>
+                <li><a href="/home/about">About Us</a></li>
+                <li><a href="#">Departments</a>
+            </ul>
+            <div>
+                News & Events &raquo;
+            </div>
+            <ul>
+                <li><a href="/blogposts">Blog</a></li>
+                <li><a href="/albums">Media</a></li>
+                <li><a href="/events">Events</a>
+            </ul>
+            <div>
+                Contact Us &raquo;
+            </div>
+            <ul>
+                <li><a href="/Contacts/Create">Contact Us</a></li>
+                <li><a href="#">Location</a></li>
+                <li><a href="/testimonials">Testimonials</a></li>
+                <li><a href="/freqAskQuestions">FAQ</a>
+            </ul>
+        </div>
+    </div>
     <div class="top-bar">
         <div class="d-flex flex-row justify-content-end align-items-center">
             <a class="btn btn-outline-light btn-sm mr-4" href="/donations/donate">DONATE</a>
@@ -53,17 +90,15 @@
             </span>
         </div>
     </div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex flex-column">
+    <nav class="navbar navbar-expand-lg navbar-light d-flex flex-column">
         <div class="d-flex justify-content-between align-items-center" id="nav_width_wrapper">
             <a class="navbar-brand" href="/">
+                <span>SensenHumber<br />Hospital</span>
                 <img alt="logo" src="~/images/logo.png" height="100px" width="auto" />
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
 
             <div class="d-flex flex-column pb-2">
-                <div>
+                <div id="main-search-block">
                     <form class="form-inline py-2 my-lg-0 justify-content-end">
                         <input class="form-control search-box mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-light search-icon my-2 mr-0 my-sm-0" type="submit">
@@ -76,19 +111,26 @@
                     <a class="btn btn-outline-primary mr-2" href="#">EMERGENCY</a>
                 </div>
             </div>
+
+            <button class="navbar-toggler" type="button" id="navbar-toggler">
+                <span class="navbar-toggler-icon"></span>
+            </button>
         </div>
     </nav>
 
     <div class="nav navbar d-flex flex-row justify-content-between" id="main-nav">
-        <div href="#">Patients & Visitors &raquo;
+        <a href="javascript:void(0)" id="nav-collapse-closebtn" class="closebtn" onclick="closeNav()">&times;</a>
+        <div>
+            Patients & Visitors &raquo;
             <ul>
-                <li><a href="/account">Account Payment</a></li>
-                <li><a href="/appointments/list">Request an Appointment</a></li>
                 <li><a href="#">Patient Registration</a>
+                <li><a href="/appointments/list">Request an Appointment</a></li>
+                <li><a href="/payments/payment">Account Payment</a></li>
             </ul>
         </div>
         <span>|</span>
-        <div href="#">Health Services &raquo;
+        <div>
+            Health Services &raquo;
             <ul>
                 <li><a href="#">Find a Doctor</a></li>
                 <li><a href="/physicians/create">Reviews of Physicians</a></li>
@@ -98,14 +140,16 @@
         <span>|</span>
         <a href="/Careers/">Careers</a>
         <span>|</span>
-        <div href="#">Who we are &raquo;
+        <div>
+            Who we are &raquo;
             <ul>
                 <li><a href="/home/about">About Us</a></li>
                 <li><a href="#">Departments</a>
             </ul>
         </div>
         <span>|</span>
-        <div href="#">News & Events &raquo;
+        <div>
+            News & Events &raquo;
             <ul>
                 <li><a href="/blogposts">Blog</a></li>
                 <li><a href="/albums">Media</a></li>
@@ -113,8 +157,10 @@
             </ul>
         </div>
         <span>|</span>
-        <div href="/Contacts/Create">Contact Us &raquo;
+        <div>
+            Contact &raquo;
             <ul>
+                <li><a href="/Contacts/Create">Contact Us</a></li>
                 <li><a href="#">Location</a></li>
                 <li><a href="/testimonials">Testimonials</a></li>
                 <li><a href="/freqAskQuestions">FAQ</a>
@@ -122,71 +168,71 @@
         </div>
     </div>
 
-    <!--TO USE THE VIEWCOMPONENT ITS NEEDS TO BE InvokeAsync METHOD-->
-    @await Component.InvokeAsync("AlertPostsViewComponent");
-    <div class="container body-content">
-        @RenderBody()
+        <!--TO USE THE VIEWCOMPONENT ITS NEEDS TO BE InvokeAsync METHOD-->
+        @await Component.InvokeAsync("AlertPostsViewComponent")
+        <div class="container body-content">
+            @RenderBody()
 
-    </div>
-
-    <footer>
-        <div class="d-flex flex-row justify-content-around flex-wrap" id="footer-link">
-            <div class="d-flex flex-column col-md-3 col-6 pl-md-5">
-                <a href="#">Patients & Visitors</a>
-                <a href="#">Health Services</a>
-                <a href="Careers/">Careers</a>
-                <a href="#">Find a Doctor</a>
-            </div>
-            <div class="d-flex flex-column col-md-3 col-6 pl-md-5">
-                <a href="#">Privacy</a>
-                <a href="#">Terms and Conditions</a>
-                <a href="#">Legal</a>
-            </div>
-            <div class="d-flex flex-column col-md-3 col-6 mt-5 mt-md-0 pl-md-5">
-                <a href="#">Health Canada</a>
-                <a href="#">Ontario Health</a>
-                <a href="#">Health Force Ontario</a>
-                <a href="#">Ontario Hospital Association</a>
-            </div>
-            <div class="d-flex flex-column col-md-3 col-6 mt-5 mt-md-0 pl-md-5">
-                <a href="/FreqASkQuestions/Index">FAQs</a>
-                <a href="/Contacts/Create">Contact Us</a>
-                <a href="#">Who we are</a>
-                <a href="#">Blog</a>
-            </div>
         </div>
-        <div id="footer-bar" class="d-flex flex-row justify-content-between">
-            <p>Copyright @DateTime.Now.Year &copy;  Sensenbrenner Hospital</p>
-            <span style="color: white">
-                <i class="fab fa-instagram  mr-2"></i>
-                <i class="fab fa-twitter mr-2"></i>
-                <i class="fab fa-facebook-f mr-2"></i>
-            </span>
-        </div>
-    </footer>
 
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
-        </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-        </script>
-    </environment>
-    <script src="https://www.paypal.com/sdk/js?client-id=AR2Q-v5-qj7JyB2PyJnNivCfzBbKy7TfCux9vvpLN3NMT8gnuCnOWX4uhbhsGIp1jVPW81jdF8A2BuiP&currency=CAD"></script>
+        <footer>
+            <div class="d-flex flex-row justify-content-around flex-wrap" id="footer-link">
+                <div class="d-flex flex-column col-md-3 col-sm-6 col-12 pl-md-5">
+                    <a href="#">Patients & Visitors</a>
+                    <a href="#">Health Services</a>
+                    <a href="Careers/">Careers</a>
+                    <a href="#">Find a Doctor</a>
+                </div>
+                <div class="d-flex flex-column col-md-3 col-sm-6 col-12 mt-5 mt-sm-0 pl-md-5">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms and Conditions</a>
+                    <a href="#">Legal</a>
+                </div>
+                <div class="d-flex flex-column col-md-3 col-sm-6 col-12 mt-5 mt-md-0 pl-md-5">
+                    <a href="#">Health Canada</a>
+                    <a href="#">Ontario Health</a>
+                    <a href="#">Health Force Ontario</a>
+                    <a href="#">Ontario Hospital Association</a>
+                </div>
+                <div class="d-flex flex-column col-md-3 col-sm-6 col-12 mt-5 mt-md-0 pl-md-5">
+                    <a href="/FreqASkQuestions/Index">FAQs</a>
+                    <a href="/Contacts/Create">Contact Us</a>
+                    <a href="#">Who we are</a>
+                    <a href="#">Blog</a>
+                </div>
+            </div>
+            <div id="footer-bar" class="d-flex flex-row justify-content-between">
+                <p>Copyright @DateTime.Now.Year &copy;  Sensenbrenner Hospital</p>
+                <span style="color: white">
+                    <i class="fab fa-instagram  mr-2"></i>
+                    <i class="fab fa-twitter mr-2"></i>
+                    <i class="fab fa-facebook-f mr-2"></i>
+                </span>
+            </div>
+        </footer>
 
-    <script src="~/js/site.min.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
+        <environment include="Development">
+            <script src="~/lib/jquery/dist/jquery.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+        </environment>
+        <environment exclude="Development">
+            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                    asp-fallback-test="window.jQuery"
+                    crossorigin="anonymous"
+                    integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+            </script>
+            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                    crossorigin="anonymous"
+                    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+            </script>
+        </environment>
+        <script src="https://www.paypal.com/sdk/js?client-id=AR2Q-v5-qj7JyB2PyJnNivCfzBbKy7TfCux9vvpLN3NMT8gnuCnOWX4uhbhsGIp1jVPW81jdF8A2BuiP&currency=CAD"></script>
+
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        @RenderSection("Scripts", required: false)
 </body>
 </html>
