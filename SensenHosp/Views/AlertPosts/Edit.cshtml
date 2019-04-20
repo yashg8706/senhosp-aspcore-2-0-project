@@ -25,9 +25,15 @@
             </div>
             <div class="row form-group">
                 <div class="col form-group">
-                    <label asp-for="AlertStatus" class="control-label"></label>
-                    <input asp-for="AlertStatus" class="form-control" />
-                    <span asp-validation-for="AlertStatus" class="text-danger"></span>
+                    <div class="dropdown">
+                        <label class="labelname">Category</label>
+                        <div class="inputbreak">
+                            <select id="AlerpostStatus" name="AlerpostStatus" class="dropdown btn btn-dark dropdown-toggle btn-block" onchange="">
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="col form-group">
                     <label asp-for="DateEffectivity" class="control-label"></label>
@@ -41,6 +47,7 @@
                 <textarea asp-for="Description" rows="7" cols="45" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
+            <!--THIS IS A CKEDITOR CDN I USER THIS SO ADMIN CAN FORMAT THE TEXT FOR BETTER DESCRIPTION DISPLAY OF THE TEXT AND ALSO CAN ADD LIINKS INSIDE THE DESCRIPTION OF THE ALERTPOST-->
             <script>
                 CKEDITOR.replace('Description');
             </script>
