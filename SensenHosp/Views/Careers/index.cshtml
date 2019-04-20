@@ -32,12 +32,13 @@
         <p>@career.id</p>
         @if (String.Equals("Admin", (string)ViewData["UserRole"]))
         {
-            <span class="del">
+            /*<span class="del">
                 <a href="@Url.Action("Delete", "Career", new { id = career.id })"><i class="far fa-trash-alt"></i></a>
-            </span>
+            </span>*/
+            <a asp-action="Delete" asp-route-id="@career.id">Delete</a>
             <a asp-action="Edit" asp-route-id="@career.id">Edit</a>
-            <a asp-action="Details" asp-route-id ="@career.id"> Details </a>
-            }
+            <a asp-action="Details" asp-route-id="@career.id"> Details </a>
+        }
     </div>
         <div class="clearfix"></div>
 

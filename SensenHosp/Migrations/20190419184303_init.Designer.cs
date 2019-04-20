@@ -10,7 +10,7 @@ using SensenHosp.Data;
 namespace SensenHosp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190419160207_init")]
+    [Migration("20190419184303_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -16,6 +16,7 @@ namespace SensenHosp.Models
         public string DoctorName { get; set; }
 
         //[ForeignKey("physicianId")]
+        [Display(Name = "Doctor Name")]
         public int physicianId { get; set; }
         public virtual Physician Physician { get; set; }
 
