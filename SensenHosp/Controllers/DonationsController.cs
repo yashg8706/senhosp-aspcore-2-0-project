@@ -12,6 +12,7 @@ using PayPalCheckoutSdk.Orders;
 using BraintreeHttp;
 using System.Diagnostics;
 using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace SensenHosp.Controllers
 {
@@ -19,14 +20,35 @@ namespace SensenHosp.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public DonationsController(ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        private async Task<ApplicationUser> GetCurrentUserAsync() => await _userManager.GetUserAsync(HttpContext.User);
+
+        public DonationsController(ApplicationDbContext context, UserManager<ApplicationUser> usermanager)
         {
             _context = context;
+            _userManager = usermanager;
+        }
+
+        public async Task<dynamic> GetUserId()
+        {
+            ApplicationUser user = new ApplicationUser();
+            user = await GetCurrentUserAsync();
+            if (user != null)
+            {
+                return (int)user.UserID;
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
         // GET: Donations
         public async Task<IActionResult> Index()
         {
+            ViewData["user"] = await GetUserId();
+
             return View(await _context.Donations.ToListAsync());
         }
 

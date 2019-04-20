@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,14 +15,35 @@ namespace SensenHosp.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public BlogCategoriesController(ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        private async Task<ApplicationUser> GetCurrentUserAsync() => await _userManager.GetUserAsync(HttpContext.User);
+
+        public BlogCategoriesController(ApplicationDbContext context, UserManager<ApplicationUser> usermanager)
         {
             _context = context;
+            _userManager = usermanager;
+        }
+
+        public async Task<dynamic> GetUserId()
+        {
+            ApplicationUser user = new ApplicationUser();
+            user = await GetCurrentUserAsync();
+            if (user != null)
+            {
+                return (int)user.UserID;
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
         // GET: BlogCategories
         public async Task<IActionResult> Index(int pagenum)
         {
+            ViewData["user"] = await GetUserId();
+
             var _blogcategory = await _context.BlogCategories
                 .Include(a => a.BlogPosts)
                 .ToListAsync();
@@ -66,6 +88,8 @@ namespace SensenHosp.Controllers
         // GET: BlogCategories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            ViewData["user"] = await GetUserId();
+
             if (id == null)
             {
                 return NotFound();
