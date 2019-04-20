@@ -26,13 +26,14 @@ namespace SensenHosp.Controllers
         //GET: Appointments/Create
         public IActionResult Create()
         {
+            ViewData["physicianId"] = new SelectList(_context.physician, "physicianId", "physicianName");
             return View();
         }
         //POST: Appointments/Create
         [HttpPost]
-        public ActionResult Create(string FirstName, string MiddleName, string LastName, string EmailId, string MobileNo, string Description, string DoctorName, DateTime AppointmentDate)
+        public ActionResult Create(string FirstName, string MiddleName, string LastName, string EmailId, string MobileNo, string Description, string physicianId, DateTime AppointmentDate)
         {
-            string query = "insert into appointments (FirstName,MiddleName, LastName, EmailId, MobileNo, Description, DoctorName, AppointmentDate , IsConfirmed, CreatedOn)" +
+            string query = "insert into appointments (FirstName,MiddleName, LastName, EmailId, MobileNo, Description, physicianId, AppointmentDate , IsConfirmed, CreatedOn)" +
                 "values (@firstname,@middlename, @lastname, @emailid, @mobileno, @description, @doctorname, @appointmentdate, 0, getdate())";
 
             SqlParameter[] myparams = new SqlParameter[8];
@@ -43,7 +44,7 @@ namespace SensenHosp.Controllers
             myparams[3] = new SqlParameter("@emailid", EmailId);
             myparams[4] = new SqlParameter("@mobileno", MobileNo);
             myparams[5] = new SqlParameter("@description", Description);
-            myparams[6] = new SqlParameter("@doctorname", DoctorName);
+            myparams[6] = new SqlParameter("@doctorname", physicianId);
             myparams[7] = new SqlParameter("@appointmentdate", AppointmentDate);
 
             _context.Database.ExecuteSqlCommand(query, myparams);
@@ -68,7 +69,8 @@ namespace SensenHosp.Controllers
                     (pagenum + 1).ToString() + " of " +
                     (maxpage + 1).ToString();
             }
-            List<Appointment> appointment = await _context.Appointments.Skip(start).Take(perpage).ToListAsync();
+            List<Appointment> appointment = await _context.Appointments.Include(a => a.Physician).Skip(start).Take(perpage).ToListAsync();
+            //List<Appointment> appointment = await _context.Appointments.Skip(start).Take(perpage).ToListAsync();
             return View(appointment);
 
         }
@@ -123,12 +125,13 @@ namespace SensenHosp.Controllers
             {
                 return NotFound();
             }
+            ViewData["physicianId"] = new SelectList(_context.physician, "physicianId", "physicianName");
             return View(appointment);
         }
 
         //POST: Appointment/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id,string FirstName, string MiddleName, string LastName, string EmailId, string MobileNo, string Description, string DoctorName, DateTime AppointmentDate, string AppointmentTime)
+        public ActionResult Edit(int id,string FirstName, string MiddleName, string LastName, string EmailId, string MobileNo, string Description, string physicianId, DateTime AppointmentDate, string AppointmentTime)
         {
             if (id == null || (_context.Appointments.Find(id) == null))
             {
@@ -140,7 +143,7 @@ namespace SensenHosp.Controllers
                 "EmailId = @emailid, " +
                 "MobileNo = @mobileno, " +
                 "Description = @description, " +
-                "DoctorName = @doctorname, " +
+                "physicianId = @doctorname, " +
                 "AppointmentDate = @appointmentdate, " +
                 "AppointmentTime = @appointmenttime " +
                 "where ID = @id";
@@ -154,21 +157,23 @@ namespace SensenHosp.Controllers
             myparams[4] = new SqlParameter("@emailid", EmailId);
             myparams[5] = new SqlParameter("@mobileno", MobileNo);
             myparams[6] = new SqlParameter("@description", Description);
-            myparams[7] = new SqlParameter("@doctorname", DoctorName);
+            myparams[7] = new SqlParameter("@doctorname", physicianId);
             myparams[8] = new SqlParameter("@appointmentdate", AppointmentDate);
             myparams[9] = new SqlParameter("@appointmenttime", AppointmentTime);
 
             _context.Database.ExecuteSqlCommand(query, myparams);
-            return RedirectToAction("Edit/"+id);
+            return RedirectToAction("List");
         }
         //GET: Appointment/Details/5
-        public ActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new StatusCodeResult(400);
             }
-            Appointment appointment = _context.Appointments.Find(id);
+            Appointment appointment = await _context.Appointments
+                .Include(b => b.Physician)
+                .SingleOrDefaultAsync(m => m.physicianId == id);//_context.Appointments.Find(id);
             if (appointment == null)
             {
                 return NotFound();
@@ -176,13 +181,34 @@ namespace SensenHosp.Controllers
             return View(appointment);
         }
 
-        public ActionResult Delete(int? id)
+
+        public async Task<ActionResult> Delete(int? id)
         {
             if((id ==null)||_context.Appointments.Find(id)==null)
             {
                 return NotFound();
             }
-            return View();
+            Appointment appointment = await _context.Appointments.SingleOrDefaultAsync(m => m.Id == id);
+            if (appointment == null)
+            {
+                return NotFound();
+            }
+            return View(appointment);
+        }
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var appointment = await _context.Appointments.SingleOrDefaultAsync(m => m.physicianId == id);
+            _context.Appointments.Remove(appointment);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(List));
+
+        }
+
+        private bool ReviewOnDoctorExists(int id)
+        {
+            return _context.ReviewOnDoctor.Any(e => e.ReviewId == id);
         }
     }
 }

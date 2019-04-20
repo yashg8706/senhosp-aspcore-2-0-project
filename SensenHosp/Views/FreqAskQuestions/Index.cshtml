@@ -26,6 +26,9 @@
         </div>
         <div class="faqAccordion-container">
             <div class="accordion panel-group" id="faqAccordion">
+
+                <!--THIS VARIABLE IS TO GENERATE A LOOP TO OF NUMBER SO I CAN ATTACH THIS TO THE ID OF ACCORDION AND IT WILL MAKE IT UNQIUE TO EACH OTEHR
+                    SO WHEN USER CLICKS ONLY SPECIFIC QUESTIONAND ANSWER IWLL BE VIEWED-->
                 @{int ij = 1;}
                 @foreach (var item in Model)
                 {
@@ -40,7 +43,7 @@
                         </div>
                         <div id="collapse_@ij" class="panel-collapse collapse">
                             <div class="card-body">
-                                <p>@Html.DisplayFor(modelItem => item.Answer)</p>
+                                <p>@Html.Raw(item.Answer)</p>
                             </div>
                         </div>
                     </div>

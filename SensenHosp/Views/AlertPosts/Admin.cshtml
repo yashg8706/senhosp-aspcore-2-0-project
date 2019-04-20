@@ -50,7 +50,7 @@
                     <a asp-action="Details" asp-route-id="@item.ID" style="font-size:14px;">@Html.DisplayFor(modelItem => item.AlertTitle)</a>
                 </td>
                 <td>
-
+                    <!--THIS WILL SHOW THE STATUS OF THE ALERTPOST ADMIN CAN ALSO CLICK THE BUTTON AND REDIRECT TO UPDATE PAGE TO UPDATE THE STATUS OF THE ALERT POST-->
                     @if (item.AlertStatus == "Active")
                     {
                         <a asp-action="Edit" asp-route-id="@item.ID">

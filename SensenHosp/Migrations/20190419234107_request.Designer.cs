@@ -10,8 +10,8 @@ using SensenHosp.Data;
 namespace SensenHosp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190419160207_init")]
-    partial class init
+    [Migration("20190419234107_request")]
+    partial class request
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -301,7 +301,11 @@ namespace SensenHosp.Migrations
                         .IsRequired()
                         .HasMaxLength(20);
 
+                    b.Property<int>("physicianId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("physicianId");
 
                     b.ToTable("Appointments");
                 });
@@ -524,6 +528,37 @@ namespace SensenHosp.Migrations
                     b.ToTable("Media");
                 });
 
+            modelBuilder.Entity("SensenHosp.Models.Payments", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("amount")
+                        .IsRequired();
+
+                    b.Property<DateTime>("invoiceDate");
+
+                    b.Property<string>("invoiceId")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("patientFname")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("patientLname")
+                        .IsRequired()
+                        .HasMaxLength(255);
+
+                    b.Property<string>("payeeEmail");
+
+                    b.Property<string>("transactionId");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Payments");
+                });
+
             modelBuilder.Entity("SensenHosp.Models.Physician", b =>
                 {
                     b.Property<int>("physicianId")
@@ -726,6 +761,14 @@ namespace SensenHosp.Migrations
                     b.HasOne("SensenHosp.Models.User", "user")
                         .WithMany()
                         .HasForeignKey("UserID");
+                });
+
+            modelBuilder.Entity("SensenHosp.Models.Appointment", b =>
+                {
+                    b.HasOne("SensenHosp.Models.Physician", "Physician")
+                        .WithMany()
+                        .HasForeignKey("physicianId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SensenHosp.Models.BlogPost", b =>

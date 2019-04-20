@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SensenHosp.Data;
 using SensenHosp.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace SensenHosp.Controllers
 {
@@ -14,9 +15,27 @@ namespace SensenHosp.Controllers
     {
         private readonly ApplicationDbContext _context;
 
+        private readonly UserManager<ApplicationUser> _userManager;
+        private async Task<ApplicationUser> GetCurrentUserAsync() => await _userManager.GetUserAsync(HttpContext.User);
+
         public ContactsController(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+        public async Task<dynamic> GetUserId()
+        {
+            ApplicationUser user = new ApplicationUser();
+            user = await GetCurrentUserAsync();
+            if (user != null)
+            {
+                return (int)user.UserID;
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
         // GET: Contacts
@@ -24,11 +43,9 @@ namespace SensenHosp.Controllers
         {
             //var countMsg = await _context.Contact.Where(m => m.message_status == false).ToListAsync();
 
-           
-
+            ViewData["user"] = await GetUserId();
 
             var _contact = await _context.Contact.ToListAsync();
-            
 
             int contactCount = _contact.Count();
             int perpage = 3;
@@ -57,6 +74,10 @@ namespace SensenHosp.Controllers
             if (maxpage > 0)
             {
                 ViewData["pagesummary"] = (pagenum + 1).ToString() + " of " + (maxpage + 1).ToString();
+            }
+            else
+            {
+                ViewData["pagesummary"] = "Page 1 of 1";
             }
 
             //THE LIST OF MESSAGES THAT WILL BE DISPLAYED WILL BE IN DESCENDING ORDER SO ADMIN CAN SEE THE MOST RECENT MESSAGES RECEIVED FROM USERS
@@ -114,6 +135,8 @@ namespace SensenHosp.Controllers
         // GET: Contacts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewData["user"] = await GetUserId();
+
             if (id == null)
             {
                 return NotFound();

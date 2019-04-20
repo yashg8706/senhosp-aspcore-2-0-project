@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SensenHosp.Data;
 
 namespace SensenHosp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190419184303_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -276,6 +278,7 @@ namespace SensenHosp.Migrations
                         .HasMaxLength(500);
 
                     b.Property<string>("DoctorName")
+                        .IsRequired()
                         .HasMaxLength(100);
 
                     b.Property<string>("EmailId")
@@ -298,11 +301,7 @@ namespace SensenHosp.Migrations
                         .IsRequired()
                         .HasMaxLength(20);
 
-                    b.Property<int>("physicianId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("physicianId");
 
                     b.ToTable("Appointments");
                 });
@@ -525,37 +524,6 @@ namespace SensenHosp.Migrations
                     b.ToTable("Media");
                 });
 
-            modelBuilder.Entity("SensenHosp.Models.Payments", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("amount")
-                        .IsRequired();
-
-                    b.Property<DateTime>("invoiceDate");
-
-                    b.Property<string>("invoiceId")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<string>("patientFname")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<string>("patientLname")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<string>("payeeEmail");
-
-                    b.Property<string>("transactionId");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Payments");
-                });
-
             modelBuilder.Entity("SensenHosp.Models.Physician", b =>
                 {
                     b.Property<int>("physicianId")
@@ -758,14 +726,6 @@ namespace SensenHosp.Migrations
                     b.HasOne("SensenHosp.Models.User", "user")
                         .WithMany()
                         .HasForeignKey("UserID");
-                });
-
-            modelBuilder.Entity("SensenHosp.Models.Appointment", b =>
-                {
-                    b.HasOne("SensenHosp.Models.Physician", "Physician")
-                        .WithMany()
-                        .HasForeignKey("physicianId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SensenHosp.Models.BlogPost", b =>

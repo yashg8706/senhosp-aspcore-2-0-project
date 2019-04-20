@@ -7,7 +7,10 @@
 <h2 class="text-center">Articles</h2>
 
 <p>
-    <a asp-action="Create">Add New Article</a>
+    @if (ViewData["user"] != null)
+    {
+        <a asp-action="Create">Add New Article</a>
+    }
 </p>
 
 <div>
@@ -41,8 +44,8 @@
 
 @foreach (var item in Model)
 {
-    <div class="list-post-block d-flex flex-row">
-        <a class="post-image col-3" asp-action="Details" asp-route-id="@item.ID">
+    <div class="list-post-block d-flex flex-row flex-wrap">
+        <a class="post-image col-12 col-md-3" asp-action="Details" asp-route-id="@item.ID">
             @if (item.HasImg == 1)
             {
                 <img src="~/Uploads/Blog/FeatureImages/@item.ImgName" class="img-fluid" />
@@ -53,7 +56,7 @@
             }
 
         </a>
-        <div class="post-text col-9 d-flex flex-column">
+        <div class="post-text col-12 col-md-9 d-flex flex-column">
             <div class="post-header d-flex flex-row justify-content-between">
                 <a asp-action="Details" asp-route-id="@item.ID" class="post-title">@item.Title</a>
                     <div class="post-attr">

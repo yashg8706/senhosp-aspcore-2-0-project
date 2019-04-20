@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SensenHosp.Data;
 using SensenHosp.Models;
+using Microsoft.AspNetCore.Identity;
 
 //IM STILL ON THE PROCESS OF FIGURING THINGS OUT, I JUST DID THE CRUD BASICS FOR MY FEATURE
 //THE PUBLIC PAGE WILL HAVE THE LIST OF FAQS THE ONE I MADE FOR THE VIEW RIGHT NOW WAS FRO THE ADMIN.
@@ -17,29 +18,59 @@ namespace SensenHosp.Controllers
     {
         private readonly ApplicationDbContext _context;
 
+        private readonly UserManager<ApplicationUser> _userManager;
+        private async Task<ApplicationUser> GetCurrentUserAsync() => await _userManager.GetUserAsync(HttpContext.User);
+
         public FreqAskQuestionsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
+        public async Task<dynamic> GetUserId()
+        {
+            ApplicationUser user = new ApplicationUser();
+            user = await GetCurrentUserAsync();
+            if (user != null)
+            {
+                return (int)user.UserID;
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
         // GET: FreqAskQuestions
         public async Task<IActionResult> Index(int pagenum)
         {
-            var _faq = await _context.AlertPosts.ToListAsync();
-            int alertcount = _faq.Count();
+            //THIS PAGINATION IS FOR THE INDEX WHERE THE USERS AND VISITOR CAN SEE THE LIST OF THE FAQS STORED FROM THE DATABASE AND IT WILL BE
+            //AN ACCORDION WHERE IT WILL HIDE AND SHOW ANSWER WHEN THE USER CLICKS ON THE QUESTION
+
+            var _faq = await _context.FreqAskQuestion.ToListAsync();
+
+            int faqCount = _faq.Count();
             int perpage = 3;
-            int maxpage = (int)Math.Ceiling((decimal)alertcount / perpage) - 1;
+            int maxpage = (int)Math.Ceiling((decimal)faqCount / perpage) - 1;
+
             if (maxpage < 0) maxpage = 0;
             if (pagenum < 0) pagenum = 0;
             if (pagenum > maxpage) pagenum = maxpage;
+
             int start = perpage * pagenum;
+
             ViewData["pagenum"] = (int)pagenum;
+
             ViewData["PaginationSummary"] = "";
             if (maxpage > 0)
             {
                 ViewData["PaginationSummary"] =
                     (pagenum + 1).ToString() + " of " +
                     (maxpage + 1).ToString();
+            }
+            else
+            {
+                ViewData["PaginationSummary"] = "Page 1 of 1";
             }
 
             List<FreqAskQuestion> freqAskQuestion = await _context.FreqAskQuestion.Skip(start).Take(perpage).ToListAsync();
@@ -48,21 +79,32 @@ namespace SensenHosp.Controllers
         }
         public async Task<IActionResult> Admin(int pagenum)
         {
-            var _faq = await _context.AlertPosts.ToListAsync();
-            int alertcount = _faq.Count();
+            ViewData["user"] = await GetUserId();
+
+            var _faq = await _context.FreqAskQuestion.ToListAsync();
+
+            int faqCount = _faq.Count();
             int perpage = 3;
-            int maxpage = (int)Math.Ceiling((decimal)alertcount / perpage) - 1;
+            int maxpage = (int)Math.Ceiling((decimal)faqCount / perpage) - 1;
+
             if (maxpage < 0) maxpage = 0;
             if (pagenum < 0) pagenum = 0;
             if (pagenum > maxpage) pagenum = maxpage;
+
             int start = perpage * pagenum;
+
             ViewData["pagenum"] = (int)pagenum;
+
             ViewData["PaginationSummary"] = "";
             if (maxpage > 0)
             {
                 ViewData["PaginationSummary"] =
                     (pagenum + 1).ToString() + " of " +
                     (maxpage + 1).ToString();
+            }
+            else
+            {
+                ViewData["PaginationSummary"] = "Page 1 of 1";
             }
 
             List<FreqAskQuestion> freqAskQuestion = await _context.FreqAskQuestion.Skip(start).Take(perpage).ToListAsync();
@@ -101,6 +143,8 @@ namespace SensenHosp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Question,Answer,DateCreated")] FreqAskQuestion freqAskQuestion)
         {
+            ViewData["user"] = await GetUserId();
+
             if (ModelState.IsValid)
             {
                 freqAskQuestion.DateCreated = DateTime.Now;
@@ -134,6 +178,8 @@ namespace SensenHosp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Question,Answer,DateModified")] FreqAskQuestion freqAskQuestion)
         {
+            ViewData["user"] = await GetUserId();
+
             if (id != freqAskQuestion.ID)
             {
                 return NotFound();
@@ -189,7 +235,7 @@ namespace SensenHosp.Controllers
             var freqAskQuestion = await _context.FreqAskQuestion.SingleOrDefaultAsync(m => m.ID == id);
             _context.FreqAskQuestion.Remove(freqAskQuestion);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Admin));
         }
 
         private bool FreqAskQuestionExists(int id)
