@@ -25,7 +25,7 @@
         <span href="javascript:void(0)" id="nav-collapse-closebtn" class="closebtn">&times;</span>
         <div id="side-search-block">
             <form class="form-inline py-2 my-lg-0 justify-content-end d-flex flex-row">
-                <input class="form-control search-box mr-sm-2 col-8" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control search-box mr-sm-2 col-9" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-light search-icon my-2 mr-0 my-sm-0" type="submit">
                     &nbsp;
                 </button>
@@ -41,7 +41,7 @@
             </div>
             <ul>
                 <li><a href="#">Patient Registration</a>
-                <li><a href="/appointments/list">Request an Appointment</a></li>
+                <li><a href="/appointments/create">Request an Appointment</a></li>
                 <li><a href="/payments/create">Account Payment</a></li>
             </ul>
             <div>
@@ -49,7 +49,7 @@
             </div>
             <ul>
                 <li><a href="#">Find a Doctor</a></li>
-                <li><a href="/ReviewOnDoctor/create">Reviews of Physicians</a></li>
+                <li><a href="/reviewondoctor/create">Physician Reviews</a></li>
                 <li><a href="#">Departments</a>
             </ul>
             <a href="/Careers/">Careers</a>
@@ -65,6 +65,7 @@
             </div>
             <ul>
                 <li><a href="/blogposts">Blog</a></li>
+                <li><a href="/blogcategories">Categories</a></li>
                 <li><a href="/albums">Media</a></li>
                 <li><a href="/events">Events</a>
             </ul>
@@ -93,11 +94,11 @@
     <nav class="navbar navbar-expand-lg navbar-light d-flex flex-column">
         <div class="d-flex justify-content-between align-items-center" id="nav_width_wrapper">
             <a class="navbar-brand" href="/">
-                <span>SensenHumber<br />Hospital</span>
+                <span class="display-1">SensenHumber<br />Hospital</span>
                 <img alt="logo" src="~/images/logo.png" height="100px" width="auto" />
             </a>
 
-            <div class="d-flex flex-column pb-2">
+            <div class="d-flex flex-column">
                 <div id="main-search-block">
                     <form class="form-inline py-2 my-lg-0 justify-content-end">
                         <input class="form-control search-box mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -108,7 +109,7 @@
                     </form>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <a class="btn btn-outline-primary mr-2" href="#">EMERGENCY</a>
+                    <a class="btn btn-outline-primary mr-2" id="main-emergency-btn" href="#">EMERGENCY</a>
                 </div>
             </div>
 
@@ -124,7 +125,7 @@
             Patients & Visitors &raquo;
             <ul>
                 <li><a href="#">Patient Registration</a>
-                <li><a href="/appointments/list">Request an Appointment</a></li>
+                <li><a href="/appointments/create">Request an Appointment</a></li>
                 <li><a href="/payments/payment">Account Payment</a></li>
             </ul>
         </div>
@@ -133,7 +134,7 @@
             Health Services &raquo;
             <ul>
                 <li><a href="#">Find a Doctor</a></li>
-                <li><a href="/ReviewOnDoctor/create">Reviews of Physicians</a></li>
+                <li><a href="/reviewondoctor/create">Physician Reviews</a></li>
                 <li><a href="#">Departments</a>
             </ul>
         </div>
@@ -152,6 +153,7 @@
             News & Events &raquo;
             <ul>
                 <li><a href="/blogposts">Blog</a></li>
+                <li><a href="/blogcategories">Categories</a></li>
                 <li><a href="/albums">Media</a></li>
                 <li><a href="/events">Events</a>
             </ul>

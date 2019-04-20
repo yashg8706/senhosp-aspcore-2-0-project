@@ -78,7 +78,7 @@ a#top-bar-login {
     font-size: .8em;
     min-width: 100%;
     padding: 0;
-    border-top: 2px solid white;
+    border-top: 1px solid white;
     -webkit-transition: opacity 0.2s linear, visibility 0.2s linear;
     -moz-transition: opacity 0.2s linear, visibility 0.2s linear;
     -o-transition: opacity 0.2s linear, visibility 0.2s linear;
@@ -118,6 +118,10 @@ a#top-bar-login {
 }
 
 #side-search-block {
+    display: none;
+}
+
+.show-on-less-600, .show-on-less-780 {
     display: none;
 }
 
@@ -280,6 +284,10 @@ footer {
     background-color: #BBDEFB;
 }
 
+.post-text {
+    max-height: 200px;
+}
+
 .post-text > * {
     flex-shrink: 1;
 }
@@ -315,6 +323,7 @@ a.post-title:hover {
 a.post-image {
     transition: box-shadow 500ms;
     padding: 0;
+    max-height: 200px;
 }
 
 a.post-image:hover {
@@ -328,7 +337,7 @@ a.post-image:hover {
     background-color: #F5F5F5;
     color: #424242;
     width: 100%;
-    height: 100%;
+    max-height: 250px;
     border-radius: .25rem;
     display: flex;
     justify-content: center;
@@ -456,6 +465,25 @@ a.pseudo-img:hover {
     #nav_width_wrapper {
         padding: 0 50px;
     }
+
+    .show-on-less-780 {
+        display: inline-block;
+    }
+}
+
+@media screen and (max-width: 780px) {
+    .list-post-block {
+        height: auto;
+    }
+
+    a.post-image {
+        max-height: 300px;
+    }
+
+    a.post-image.img-fluid {
+        height: 100%;
+        width: auto;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -467,20 +495,26 @@ a.pseudo-img:hover {
         display: none;
     }
 
+    .navbar-brand {
+        margin: 0;
+    }
+
     .navbar-brand span {
         display: inline-block;
         text-transform: uppercase;
         margin-left: 10px;
-        padding: 5px 0;
+        padding-left: 25px;
         color: white;
+        font-size: 1.5em!important;
     }
 
     nav {
-        padding-top: 30px!important;
-        background-color: #1531ab!important;
+        padding-top: 40px !important;
+        padding-bottom: 15px !important;
+        background-color: #1531ab !important;
     }
 
-    .btn-outline-primary {
+    #main-emergency-btn {
         color: white;
         border-color: white;
     }
@@ -491,5 +525,39 @@ a.pseudo-img:hover {
 
     #side-bar-donate, #side-bar-login {
         display: inline-block;
+    }
+
+    #side-bar-donate {
+        width: 100%;
+    }
+
+    #banner {
+        background-image: none;
+        text-align: center;
+        padding: 50px 40px;
+    }
+
+    .show-on-less-600 {
+        display: inline-block;
+    }
+
+    #patient-login-link a {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+
+    .navbar-brand span {
+        font-size: 1.3em !important;
+        padding-left: 20px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .navbar-brand span {
+        font-size: 1.2em !important;
+        padding-left: 15px;
     }
 }

@@ -6,10 +6,15 @@
 
 <h2 class="text-center">Media Gallery</h2>
 
+
 <p>
-    <a asp-action="Create">Add new album</a>
+    @if (ViewData["user"] != null)
+    {
+        <a asp-action="Create">Add new album</a>
+    }
 </p>
 <div>
+    
     @ViewData["PageSummary"]
     @if ((int)ViewData["pagenum"] < 1)
     {

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -17,15 +18,35 @@ namespace SensenHosp.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IHostingEnvironment _env;
 
-        public AlbumsController(ApplicationDbContext context, IHostingEnvironment env)
+        private readonly UserManager<ApplicationUser> _userManager;
+        private async Task<ApplicationUser> GetCurrentUserAsync() => await _userManager.GetUserAsync(HttpContext.User);
+
+        public AlbumsController(ApplicationDbContext context, IHostingEnvironment env, UserManager<ApplicationUser> usermanager)
         {
             _context = context;
             _env = env;
+            _userManager = usermanager;
+        }
+
+        public async Task<dynamic> GetUserId()
+        {
+            ApplicationUser user = new ApplicationUser();
+            user = await GetCurrentUserAsync();
+            if (user != null)
+            {
+                return (int)user.UserID;
+            } else
+            {
+                return null;
+            }
+
         }
 
         // GET: Albums
         public async Task<IActionResult> Index(int pagenum = 0)
         {
+            ViewData["user"] = await GetUserId();
+
             var _album = await _context.Albums
                 .Include(a => a.Media)
                 .ToListAsync();
@@ -70,6 +91,8 @@ namespace SensenHosp.Controllers
         // GET: Albums/Details/5
         public async Task<IActionResult> Details(int? id, int pagenum = 0)
         {
+            ViewData["user"] = await GetUserId();
+
             if (id == null)
             {
                 return NotFound();

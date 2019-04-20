@@ -5,7 +5,7 @@ window.onload = function () {
     const side_nav = document.getElementById("side-nav");
 
     document.getElementById('navbar-toggler').onclick = function () {
-        side_nav.style.width = "250px";
+        side_nav.style.width = "300px";
     }
 
     /* Set the width of the side navigation to 0 */

@@ -102,11 +102,20 @@
                                 <!--WHEN THE ADMIN READ AND CHECKED THE INBOX FRO MESSAGE STATUS IT SET THE MESSAGE STATUS IF ITS READ OR NOT-->
                                 @if (item.message_status == true)
                                 {
-                                    <p>Read</p>
+                                    <a asp-action="Edit" asp-route-id="@item.ID">
+                                        <span class="alert-status-active">
+                                            Read
+                                        </span>
+                                    </a>
+
                                 }
                                 else
                                 {
-                                    <p>Unead</p>
+                                    <a asp-action="Edit" asp-route-id="@item.ID">
+                                        <span class="alert-status-inactive">
+                                            Unread
+                                        </span>
+                                    </a>
                                 }
 
                             </td>

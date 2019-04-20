@@ -24,11 +24,7 @@ namespace SensenHosp.Controllers
         {
             //var countMsg = await _context.Contact.Where(m => m.message_status == false).ToListAsync();
 
-           
-
-
             var _contact = await _context.Contact.ToListAsync();
-            
 
             int contactCount = _contact.Count();
             int perpage = 3;
@@ -57,6 +53,10 @@ namespace SensenHosp.Controllers
             if (maxpage > 0)
             {
                 ViewData["pagesummary"] = (pagenum + 1).ToString() + " of " + (maxpage + 1).ToString();
+            }
+            else
+            {
+                ViewData["pagesummary"] = "Page 1 of 1";
             }
 
             //THE LIST OF MESSAGES THAT WILL BE DISPLAYED WILL BE IN DESCENDING ORDER SO ADMIN CAN SEE THE MOST RECENT MESSAGES RECEIVED FROM USERS
