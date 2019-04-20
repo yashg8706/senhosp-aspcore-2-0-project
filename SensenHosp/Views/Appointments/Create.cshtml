@@ -42,10 +42,14 @@
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="DoctorName" class="control-label"></label>
                 <input asp-for="DoctorName" class="form-control" />
                 <span asp-validation-for="DoctorName" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="physicianId" class="control-label"></label>
+                <select asp-for="physicianId" class="form-control" asp-items="ViewBag.physicianId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="AppointmentDate" class="control-label"></label>
@@ -53,20 +57,20 @@
                 <span asp-validation-for="AppointmentDate" class="text-danger"></span>
             </div>
             @*<div class="form-group">
-                <label asp-for="AppointmentTime" class="control-label"></label>
-                <input asp-for="AppointmentTime" class="form-control" />
-                <span asp-validation-for="AppointmentTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IsConfirmed" class="control-label"></label>
-                <input asp-for="IsConfirmed" class="form-control" />
-                <span asp-validation-for="IsConfirmed" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedOn" class="control-label"></label>
-                <input asp-for="CreatedOn" class="form-control" />
-                <span asp-validation-for="CreatedOn" class="text-danger"></span>
-            </div>*@
+            <label asp-for="AppointmentTime" class="control-label"></label>
+            <input asp-for="AppointmentTime" class="form-control" />
+            <span asp-validation-for="AppointmentTime" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="IsConfirmed" class="control-label"></label>
+            <input asp-for="IsConfirmed" class="form-control" />
+            <span asp-validation-for="IsConfirmed" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CreatedOn" class="control-label"></label>
+            <input asp-for="CreatedOn" class="form-control" />
+            <span asp-validation-for="CreatedOn" class="text-danger"></span>
+        </div>*@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
