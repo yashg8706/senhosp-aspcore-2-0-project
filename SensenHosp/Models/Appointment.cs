@@ -34,8 +34,13 @@ namespace SensenHosp.Models
         [Required, StringLength(500), Display(Name = "Description")]
         public string Description { get; set; }
 
-        [Required, StringLength(100), Display(Name = "Doctor's Name")]
+        [StringLength(100), Display(Name = "Doctor's Name")]
         public string DoctorName { get; set; }
+
+        [Display(Name = "Doctor Name")]
+        public int physicianId { get; set; }
+        public virtual Physician Physician { get; set; }
+
 
         [DataType(DataType.Date, ErrorMessage = "Please enter a valid date in the format dd/mm/yyyy")]
         [Display(Name = "Appointment Date")]

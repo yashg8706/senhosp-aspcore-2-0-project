@@ -17,7 +17,7 @@
                 @Html.DisplayNameFor(model => model.MobileNo)
             </th>
             <th class="alert-title-table" colspan="2">
-                @Html.DisplayNameFor(model => model.DoctorName)
+                @Html.DisplayNameFor(model => model.Physician.physicianName)
             </th>
             <th class="alert-title-table" colspan="2">
                 @Html.DisplayNameFor(model => model.AppointmentDate)
@@ -53,7 +53,7 @@
                     @Html.DisplayFor(modelItem => item.MobileNo)
                 </td>
                 <td class="alert-title-table" colspan="2">
-                    @Html.DisplayFor(modelItem => item.DoctorName)
+                    @Html.DisplayFor(modelItem => item.Physician.physicianName)
                 </td>
                 <td class="alert-title-table" colspan="2">
                     @Html.DisplayFor(modelItem => item.AppointmentDate)
