@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SensenHosp.Data;
 using SensenHosp.Models;
+using Microsoft.AspNetCore.Identity;
 
 //IM STILL ON THE PROCESS OF FIGURING THINGS OUT, I JUST DID THE CRUD BASICS FOR MY FEATURE
 //THE PUBLIC PAGE WILL HAVE THE LIST OF FAQS THE ONE I MADE FOR THE VIEW RIGHT NOW WAS FRO THE ADMIN.
@@ -17,9 +18,27 @@ namespace SensenHosp.Controllers
     {
         private readonly ApplicationDbContext _context;
 
+        private readonly UserManager<ApplicationUser> _userManager;
+        private async Task<ApplicationUser> GetCurrentUserAsync() => await _userManager.GetUserAsync(HttpContext.User);
+
         public FreqAskQuestionsController(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+        public async Task<dynamic> GetUserId()
+        {
+            ApplicationUser user = new ApplicationUser();
+            user = await GetCurrentUserAsync();
+            if (user != null)
+            {
+                return (int)user.UserID;
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
         // GET: FreqAskQuestions
@@ -60,6 +79,8 @@ namespace SensenHosp.Controllers
         }
         public async Task<IActionResult> Admin(int pagenum)
         {
+            ViewData["user"] = await GetUserId();
+
             var _faq = await _context.FreqAskQuestion.ToListAsync();
 
             int faqCount = _faq.Count();
@@ -122,6 +143,8 @@ namespace SensenHosp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Question,Answer,DateCreated")] FreqAskQuestion freqAskQuestion)
         {
+            ViewData["user"] = await GetUserId();
+
             if (ModelState.IsValid)
             {
                 freqAskQuestion.DateCreated = DateTime.Now;
@@ -155,6 +178,8 @@ namespace SensenHosp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Question,Answer,DateModified")] FreqAskQuestion freqAskQuestion)
         {
+            ViewData["user"] = await GetUserId();
+
             if (id != freqAskQuestion.ID)
             {
                 return NotFound();
