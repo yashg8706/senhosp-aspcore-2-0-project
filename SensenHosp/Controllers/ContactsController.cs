@@ -15,35 +15,36 @@ namespace SensenHosp.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        private readonly UserManager<ApplicationUser> _userManager;
-        private async Task<ApplicationUser> GetCurrentUserAsync() => await _userManager.GetUserAsync(HttpContext.User);
+        //THIS IS SUPPOSED TO BE FOR ADMIN FUNCTIONALITY BUT IT THORWS AN ERROR AND WE CAN'T REGISTER OR LOGIN
+        //private readonly UserManager<ApplicationUser> _userManager;
+        //private async Task<ApplicationUser> GetCurrentUserAsync() => await _userManager.GetUserAsync(HttpContext.User);
 
         public ContactsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task<dynamic> GetUserId()
-        {
-            ApplicationUser user = new ApplicationUser();
-            user = await GetCurrentUserAsync();
-            if (user != null)
-            {
-                return (int)user.UserID;
-            }
-            else
-            {
-                return null;
-            }
+        //public async Task<dynamic> GetUserId()
+        //{
+        //    ApplicationUser user = new ApplicationUser();
+        //    user = await GetCurrentUserAsync();
+        //    if (user != null)
+        //    {
+        //        return (int)user.UserID;
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
 
-        }
+        //}
 
         // GET: Contacts
         public async Task<IActionResult> Admin(int pagenum)
         {
             //var countMsg = await _context.Contact.Where(m => m.message_status == false).ToListAsync();
 
-            ViewData["user"] = await GetUserId();
+            //ViewData["user"] = await GetUserId();
 
             var _contact = await _context.Contact.ToListAsync();
 
@@ -135,7 +136,7 @@ namespace SensenHosp.Controllers
         // GET: Contacts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            ViewData["user"] = await GetUserId();
+            //ViewData["user"] = await GetUserId();
 
             if (id == null)
             {

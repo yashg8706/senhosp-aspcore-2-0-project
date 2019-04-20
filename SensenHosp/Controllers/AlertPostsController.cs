@@ -15,28 +15,29 @@ namespace SensenHosp.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        private readonly UserManager<ApplicationUser> _userManager;
-        private async Task<ApplicationUser> GetCurrentUserAsync() => await _userManager.GetUserAsync(HttpContext.User);
+        //THIS IS SUPPOSED TO BE FOR ADMIN FUNCTIONALITY BUT IT THORWS AN ERROR AND WE CAN'T REGISTER OR LOGIN
+        //private readonly UserManager<ApplicationUser> _userManager;
+        //private async Task<ApplicationUser> GetCurrentUserAsync() => await _userManager.GetUserAsync(HttpContext.User);
 
         public AlertPostsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task<dynamic> GetUserId()
-        {
-            ApplicationUser user = new ApplicationUser();
-            user = await GetCurrentUserAsync();
-            if (user != null)
-            {
-                return (int)user.UserID;
-            }
-            else
-            {
-                return null;
-            }
+        //public async Task<dynamic> GetUserId()
+        //{
+        //    ApplicationUser user = new ApplicationUser();
+        //    user = await GetCurrentUserAsync();
+        //    if (user != null)
+        //    {
+        //        return (int)user.UserID;
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
 
-        }
+        //}
 
         // GET: AlertPosts
         public async Task<IActionResult> Index()
@@ -47,7 +48,7 @@ namespace SensenHosp.Controllers
 
         public async Task<IActionResult> Admin(int pagenum)
         {
-            ViewData["user"] = await GetUserId();
+            //ViewData["user"] = await GetUserId();
 
             var _alertPost = await _context.AlertPosts.ToListAsync();
 
@@ -83,7 +84,7 @@ namespace SensenHosp.Controllers
         // GET: AlertPosts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            ViewData["user"] = await GetUserId();
+            //ViewData["user"] = await GetUserId();
 
             if (id == null)
             {
