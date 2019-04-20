@@ -160,6 +160,7 @@ namespace SensenHosp.Controllers
 
         // Paypal payments functionality
         // POST: Payments/CreateOrder
+        // Step 1
         [HttpPost, ActionName("CreateOrder")]
         public async Task<object> CreateOrder([FromBody] dynamic OrderAmount, bool debug = true)
         {
@@ -185,6 +186,7 @@ namespace SensenHosp.Controllers
             return response;
         }
 
+        // Step 2
         private OrderRequest BuildRequestBody(string oa)
         {
             OrderRequest orderRequest = new OrderRequest()
@@ -217,6 +219,7 @@ namespace SensenHosp.Controllers
             return orderRequest;
         }
 
+        // Step 3
         [HttpPost]
         //[Route("Payments/CaptureOrder")]
         public async Task<HttpResponse> CaptureOrder([FromBody] dynamic OrderId, bool debug = true)
@@ -255,12 +258,13 @@ namespace SensenHosp.Controllers
                 
             }
             Debug.WriteLine("************************************************************************************** ");
+            //Id of last inserted record in payments table
             int last_payment_id = _context.Payments.Max(item => item.id);
 
             Debug.WriteLine("Buyer:", last_payment_id);
             Payments payments = await _context.Payments.SingleOrDefaultAsync(m => m.id == last_payment_id);
             Debug.WriteLine("************************************************************************************** ");
-
+            
             payments.amount = result.PurchaseUnits[0].Amount.Value;
             payments.transactionId = result.Id;
             payments.payeeEmail = result.Payer.EmailAddress;
