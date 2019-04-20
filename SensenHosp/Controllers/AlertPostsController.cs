@@ -52,7 +52,7 @@ namespace SensenHosp.Controllers
             }
             else
             {
-                ViewData["pagesummary"] = "1 of 1";
+                ViewData["pagesummary"] = "Page 1 of 1";
             }
 
             //THE LIST WILL BE IN DESCENDING ORDER SO ADMIN USER CAN SEE THE MOST RECENT CREATED ALERTPOST
@@ -88,11 +88,12 @@ namespace SensenHosp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,AlertTitle,Description,AlertStatus,DateCreated,DateEffectivity")] AlertPosts alertPosts)
+        public async Task<IActionResult> Create([Bind("ID,AlertTitle,Description,AlertStatus,DateCreated,DateEffectivity")] AlertPosts alertPosts, string AlerpostStatus)
         {
             if (ModelState.IsValid)
             {
                 alertPosts.DateCreated = DateTime.Now;
+                alertPosts.AlertStatus = AlerpostStatus;
                 _context.Add(alertPosts);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Admin));
@@ -121,7 +122,7 @@ namespace SensenHosp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,AlertTitle,Description,AlertStatus,DateEffectivity")] AlertPosts alertPosts)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,AlertTitle,Description,AlertStatus,DateEffectivity")] AlertPosts alertPosts, string AlerpostStatus)
         {
             if (id != alertPosts.ID)
             {
@@ -133,6 +134,7 @@ namespace SensenHosp.Controllers
                 try
                 {
                     alertPosts.DateCreated = DateTime.Now;
+                    alertPosts.AlertStatus = AlerpostStatus;
                     _context.Update(alertPosts);
                     await _context.SaveChangesAsync();
                 }

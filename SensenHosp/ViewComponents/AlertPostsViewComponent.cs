@@ -30,6 +30,13 @@ namespace SensenHosp.ViewComponents
         //view by calling the ViewComponent View method.
         public async Task<IViewComponentResult> InvokeAsync()
         {
+            var _alertPost = await _context.AlertPosts.ToListAsync();
+            int countActive = _alertPost.Count(m => m.AlertStatus == "Active");
+            ViewData["countActive"] = "";
+            if (countActive > 0)
+            {
+                ViewData["countActive"] = "Active";
+            }
             //THIS WILL RETURN A LIST OF ACTIVE ALERTPOST TO BE DISPLAYED BELOQW NAVIGATION MENU AND WITH BOOTSTRAP CAROUSEL
             return View(await _context.AlertPosts.Where(m => m.AlertStatus == "Active").ToListAsync());
         }

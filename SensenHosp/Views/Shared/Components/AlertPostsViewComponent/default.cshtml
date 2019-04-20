@@ -2,31 +2,36 @@
 @{
     ViewData["Title"] = "AlertPostsViewComponent";
 }
-
-<div class="alert-container container" id="alert">
-    <div class="row">
-        <div class="container">
-            <div id="carouselAlertPosts" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active align-middle alert-title">
-                        This is a test website redesign for SensenHumber Hospital
-                    </div>
-                    @foreach (var item in Model)
-                    {
-                        <div class="carousel-item align-middle alert-title">
-                            @Html.DisplayFor(modelItem => item.AlertTitle) &nbsp <a href="/AlertPosts/Details/@item.ID">Read More</a>
+<!--I AM TRYING THE BEST POSSIBLE WAY TO HIDE THE ENTIRE ALERT POST CONTAINER IF THERES NO ACTIVE ALERTPOST-->
+<!--THIS VIEWDATA WILL CHECK IF IN THE DATABASE THERE IS AN ACTIVE ALERTPOST AND IT IWLL DISPLAY SHOW THE ENTIRE CONTAINER-->
+@if (ViewData["countActive"] == "Active")
+{
+    <!--THIS IS A BOOTSTRAP CAROUSEL AND IN THE FUTURE I WILL WANT TO SHOW THE CAROUSEL WITH DURATION TIME ANDUSER CAN SET HOW LONG THE POST WILL BE DISPLAYED IN THE WEBSITE-->
+    <div class="alert-container container" id="alert" style="display:block;">
+        <div class="row">
+            <div class="container">
+                <div id="carouselAlertPosts" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active align-middle alert-title">
+                            This is a test website redesign for SensenHumber Hospital
                         </div>
-                    }
+                        @foreach (var item in Model)
+                        {
+                            <div class="carousel-item align-middle alert-title">
+                                @Html.DisplayFor(modelItem => item.AlertTitle) &nbsp <a href="/AlertPosts/Details/@item.ID">Read More</a>
+                            </div>
+                        }
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselAlertPosts" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon  fas fa-chevron-left alert-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselAlertPosts" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon fas fa-chevron-right alert-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
-                <a class="carousel-control-prev" href="#carouselAlertPosts" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon  fas fa-chevron-left alert-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselAlertPosts" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon fas fa-chevron-right alert-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
             </div>
         </div>
-    </div> 
-</div>
+    </div>
+}
