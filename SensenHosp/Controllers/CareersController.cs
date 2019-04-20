@@ -22,7 +22,10 @@ namespace SensenHosp.Controllers
 
         public async Task<ActionResult> Index(int pagenum)
         {
-            ViewData["UserRole"] = "Admin";
+            //If USer is Admin the CMS will allow to perform DELETE, EDIT operations on Career posts
+           ViewData["UserRole"] = "Admin";
+             //If user is other than hospital staff    
+            //ViewData["UserRole"] = "User";
             /*Careers PAGINATION ALGORITHM*/
             var _careers = await _context.Careers.ToListAsync();
             int careercount = _careers.Count();
@@ -40,14 +43,6 @@ namespace SensenHosp.Controllers
                     (pagenum + 1).ToString() + " of " +
                     (maxpage + 1).ToString();
             }
-            //DATA NEEDED: All Blogs in DB
-            //However, we also have to include the info for the author on each blog
-            //[List<Blog> blogs]=> variable named blogs which is a list of Blog
-            //[.Include(b=>b.Author)]=> Get the blog's associated author
-            //[.ToListAsync()]=>Return a list of information asynchronously
-
-            //[.Skip(int)]=>ignore these many records
-            //[.Take(int)]=>fetch only this many more
             List<Career> careers = await _context.Careers.Skip(start).Take(perpage).ToListAsync();
             /*END OF BLLOG PAGINATION ALGORITHM*/
             return View(careers);
@@ -64,19 +59,7 @@ namespace SensenHosp.Controllers
                 return NotFound();
             }
             return View(located_career);
-            /*if (id == null)
-            {
-                return NotFound();
-            }
-
-            var career = await _context.Careers
-                .SingleOrDefaultAsync(m => m.id == id);
-            if (career == null)
-            {
-                return NotFound();
-            }
-
-            return View(career);*/
+            
         }
 
         public IActionResult Create()

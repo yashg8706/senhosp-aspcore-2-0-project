@@ -58,12 +58,12 @@ namespace SensenHosp.Controllers
             {
                 return NotFound();
             }
-            //The user should have an author if not 0 or 1
+            //To Create an applicant for particular career
             ViewData["CareerID"] = id;
-            //Model defined in Models/ViewModels/BlogEdit.cs
-            ApplicantEdit blogeditview = new ApplicantEdit();
+            //Model defined in Models/ViewModels/ApplicantEdit.cs
+            ApplicantEdit applicanteditView = new ApplicantEdit();
 
-            return View(blogeditview);
+            return View(applicanteditView);
         }
 
         // POST: Applicants/Create
@@ -80,12 +80,12 @@ namespace SensenHosp.Controllers
             {
                 if (file.Length > 0)
                 {
-                    string filetype = "pdf";
+                    string filetype = "pdf";//only PDF type file can upload
                     var extension = Path.GetExtension(file.FileName).Substring(1);
 
                     if (filetype.Equals(extension))
                     {
-                        string fn = applicant.email + "_" + applicant.career_id + "." + extension;
+                        string fn = applicant.email + "_" + applicant.career_id + "." + extension;//To create unique name to link applicant and resume file
 
                         string path = Path.Combine(webRoot, "Uploads/Resume");
                         path = Path.Combine(path, fn);
