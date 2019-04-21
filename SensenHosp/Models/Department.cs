@@ -23,11 +23,11 @@ namespace SensenHosp.Models
         [Display(Name = "Details")]
         public string details { get; set; }
 
-        //blog has author ID
-        [ForeignKey("id")]
+        //Department belongs to section of hospital
+        /*[ForeignKey("id")]
         public int section_id { get; set; }
-        //Blog Author
+       
         public virtual Sections section { get; set; }
-
+        */
     }
 }

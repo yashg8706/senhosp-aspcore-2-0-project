@@ -40,29 +40,6 @@ namespace SensenHosp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Appointments",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    FirstName = table.Column<string>(maxLength: 255, nullable: false),
-                    MiddleName = table.Column<string>(maxLength: 255, nullable: true),
-                    LastName = table.Column<string>(maxLength: 255, nullable: false),
-                    EmailId = table.Column<string>(maxLength: 255, nullable: true),
-                    MobileNo = table.Column<string>(maxLength: 20, nullable: false),
-                    Description = table.Column<string>(maxLength: 500, nullable: false),
-                    DoctorName = table.Column<string>(maxLength: 100, nullable: false),
-                    AppointmentDate = table.Column<DateTime>(nullable: true),
-                    AppointmentTime = table.Column<string>(maxLength: 20, nullable: true),
-                    IsConfirmed = table.Column<int>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Appointments", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -128,6 +105,20 @@ namespace SensenHosp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Department",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    name = table.Column<string>(maxLength: 255, nullable: false),
+                    details = table.Column<string>(maxLength: 1000, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Department", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Donations",
                 columns: table => new
                 {
@@ -177,6 +168,25 @@ namespace SensenHosp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Payments",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    patientFname = table.Column<string>(maxLength: 255, nullable: false),
+                    patientLname = table.Column<string>(maxLength: 255, nullable: false),
+                    invoiceId = table.Column<string>(maxLength: 255, nullable: false),
+                    invoiceDate = table.Column<DateTime>(nullable: false),
+                    amount = table.Column<string>(nullable: false),
+                    payeeEmail = table.Column<string>(nullable: true),
+                    transactionId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payments", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "physician",
                 columns: table => new
                 {
@@ -189,19 +199,6 @@ namespace SensenHosp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_physician", x => x.physicianId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Sections",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    name = table.Column<string>(maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Sections", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -349,6 +346,36 @@ namespace SensenHosp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Appointments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    FirstName = table.Column<string>(maxLength: 255, nullable: false),
+                    MiddleName = table.Column<string>(maxLength: 255, nullable: true),
+                    LastName = table.Column<string>(maxLength: 255, nullable: false),
+                    EmailId = table.Column<string>(maxLength: 255, nullable: true),
+                    MobileNo = table.Column<string>(maxLength: 20, nullable: false),
+                    Description = table.Column<string>(maxLength: 500, nullable: false),
+                    DoctorName = table.Column<string>(maxLength: 100, nullable: true),
+                    physicianId = table.Column<int>(nullable: false),
+                    AppointmentDate = table.Column<DateTime>(nullable: true),
+                    AppointmentTime = table.Column<string>(maxLength: 20, nullable: true),
+                    IsConfirmed = table.Column<int>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Appointments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Appointments_physician_physicianId",
+                        column: x => x.physicianId,
+                        principalTable: "physician",
+                        principalColumn: "physicianId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ReviewOnDoctor",
                 columns: table => new
                 {
@@ -368,28 +395,6 @@ namespace SensenHosp.Migrations
                         principalTable: "physician",
                         principalColumn: "physicianId",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Department",
-                columns: table => new
-                {
-                    id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    name = table.Column<string>(maxLength: 255, nullable: false),
-                    details = table.Column<string>(maxLength: 1000, nullable: false),
-                    section_id = table.Column<int>(nullable: false),
-                    sectionID = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Department", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_Department_Sections_sectionID",
-                        column: x => x.sectionID,
-                        principalTable: "Sections",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -517,6 +522,11 @@ namespace SensenHosp.Migrations
                 column: "Careerid");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Appointments_physicianId",
+                table: "Appointments",
+                column: "physicianId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
                 column: "RoleId");
@@ -564,11 +574,6 @@ namespace SensenHosp.Migrations
                 name: "IX_BlogPosts_BlogCategoryID",
                 table: "BlogPosts",
                 column: "BlogCategoryID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Department_sectionID",
-                table: "Department",
-                column: "sectionID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Media_AlbumID",
@@ -629,6 +634,9 @@ namespace SensenHosp.Migrations
                 name: "Media");
 
             migrationBuilder.DropTable(
+                name: "Payments");
+
+            migrationBuilder.DropTable(
                 name: "ReviewOnDoctor");
 
             migrationBuilder.DropTable(
@@ -648,9 +656,6 @@ namespace SensenHosp.Migrations
 
             migrationBuilder.DropTable(
                 name: "BlogCategories");
-
-            migrationBuilder.DropTable(
-                name: "Sections");
 
             migrationBuilder.DropTable(
                 name: "Albums");

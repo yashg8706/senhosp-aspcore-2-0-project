@@ -10,8 +10,8 @@ using SensenHosp.Data;
 namespace SensenHosp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190419234107_request")]
-    partial class request
+    [Migration("20190420065034_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -278,7 +278,6 @@ namespace SensenHosp.Migrations
                         .HasMaxLength(500);
 
                     b.Property<string>("DoctorName")
-                        .IsRequired()
                         .HasMaxLength(100);
 
                     b.Property<string>("EmailId")
@@ -431,13 +430,7 @@ namespace SensenHosp.Migrations
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.Property<int?>("sectionID");
-
-                    b.Property<int>("section_id");
-
                     b.HasKey("id");
-
-                    b.HasIndex("sectionID");
 
                     b.ToTable("Department");
                 });
@@ -605,20 +598,6 @@ namespace SensenHosp.Migrations
                     b.ToTable("ReviewOnDoctor");
                 });
 
-            modelBuilder.Entity("SensenHosp.Models.Sections", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Sections");
-                });
-
             modelBuilder.Entity("SensenHosp.Models.Testimonial", b =>
                 {
                     b.Property<int>("ID")
@@ -777,13 +756,6 @@ namespace SensenHosp.Migrations
                         .WithMany("BlogPosts")
                         .HasForeignKey("BlogCategoryID")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SensenHosp.Models.Department", b =>
-                {
-                    b.HasOne("SensenHosp.Models.Sections", "section")
-                        .WithMany("departments")
-                        .HasForeignKey("sectionID");
                 });
 
             modelBuilder.Entity("SensenHosp.Models.Media", b =>

@@ -66,7 +66,6 @@ namespace SensenHosp.Data
         public DbSet<Applicant> Applicants { get; set; }
 
         //Locatons and Departments features
-        public DbSet<Sections> Sections { get; set; }
         public DbSet<Department> Department { get; set; }
 
         //Parient accounts payment feature
