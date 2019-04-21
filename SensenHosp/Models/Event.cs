@@ -26,7 +26,7 @@ namespace SensenHosp.Models
 
         [Required]
         [StringLength(255)]
-        [Display(Name = "User name")]
+        [Display(Name = "Organizer")]
         public string Username { get; set; }
 
         [Required]
