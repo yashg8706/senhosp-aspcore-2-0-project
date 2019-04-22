@@ -1,0 +1,49 @@
+﻿@model IEnumerable<SensenHosp.Models.Department>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Locations and Departments</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="col-md-6 col-lg-6">
+    <h3>My Google Maps Demo</h3>
+    <div id="map"></div>
+</div>
+
+<script>
+  function initMap() {
+    var center = { lat: 55.92965249, lng: 12.47840507 };
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12,
+      center: uluru
+    });
+
+    $.get()
+    $.post()
+
+    route.setMap(map);
+  }
+</script>
+@foreach (var department in Model)
+{
+    <div class="recbody">
+        <label>@Html.ActionLink(department.name, "Details/" + department.id)</label>
+        <label>@department.details</label>
+        <p>@department.id</p>
+        @if (String.Equals("Admin", (string)ViewData["UserRole"]))
+        {
+            /*<span class="del">
+                <a href="@Url.Action("Delete", "Career", new { id = career.id })"><i class="far fa-trash-alt"></i></a>
+            </span>*/
+            <a asp-action="Delete" asp-route-id="@department.id">Delete</a>
+            <a asp-action="Edit" asp-route-id="@department.id">Edit</a>
+            <a asp-action="Details" asp-route-id="@department.id"> Details </a>
+        }
+    </div>
+    <div class="clearfix"></div>
+
+}

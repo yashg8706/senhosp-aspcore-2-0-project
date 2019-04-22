@@ -7,7 +7,7 @@
 <h2>Careers</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create New Post</a>
 </p>
 <div class="reccontainer" style="overflow:hidden;">
     <div>
@@ -35,7 +35,7 @@
             /*<span class="del">
                 <a href="@Url.Action("Delete", "Career", new { id = career.id })"><i class="far fa-trash-alt"></i></a>
             </span>*/
-            <a asp-action="Delete" asp-route-id="@career.id">Delete</a>
+            <a asp-action="Delete" asp-route-id="@career.id">Delete</a> 
             <a asp-action="Edit" asp-route-id="@career.id">Edit</a>
             <a asp-action="Details" asp-route-id="@career.id"> Details </a>
         }

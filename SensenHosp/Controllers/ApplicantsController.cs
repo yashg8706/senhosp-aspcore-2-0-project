@@ -29,6 +29,7 @@ namespace SensenHosp.Controllers
         // GET: Applicants
         public async Task<IActionResult> Index()
         {
+            ViewData["UserRole"] = "User";
             return View(await _context.Applicants.ToListAsync());
         }
 
