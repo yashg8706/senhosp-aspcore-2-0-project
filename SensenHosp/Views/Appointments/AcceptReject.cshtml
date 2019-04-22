@@ -27,27 +27,27 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td class="alert-title-table" colspan="2">
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td class="alert-title-table" colspan="2">
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td class="alert-title-table" colspan="2">
-                    @Html.DisplayFor(modelItem => item.DoctorName)
-                </td>
-                <td class="alert-title-table" colspan="2">
-                    @Html.DisplayFor(modelItem => item.AppointmentDate)
-                </td>
-                <td class="alert-title-table" colspan="2">
-                    <a asp-action="Accept" asp-route-id="@item.Id" class="btn btn-success">Accept</a>
-                    <a asp-action="Reject" asp-route-id="@item.Id" class="btn btn-danger">Reject</a>
-                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
-                </td>
-            </tr>
+        <tr>
+            <td class="alert-title-table" colspan="2">
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td class="alert-title-table" colspan="2">
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td class="alert-title-table" colspan="2">
+                @Html.DisplayFor(modelItem => item.DoctorName)
+            </td>
+            <td class="alert-title-table" colspan="2">
+                @Html.DisplayFor(modelItem => item.AppointmentDate)
+            </td>
+            <td class="alert-title-table" colspan="2">
+                <a asp-action="Accept" asp-route-id="@item.Id" class="btn btn-success">Accept</a>
+                <a asp-action="Reject" asp-route-id="@item.Id" class="btn btn-danger">Reject</a>
+                @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+            </td>
+        </tr>
         }
     </tbody>
 </table>
